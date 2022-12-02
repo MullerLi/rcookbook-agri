@@ -1,21 +1,23 @@
 --- 
-title: "A Minimal Book Example"
-author: "John Doe"
+title: "R Cookbook for Agronomy Research"
+author: "CHL"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
+url: https://mullerli.github.io/rcookbook-agri/
+cover-image: images/cover.jpg
 description: |
   This is a minimal example of using the bookdown package to write a book.
   The HTML output format for this example is bookdown::gitbook,
-  set in the _output.yml file.545
+  set in the _output.yml file.
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: MullerLi/rcookbook-agri
 ---
 
-# About
+# 關於
+
+這是一本關於統計程式語言 _R_ 的筆記，嘗試用白話文記錄我在 **農業試驗研究** 上使用的 _R_ 程式語言。
 
 This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
 
