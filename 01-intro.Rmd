@@ -1,7 +1,12 @@
 # 開始之前...
 
 事前作業：
+
 1. 下載R程式與R studio
+
 2. 安裝
+
 3. 開啟R studio，在R studio中設定喜歡的外觀
 
+
+ttt

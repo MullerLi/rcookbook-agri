@@ -31,7 +31,7 @@ github-repo: MullerLi/rcookbook-agri
 1. 我是遺傳組畢業，自學統計程式語言，深知跨領域學習的難處。
 2. 我在第一線農試驗研究，知道在農試驗場域工作者最需要的資訊。
 
-
+ttt
 
 published by R bookdown
 ```{r}
