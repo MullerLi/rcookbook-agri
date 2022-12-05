@@ -12,14 +12,13 @@
 
 ### 資料下載
 
-本筆資料為[riceYield](cookbook-agri\dataset\riceyield.csv)，會由亂數產生，下面這個程式碼只要執行一次就好。
+本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。
 ```{r}
 # 產生亂數資料
 riceYield<-data.frame(
-  'variety' = (rep(c('A','B'),each=10) ),
+  'treatment' = (rep(c('A','B'),each=10) ),
   'yield' = c(rnorm(n = 10 , mean = 5000 , sd = 400),rnorm(n=10 , mean = 6500 , sd = 400)
 ))
-write.csv(riceYield,file = 'd:/123.csv')
 ```
 
 
@@ -44,25 +43,33 @@ tail(riceYield)
 # 查看 後 10筆資料
 tail(riceYield)
 ```
-在上面使用到的2個函數(function)的意思：
+首先看到的欄位 (column) 有兩個，`treatment`和`yield`；在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX...，這些值我們稱為觀測值 (observation)
+
+觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。
+
+而上方使用到的2個函數(function)的意思：
 
 - `head(資料名稱)`: 查看該資料前6筆的值
 - `tail(資料名稱)`: 查看該資料後6筆的值
+
+利用這兩個函數，我們可以很快速地查看資料的大致樣態。
 
 ---
 
 補充
 
-* 在R中直接輸入「東西的名稱」，而沒有用冒號 ( `"` or `'` ) 括起來，就會得到「該東西的內容」。例如上述資料集為 "`riceYield`" ，所以輸入 `riceYield` 就會連結到該筆資料。
+* 在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( `"` or `'` ) 括起來，就會得到「該東西的內容」。
 
-* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 `riceyield` 或 `Riceyield` 或 `RiceYield` 會跳出錯誤，R會跟你說，它找不到這個東西(object 'riceyield' not found)，因為它只認得`riceYield`。
+例如上述資料集為 "`riceYield`" ，所以輸入 `riceYield` 就會連結到該筆資料。
+
+* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 `riceyield` 或 `Riceyield` 或 `RiceYield` 會跳出錯誤，找不到這個東西(object 'riceyield' not found)，因為`riceYield`才有意義。
 ```{r echo=TRUE, error=TRUE}
 print(riceyield)
 ```
 
 ---
 
-如果想要查看整筆資料，可以直接輸入資料名稱，或是`print(資料名稱)`
+如果想要查看**整筆**資料，可以直接輸入資料名稱，或是`print(資料名稱)`
 ```{r eval=F,echo=TRUE, error=TRUE}
 riceYield
 # 等同於
@@ -86,7 +93,7 @@ t.test(data = riceYield,
   - 第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料`riceYield`，所以輸入 `data = riceYield`
   - 第2個指令和第1個指令中間用 `,` 相隔
   - 第2個指令是告訴R比較的方式，寫法是  `觀測值 ~ 處理名稱`，注意這裡觀測值和處理名稱都**沒有用冒號框住**
-  - 第3個指令是樣本**是否成對**
+  - 第3個指令是樣本是否成對
 
 
 現在來逐行看報表：
@@ -100,22 +107,22 @@ t.test(data = riceYield,
 
 
 - 第1行告訴你這個報表是`Welch Two Sample t-test`
+  - Welch的t檢定是正統`t檢定`的一種變形，是在兩個樣本變異數不同時採用的`近似t檢定`方法，當兩樣本數量(n)相同時，不論變異數如何，採用正統t檢定即可
 
-(Welch的t檢定是`t檢定`的一種變形)
+- 第2行: 表示這一筆資料是將`yield`依照`treatment`分組比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
 
-- 第2行: 表示這一筆資料是將`yield`依照`variety`分組比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
 
 - 重點在第3行，可以看到重要的檢定結果：
   - `t`  : t 值
   - `df` :自由度
   - `p-value` : 表示本次檢定所得 p 值
   p值的表示方式比較特別，用到"e"，e代表10的幾次方：
-$3.639e-08 = 3.639 \times 10^{-8}$
+$123456e-08 = 1.23456 \times 10^{-8}$
 
-  這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( $H_0:\mu_1 - \mu_2 =0$ )。
+  - 這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( $H_0:\mu_1 - \mu_2 =0$ )。
 
-結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。顯著水準$\alpha$在`t.test`函數中沒有辦法設定，是這個函數的小缺憾。
+結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。
 
+顯著水準$\alpha$在`t.test`函數中沒有辦法設定，是這個函數的小缺憾。
 
-### 產生結果表
 

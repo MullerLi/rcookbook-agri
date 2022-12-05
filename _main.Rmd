@@ -1,0 +1,450 @@
+--- 
+title: "R Cookbook for Agricultural Research"
+author: "李誠紘 Cheng Hong, Li"
+date: "`r Sys.Date()`"
+knit: "bookdown::render_book"
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+download: no
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    config:
+      fontsettings:
+        family: Microsoft JhengHei
+      download: null
+documentclass: book
+github-repo: MullerLi/rcookbook-agri
+description: "利用R程式語言完成農學試驗的統計分析"
+url: 'https://mullerli.github.io/rcookbook-agri/'
+---
+
+# 關於
+
+這是一本關於統計程式語言 R 的筆記，嘗試用白話文記錄我在 **農業試驗研究** 上使用的 R 程式語言。
+
+
+## 這是什麼?
+
+這是一個利用 [R](https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80) bookdown 撰寫，部屬在Github Page上的電子書。
+
+這是我的學習筆記、速查本。
+
+在這本書中，我將介紹農業研究常用的統計學、試驗設計學、資料繪圖的 R 程式語言。
+
+你不需要具備有寫程式的經驗，但必須具備有基礎的試驗設計學知識。
+
+這本書直面需要做統計分析的、在臺灣做農業試驗研究的工作人員。
+
+## 這不是什麼?
+
+若你已經了解資料科學與 R 語言，這本書對你來說會太簡單。
+
+
+
+
+## 推薦參考資訊
+
+* 
+[資料科學與R語言](http://yijutseng.github.io/DataScienceRBook/index.html) by 長庚大學資管系曾意儒老師。
+  * 這是中文版免費的R教科書。
+
+
+* [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund.
+  * [Hadley Wickham](https://hadley.nz/)是[**RStudio**](https://posit.co/download/rstudio-desktop/)的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。
+  
+  
+  
+
+本書的R語言版本：
+```{r}
+sessionInfo()
+```
+
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!--chapter:end:index.Rmd-->
+
+
+# 開始之前
+
+事前作業：下載與安裝好 [R](https://cran.r-project.org/) 及 [RStudio](https://posit.co/download/rstudio-desktop/)
+
+- R是必須要安裝的，否則沒辦法使用 (驚!!)
+
+- RStudio則是R語言的"整合開發環境'
+(Integrated Development Environment, IDE)，讓你更舒服地撰寫程式。
+
+- 雖說 RStudio 不是必須，但是本書程式碼全部都是在RStudio中寫出來的，可見 RStudio 有奪好用。
+　
+　
+
+##  第一個 R 程式碼
+
+複製下面程式碼，輸入 console 介面中，點按執行。
+
+這是你的第一個R程式碼，哈囉世界！
+
+```{r echo=TRUE}
+print('Hello world!')
+```
+　
+
+本書會包含程式碼 (上方灰框) 與執行結果 (下方灰框)，你可以直接複製貼上程式碼，在 R 介面中執行。
+　
+
+你會發現，`R語言`很像是Google助理，輸入一行指令，執行後就會返回一行結果。這種一來一往類型的程式語言叫做直譯語言 (Interpreted Language)。
+
+但是，一段 R 的程式碼也有可能很多行，譬如下面畫圖的函數，就是一個多行組成的程式碼。
+　
+　
+
+## 第一張圖
+
+你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+pkg = c('magrittr','ggplot2')
+if ( any(pkg) %in% installed.packages() == TRUE) install.packages(pkg[!pkg %in% rownames(installed.packages())]) 
+invisible(lapply(pkg, library, character.only = TRUE))
+
+ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Petal.Width, color = Species))+
+  geom_jitter()+
+  geom_smooth(method='lm',se=F)+
+  theme_bw()+
+  labs(x='花萼長度(cm)',
+       y='花瓣寬度(cm)',
+       color = '品種',
+       title = '鳶尾花花萼長與花瓣寬線性關係')
+
+```
+
+上面是利用R內建的資料`iris`所進行的繪圖，只要學會使用R語言，不同類型的資料也都可以畫出好看又專業的圖。
+
+這筆資料又稱為鳶尾花(iris)資料集，是 R. A. Fisher 1938年出版的 *The Use of Multiple Measurements in Taxonomic Problems* 中使用到的資料集。
+
+這個資料集非常有名，包含有加拿大加斯帕半島採集到的三種鳶尾花品種形態資料。(葉茂生老師說：形不是型！不可以弄錯)
+
+像這樣的資料集已經內建在R程式，我們稱為範例資料集，可以用簡單的指令叫出來。
+
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+# 平均值檢定
+
+
+## 利用t檢定比較兩個族群平均值
+
+在分析實驗結果時，我們最關切的問題，應屬"平均值之間是否有差異"。
+
+要比較兩個平均值的差異，可以應用`t檢定`。
+
+超過兩組平均值需要比較的時，`t檢定`就不再適用，要改採`變異數分析`或是`變方分析` (analysis of variance, `ANOVA`) 來檢定各組平均是否有差異。
+
+
+### 資料下載
+
+本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。
+```{r}
+# 產生亂數資料
+riceYield<-data.frame(
+  'treatment' = (rep(c('A','B'),each=10) ),
+  'yield' = c(rnorm(n = 10 , mean = 5000 , sd = 400),rnorm(n=10 , mean = 6500 , sd = 400)
+))
+```
+
+
+現在來看看這筆資料長怎樣：
+```{r eval=FALSE}
+# 查看 前 10筆資料
+head(riceYield)
+```
+
+
+```{r echo=FALSE}
+head(riceYield)
+```
+
+```{r eval=FALSE}
+# 查看 後 10筆資料
+tail(riceYield)
+
+```
+
+```{r echo=F}
+# 查看 後 10筆資料
+tail(riceYield)
+```
+首先看到的欄位 (column) 有兩個，`treatment`和`yield`；在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX...，這些值我們稱為觀測值 (observation)
+
+觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。
+
+而上方使用到的2個函數(function)的意思：
+
+- `head(資料名稱)`: 查看該資料前6筆的值
+- `tail(資料名稱)`: 查看該資料後6筆的值
+
+利用這兩個函數，我們可以很快速地查看資料的大致樣態。
+
+---
+
+補充
+
+* 在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( `"` or `'` ) 括起來，就會得到「該東西的內容」。
+
+例如上述資料集為 "`riceYield`" ，所以輸入 `riceYield` 就會連結到該筆資料。
+
+* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 `riceyield` 或 `Riceyield` 或 `RiceYield` 會跳出錯誤，找不到這個東西(object 'riceyield' not found)，因為`riceYield`才有意義。
+```{r echo=TRUE, error=TRUE}
+print(riceyield)
+```
+
+---
+
+如果想要查看**整筆**資料，可以直接輸入資料名稱，或是`print(資料名稱)`
+```{r eval=F,echo=TRUE, error=TRUE}
+riceYield
+# 等同於
+print(riceYield)
+```
+
+```{r echo=FALSE, error=TRUE}
+riceYield
+```
+
+### 兩樣本t檢定
+
+`t檢定`在R中是這樣執行的：
+
+```{r echo=FALSE}
+t.test(data = riceYield, 
+       yield ~ variety,    
+       paired = F)       
+```
+- `t.test`上面有三個指令
+  - 第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料`riceYield`，所以輸入 `data = riceYield`
+  - 第2個指令和第1個指令中間用 `,` 相隔
+  - 第2個指令是告訴R比較的方式，寫法是  `觀測值 ~ 處理名稱`，注意這裡觀測值和處理名稱都**沒有用冒號框住**
+  - 第3個指令是樣本是否成對
+
+
+現在來逐行看報表：
+
+```{r echo=T}
+t.test(data = riceYield, 
+       yield ~ variety,    
+       paired = F,
+       conf.level = 0.95)       
+```
+
+
+- 第1行告訴你這個報表是`Welch Two Sample t-test`
+  - Welch的t檢定是正統`t檢定`的一種變形，是在兩個樣本變異數不同時採用的`近似t檢定`方法，當兩樣本數量(n)相同時，不論變異數如何，採用正統t檢定即可
+
+- 第2行: 表示這一筆資料是將`yield`依照`treatment`分組比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
+
+
+- 重點在第3行，可以看到重要的檢定結果：
+  - `t`  : t 值
+  - `df` :自由度
+  - `p-value` : 表示本次檢定所得 p 值
+  p值的表示方式比較特別，用到"e"，e代表10的幾次方：
+$123456e-08 = 1.23456 \times 10^{-8}$
+
+  - 這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( $H_0:\mu_1 - \mu_2 =0$ )。
+
+結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。
+
+顯著水準$\alpha$在`t.test`函數中沒有辦法設定，是這個函數的小缺憾。
+
+
+
+<!--chapter:end:02-平均值檢定.Rmd-->
+
+# Parts
+
+You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file. 
+
+Add a numbered part: `# (PART) Act one {-}` (followed by `# A chapter`)
+
+Add an unnumbered part: `# (PART\*) Act one {-}` (followed by `# A chapter`)
+
+Add an appendix as a special kind of un-numbered part: `# (APPENDIX) Other stuff {-}` (followed by `# A chapter`). Chapters in an appendix are prepended with letters instead of numbers.
+
+
+
+
+<!--chapter:end:03-parts.Rmd-->
+
+# Footnotes and citations 
+
+## Footnotes
+
+Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.]. 
+
+## Citations
+
+Reference items in your bibliography file(s) using `@key`.
+
+For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib). 
+Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key.
+
+
+The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations>
+
+<!--chapter:end:04-citations.Rmd-->
+
+# Blocks
+
+## Equations
+
+Here is an equation.
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+  (\#eq:binom)
+\end{equation} 
+
+You may refer to using `\@ref(eq:binom)`, like see Equation \@ref(eq:binom).
+
+
+## Theorems and proofs
+
+Labeled theorems can be referenced in text using `\@ref(thm:tri)`, for example, check out this smart theorem \@ref(thm:tri).
+
+::: {.theorem #tri}
+For a right triangle, if $c$ denotes the *length* of the hypotenuse
+and $a$ and $b$ denote the lengths of the **other** two sides, we have
+$$a^2 + b^2 = c^2$$
+:::
+
+Read more here <https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html>.
+
+## Callout blocks
+
+
+The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html
+
+```
+:::: {.center data-latex=""}
+
+::: {.minipage data-latex="{.5\linewidth}"}
+This paragraph will be centered on the page, and
+its width is 50% of the width of its parent element.
+:::
+
+::::
+```
+
+<!--chapter:end:05-blocks.Rmd-->
+
+# Sharing your book
+
+## Publishing
+
+HTML books can be published online, see: https://bookdown.org/yihui/bookdown/publishing.html
+
+## 404 pages
+
+By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a `_404.Rmd` or `_404.md` file to your project root and use code and/or Markdown syntax.
+
+## Metadata for sharing
+
+Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the `index.Rmd` YAML. To setup, set the `url` for your book and the path to your `cover-image` file. Your book's `title` and `description` are also used.
+
+
+
+This `gitbook` uses the same social sharing data across all chapters in your book- all links shared will look the same.
+
+Specify your book's source repository on GitHub using the `edit` key under the configuration options in the `_output.yml` file, which allows users to suggest an edit by linking to a chapter's source file. 
+
+Read more about the features of this output format here:
+
+https://pkgs.rstudio.com/bookdown/reference/gitbook.html
+
+Or use:
+
+```{r eval=FALSE}
+?bookdown::gitbook
+```
+
+
+
+<!--chapter:end:06-share.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:07-references.Rmd-->
+
+
+# 兩個平均值的檢定
+
+## 虛無假說
+ $H_0:\mu_1=\mu_2$
+ $H_1 : \mu_1\ne\mu_2$
+ 
+ $\mu_2$可以是常數，或是另一個樣本的平均值
+ 
+當檢定值ｔ或ｚ > $t_{\frac{\alpha}{2},n-1}$時，reject $H_0$
+
+當檢定值ｔ或ｚ < $t_{\frac{\alpha}{2},n-1}$時，reject $H_0$
+
+
+## 族群變異數已知：z檢定
+$$Z = \frac{\bar y_1-\bar y_2} { \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} }$$
+
+
+## t檢定，樣本平均值與常數比較
+$$t_0=\frac{\bar y_1-\mu_0}{\sqrt{\frac{S^2}{n}}}$$
+
+## 兩獨立樣本的 t 檢定
+
+## 正統 t 檢定(exact t test)，樣本標準差相同 (計算pooled S)
+通常要先用F檢定 $H_0:\sigma_1^2=\sigma_2^2$ 確定變異數相等，才能用正統 t 檢定
+
+* 統計檢定量
+$$t_0=\frac{\bar y_1-\bar y_2}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}$$
+* 自由度 v：$$v = n_1+n_2-2$$
+
+$S_p$的計算：
+
+$$S_p = \frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}$$
+
+## 近似 t 檢定，族群標準差不同 (計算pooled 自由度)
+
+$\sigma_1^2 \ne \sigma_2^2$
+* 統計檢定量
+* $$t_0=\frac{\bar y_1-\bar y_2}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^1}{n_2}}}$$
+* 自由度 v 的計算：
+$$v = \frac{(\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2})}{\frac{(S_1^2/n_1)^2}{n_1-1}+\frac{(S_2^2/n_1)^2}{n_2-1}}$$
+
+## 小記：
+* 當樣本夠多，一個樣本可以分成兩份均值的樣本，同時接受兩種處理。
+* 進行比較時，可以將兩組樣本觀測值相減，檢定是否為0；或可視為單因子ANOVA。
+
+* 研究發現，只要兩個樣本的抽樣數相同，使用兩種 t 檢定都可以；不同的時候，再用近似 t 檢定就好
+* 兩種 t 檢定的結論如果不同，相信近似 t 檢定
+
+
+## 兩平均值差的信賴區間
+
+Confidence Interval 
+$$\mu_1-\mu_2=\bar y_1-\bar y_2 \pm  t_{\alpha/2,n_1+n_2-2}\times S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}$$
+
+<!--chapter:end:08-t.Rmd-->
+
