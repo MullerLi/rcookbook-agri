@@ -246,21 +246,21 @@ div.csl-indent {
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="平均值檢定.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
 <span id="cb7-2"><a href="平均值檢定.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
 <pre><code>##   variety    yield
-## 1       A 5200.417
-## 2       A 4755.887
-## 3       A 5297.812
-## 4       A 4624.027
-## 5       A 5129.437
-## 6       A 5332.293</code></pre>
+## 1       A 4777.457
+## 2       A 4921.725
+## 3       A 4525.181
+## 4       A 5002.844
+## 5       A 4798.282
+## 6       A 5211.809</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="平均值檢定.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
 <span id="cb9-2"><a href="平均值檢定.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
 <pre><code>##    variety    yield
-## 15       B 6441.024
-## 16       B 6511.433
-## 17       B 6232.771
-## 18       B 7399.375
-## 19       B 6513.294
-## 20       B 5766.567</code></pre>
+## 15       B 6422.435
+## 16       B 6306.927
+## 17       B 6501.793
+## 18       B 6314.491
+## 19       B 6284.933
+## 20       B 6689.514</code></pre>
 <p>在上面使用到的2個函數(function)的意思：</p>
 <ul>
 <li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
@@ -280,26 +280,26 @@ div.csl-indent {
 <span id="cb13-2"><a href="平均值檢定.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
 <span id="cb13-3"><a href="平均值檢定.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
 <pre><code>##    variety    yield
-## 1        A 5200.417
-## 2        A 4755.887
-## 3        A 5297.812
-## 4        A 4624.027
-## 5        A 5129.437
-## 6        A 5332.293
-## 7        A 4932.412
-## 8        A 5186.251
-## 9        A 5598.877
-## 10       A 5139.078
-## 11       B 6328.937
-## 12       B 6885.417
-## 13       B 6849.360
-## 14       B 5694.444
-## 15       B 6441.024
-## 16       B 6511.433
-## 17       B 6232.771
-## 18       B 7399.375
-## 19       B 6513.294
-## 20       B 5766.567</code></pre>
+## 1        A 4777.457
+## 2        A 4921.725
+## 3        A 4525.181
+## 4        A 5002.844
+## 5        A 4798.282
+## 6        A 5211.809
+## 7        A 4815.242
+## 8        A 4996.139
+## 9        A 5168.282
+## 10       A 5200.520
+## 11       B 6331.306
+## 12       B 5959.877
+## 13       B 6118.321
+## 14       B 6482.532
+## 15       B 6422.435
+## 16       B 6306.927
+## 17       B 6501.793
+## 18       B 6314.491
+## 19       B 6284.933
+## 20       B 6689.514</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> 兩樣本t檢定<a href="平均值檢定.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -308,13 +308,13 @@ div.csl-indent {
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by variety
-## t = -7.2487, df = 14.094, p-value = 4.072e-06
+## t = -14.758, df = 17.897, p-value = 1.848e-11
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1739.6240  -945.6019
+##  -1598.776 -1200.154
 ## sample estimates:
 ## mean in group A mean in group B 
-##        5119.649        6462.262</code></pre>
+##        4941.748        6341.213</code></pre>
 <ul>
 <li><code>t.test</code>上面有三個指令
 <ul>
@@ -333,13 +333,13 @@ div.csl-indent {
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by variety
-## t = -7.2487, df = 14.094, p-value = 4.072e-06
+## t = -14.758, df = 17.897, p-value = 1.848e-11
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1739.6240  -945.6019
+##  -1598.776 -1200.154
 ## sample estimates:
 ## mean in group A mean in group B 
-##        5119.649        6462.262</code></pre>
+##        4941.748        6341.213</code></pre>
 <ul>
 <li>第1行告訴你這個報表是<code>Welch Two Sample t-test</code></li>
 </ul>
