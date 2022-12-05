@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | R Cookbook for Agronomy Research</title>
+  <title>Chapter 8 兩個平均值的檢定 | R Cookbook for Agronomy Research</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | R Cookbook for Agronomy Research" />
+  <meta property="og:title" content="Chapter 8 兩個平均值的檢定 | R Cookbook for Agronomy Research" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://mullerli.github.io/rcookbook-agri/images/cover.jpg" />
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | R Cookbook for Agronomy Research" />
+  <meta name="twitter:title" content="Chapter 8 兩個平均值的檢定 | R Cookbook for Agronomy Research" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="sharing-your-book.html"/>
-<link rel="next" href="兩個平均值的檢定.html"/>
+<link rel="prev" href="references.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -227,17 +227,80 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-
+<div id="兩個平均值的檢定" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> 兩個平均值的檢定<a href="兩個平均值的檢定.html#兩個平均值的檢定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="虛無假說" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> 虛無假說<a href="兩個平均值的檢定.html#虛無假說" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(H_0:\mu_1=\mu_2\)</span>
+<span class="math inline">\(H_1 : \mu_1\ne\mu_2\)</span></p>
+<p><span class="math inline">\(\mu_2\)</span>可以是常數，或是另一個樣本的平均值</p>
+<p>當檢定值ｔ或ｚ &gt; <span class="math inline">\(t_{\frac{\alpha}{2},n-1}\)</span>時，reject <span class="math inline">\(H_0\)</span></p>
+<p>當檢定值ｔ或ｚ &lt; <span class="math inline">\(t_{\frac{\alpha}{2},n-1}\)</span>時，reject <span class="math inline">\(H_0\)</span></p>
 </div>
+<div id="族群變異數已知z檢定" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> 族群變異數已知：z檢定<a href="兩個平均值的檢定.html#族群變異數已知z檢定" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[Z = \frac{\bar y_1-\bar y_2} { \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} }\]</span></p>
+</div>
+<div id="t檢定樣本平均值與常數比較" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> t檢定，樣本平均值與常數比較<a href="兩個平均值的檢定.html#t檢定樣本平均值與常數比較" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[t_0=\frac{\bar y_1-\mu_0}{\sqrt{\frac{S^2}{n}}}\]</span></p>
+</div>
+<div id="兩獨立樣本的-t-檢定" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> 兩獨立樣本的 t 檢定<a href="兩個平均值的檢定.html#兩獨立樣本的-t-檢定" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="正統-t-檢定exact-t-test樣本標準差相同-計算pooled-s" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> 正統 t 檢定(exact t test)，樣本標準差相同 (計算pooled S)<a href="兩個平均值的檢定.html#正統-t-檢定exact-t-test樣本標準差相同-計算pooled-s" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>通常要先用F檢定 <span class="math inline">\(H_0:\sigma_1^2=\sigma_2^2\)</span> 確定變異數相等，才能用正統 t 檢定</p>
+<ul>
+<li>統計檢定量
+<span class="math display">\[t_0=\frac{\bar y_1-\bar y_2}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\]</span></li>
+<li>自由度 v：<span class="math display">\[v = n_1+n_2-2\]</span></li>
+</ul>
+<p><span class="math inline">\(S_p\)</span>的計算：</p>
+<p><span class="math display">\[S_p = \frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}\]</span></p>
+</div>
+<div id="近似-t-檢定族群標準差不同-計算pooled-自由度" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> 近似 t 檢定，族群標準差不同 (計算pooled 自由度)<a href="兩個平均值的檢定.html#近似-t-檢定族群標準差不同-計算pooled-自由度" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(\sigma_1^2 \ne \sigma_2^2\)</span>
+* 統計檢定量
+* <span class="math display">\[t_0=\frac{\bar y_1-\bar y_2}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^1}{n_2}}}\]</span>
+* 自由度 v 的計算：
+<span class="math display">\[v = \frac{(\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2})}{\frac{(S_1^2/n_1)^2}{n_1-1}+\frac{(S_2^2/n_1)^2}{n_2-1}}\]</span></p>
+</div>
+<div id="小記" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> 小記：<a href="兩個平均值的檢定.html#小記" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>當樣本夠多，一個樣本可以分成兩份均值的樣本，同時接受兩種處理。</p></li>
+<li><p>進行比較時，可以將兩組樣本觀測值相減，檢定是否為0；或可視為單因子ANOVA。</p></li>
+<li><p>研究發現，只要兩個樣本的抽樣數相同，使用兩種 t 檢定都可以；不同的時候，再用近似 t 檢定就好</p></li>
+<li><p>兩種 t 檢定的結論如果不同，相信近似 t 檢定</p></li>
+</ul>
+</div>
+<div id="兩平均值差的信賴區間" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> 兩平均值差的信賴區間<a href="兩個平均值的檢定.html#兩平均值差的信賴區間" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Confidence Interval
+<span class="math display">\[\mu_1-\mu_2=\bar y_1-\bar y_2 \pm  t_{\alpha/2,n_1+n_2-2}\times S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\]</span></p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Xie, Yihui. 2022. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="sharing-your-book.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="兩個平均值的檢定.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -268,7 +331,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-references.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-t.Rmd",
 "text": "Edit"
 },
 "history": {
