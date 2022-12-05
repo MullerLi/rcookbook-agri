@@ -11,6 +11,7 @@ thm:tri
 利用t檢定比較兩群平均值
 產生資料
 兩樣本t檢定
+產生結果表
 parts
 footnotes-and-citations
 footnotes

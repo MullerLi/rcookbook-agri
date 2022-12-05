@@ -7,7 +7,10 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://mullerli.github.io/rcookbook-agri/%s
-    download: ["pdf", "epub"]
+    download: null
+    fontsettings:
+        family:Microsoft JhengHei
+        
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

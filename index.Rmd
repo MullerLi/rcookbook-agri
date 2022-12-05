@@ -19,7 +19,7 @@ output:
       download: null
 documentclass: book
 github-repo: yijutseng/DataAnalyticsWithRBook
-description: "簡介如何利用R程式語言完成農學試驗的統計分析"
+description: "利用R程式語言完成農學試驗的統計分析"
 url: 'https://mullerli.github.io/rcookbook-agri/'
 ---
 

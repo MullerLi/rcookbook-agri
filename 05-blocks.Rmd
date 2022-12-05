@@ -28,3 +28,14 @@ Read more here <https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookd
 
 
 The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html
+
+```
+:::: {.center data-latex=""}
+
+::: {.minipage data-latex="{.5\linewidth}"}
+This paragraph will be centered on the page, and
+its width is 50% of the width of its parent element.
+:::
+
+::::
+```
