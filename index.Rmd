@@ -1,6 +1,8 @@
 --- 
 title: "R Cookbook for Agronomy Research"
-author: "CHL"
+author: |
+  "CHL"
+  "臺灣🤞"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book

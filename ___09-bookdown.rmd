@@ -1,0 +1,49 @@
+# 9.0 利用bookdown寫書
+
+
+## 9.1 連結R studio和Github
+
+1. 在 Github 上面開啟一個'倉庫' (repository)，先記住'倉庫名稱'與URL
+
+2. 在 Github 個人頁面裡面，輸入Rstudio的 SSH key
+
+3. 在 R studio 中，
+
+  file -> NewProject -> version control -> 輸入第一步的建立的name與url -> create new project
+
+
+## 9.2 把筆記變成網站書
+
+1. 在任何 '.rmd' 檔案編輯資訊，儲存
+
+2. 在下方R console輸入指令
+
+```{r eval=FALSE, include=FALSE}
+
+## 將 rmd 檔案轉存為網站
+bookdown::render_book(input = 'index.rmd' ,output_format ='bookdown::gitbook',encoding='UTF-8')
+
+
+## updata all .rmd chapters
+lapply(list.files(pattern = '.Rmd'),function(x)  bookdown::render_book(input = paste0(x) ,output_format ='bookdown::gitbook',encoding='UTF-8'))
+
+```
+
+3. 執行後，bookdown會自動將markdown檔案轉存為可發布的html~
+
+
+## 9.3 發布網站書
+
+1. 在 R studio 右上角找到Git
+
+2. 點選 Commit
+
+3. 勾選左上所有更動的檔案
+
+4. 在右方message輸入更新資訊
+
+5. 點右下 commit
+
+6. 點 push，成功！
+
+
