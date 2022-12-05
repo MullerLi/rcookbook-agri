@@ -26,6 +26,13 @@ github-repo: MullerLi/rcookbook-agri
 
 This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
 
+
+```{r chunk-label, echo = FALSE, fig.cap = 'A figure caption.'}
+1 + 1
+rnorm(10)  # 10 random numbers
+plot(dist ~ speed, cars)  # a scatterplot
+```
+
 ## Usage 
 
 Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
