@@ -1,7 +1,7 @@
 eq:binom
 thm:tri
 關於
-hello-world
+開始之前
 試驗設計三原則
 parts
 footnotes-and-citations
