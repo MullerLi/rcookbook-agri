@@ -4,10 +4,7 @@ author: "CHL"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
-  bookdown::gitbook:
-    lib_dir: "book_assets"
-  bookdown::pdf_book:
-    keep_tex: yes
+  bookdown::gitbook: default
 documentclass: book
 bibliography: [book.bib, packages.bib]
 url: https://mullerli.github.io/rcookbook-agri/
