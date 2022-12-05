@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="試驗設計三原則.html"/>
+<link rel="next" href="平均值檢定.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -166,9 +166,16 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前…</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個r程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個R程式碼</a></li>
-<li class="chapter" data-level="2.2" data-path="開始之前.html"><a href="開始之前.html#第一張圖"><i class="fa fa-check"></i><b>2.2</b> 第一張圖：</a></li>
+<li class="chapter" data-level="2.2" data-path="開始之前.html"><a href="開始之前.html#第一張圖"><i class="fa fa-check"></i><b>2.2</b> 第一張圖</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="試驗設計三原則.html"><a href="試驗設計三原則.html"><i class="fa fa-check"></i><b>3</b> 試驗設計三原則</a></li>
+<li class="chapter" data-level="3" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>3</b> 平均值檢定</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩群平均值</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#產生資料"><i class="fa fa-check"></i><b>3.1.1</b> 產生資料</a></li>
+<li class="chapter" data-level="3.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>3.1.2</b> 兩樣本t檢定</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
@@ -236,7 +243,7 @@ div.csl-indent {
 <h2><span class="header-section-number">2.1</span> 第一個R程式碼<a href="開始之前.html#第一個r程式碼" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>複製下面程式碼，輸入R的介面中並執行。
 這是你的第一個R程式碼！</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="開始之前.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Hello world!&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="開始之前.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;Hello world!&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello world!&quot;</code></pre>
 <p>　</p>
 <p>本書會包含程式碼(上方灰框)與執行結果(下方灰框)，你可以直接複製貼上程式碼，在你的R介面中執行，比較看看結果是否相同。
@@ -246,25 +253,26 @@ div.csl-indent {
 　</p>
 </div>
 <div id="第一張圖" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> 第一張圖：<a href="開始之前.html#第一張圖" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">2.2</span> 第一張圖<a href="開始之前.html#第一張圖" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="開始之前.html#cb3-1" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;magrittr&#39;</span>,<span class="st">&#39;ggplot2&#39;</span>)</span>
-<span id="cb3-2"><a href="開始之前.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ( <span class="fu">any</span>(pkg) <span class="sc">%in%</span> <span class="fu">installed.packages</span>() <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="fu">install.packages</span>(pkg[<span class="sc">!</span>pkg <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]) </span>
-<span id="cb3-3"><a href="開始之前.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkg, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb3-4"><a href="開始之前.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="開始之前.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species))<span class="sc">+</span></span>
-<span id="cb3-6"><a href="開始之前.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()<span class="sc">+</span></span>
-<span id="cb3-7"><a href="開始之前.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span>F)<span class="sc">+</span></span>
-<span id="cb3-8"><a href="開始之前.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb3-9"><a href="開始之前.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;花萼長度(cm)&#39;</span>,</span>
-<span id="cb3-10"><a href="開始之前.html#cb3-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;花瓣寬度(cm)&#39;</span>,</span>
-<span id="cb3-11"><a href="開始之前.html#cb3-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&#39;品種&#39;</span>,</span>
-<span id="cb3-12"><a href="開始之前.html#cb3-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&#39;3種鳶尾花花萼長與花瓣寬線性關係&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="開始之前.html#cb5-1" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;magrittr&#39;</span>,<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb5-2"><a href="開始之前.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ( <span class="fu">any</span>(pkg) <span class="sc">%in%</span> <span class="fu">installed.packages</span>() <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="fu">install.packages</span>(pkg[<span class="sc">!</span>pkg <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]) </span>
+<span id="cb5-3"><a href="開始之前.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkg, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-4"><a href="開始之前.html#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="開始之前.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species))<span class="sc">+</span></span>
+<span id="cb5-6"><a href="開始之前.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()<span class="sc">+</span></span>
+<span id="cb5-7"><a href="開始之前.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb5-8"><a href="開始之前.html#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb5-9"><a href="開始之前.html#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;花萼長度(cm)&#39;</span>,</span>
+<span id="cb5-10"><a href="開始之前.html#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;花瓣寬度(cm)&#39;</span>,</span>
+<span id="cb5-11"><a href="開始之前.html#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&#39;品種&#39;</span>,</span>
+<span id="cb5-12"><a href="開始之前.html#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&#39;3種鳶尾花花萼長與花瓣寬線性關係&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>你可能會問，鳶尾花是什麼? 哪來的鳶尾花?</p>
 <p>上面的圖中，我使用到的鳶尾花(iris)資料集，是R. A. Fisher在1938年出版的<em>The Use of Multiple Measurements in Taxonomic Problems</em>中使用到的資料集。</p>
 <p>這個資料集非常有名，包含有加拿大加斯帕半島採集到的三種鳶尾花品種形態資料。（葉茂生老師說：形不是型！不可以弄錯）</p>
 <p>像這樣的資料集有非常多筆已經內建在R程式裡面，他們可以用簡單的指令叫出來。</p>
+<p>在後續的程式碼中，可能會用到不同範例資料來討論。</p>
 
 </div>
 </div>
@@ -274,7 +282,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="試驗設計三原則.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="平均值檢定.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -328,6 +336,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

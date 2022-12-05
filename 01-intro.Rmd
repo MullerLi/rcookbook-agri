@@ -35,7 +35,7 @@ print('Hello world!')
 但是，R程式碼也有可能很多行，譬如下面就是一個很常見到的程式碼，用到條件判斷(if)還有+號連結許多不同函數。
 　
 
-## 第一張圖：
+## 第一張圖
 你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}

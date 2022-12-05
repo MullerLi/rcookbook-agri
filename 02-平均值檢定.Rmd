@@ -3,72 +3,113 @@
 
 ## 利用t檢定比較兩群平均值
 
-在分析實驗結果時，我們最關切的問題，應該就屬平均值之間是否有差異。
+在分析實驗結果時，我們最關切的問題，應屬"平均值之間是否有差異"。
 
-假設今天育成了一個新品種水稻，這個品種相較現有水稻品種而言，據說有更高的產量(yield)。也就是說，農民如果種植新品種，最後可以收穫更多更重的稻穀。
+假設今天有一個新品種水稻，據研究者說，這個品種相較現有品種而言，有更高的產量(yield)。因此，農民如果種植新品種，最後可以收穫更多更重的稻穀。
 
-這時候就可以用t檢定來測試新品種與現有品種，產量平均值之間是否有差異。如果統計分析發現有差，那就可以說明新品種確實比較"高產"。
+這時候，就可以應用t檢定來測試新品種與現有品種產量平均值之間是否有差異，如果統計分析發現確實有差異，那就可以說明新品種確實比較"高產"。
 
 
-### 查看資料
+### 產生資料
 
+資料會由系統亂數產生。
+下面這個程式碼只要執行一次就好。
 ```{r}
 # 產生亂數資料
 riceYield<-data.frame(
   'variety' = (rep(c('A','B'),each=10) ),
   'yield' = c(rnorm(n = 10 , mean = 5000 , sd = 400),rnorm(n=10 , mean = 6500 , sd = 400)
 ))
+```
 
 
+現在來看看這筆資料長怎樣：
+```{r eval=FALSE}
 # 查看 前 10筆資料
-cat('最前6筆資料')
 head(riceYield)
+```
 
+
+```{r echo=FALSE}
+head(riceYield)
+```
+
+```{r eval=FALSE}
 # 查看 後 10筆資料
-cat('最後6筆資料')
 tail(riceYield)
 
 ```
-先不要看產生資料集的部分...
-在上面使用到的3個指令的意思：
-- cat('字元'): 讓R說出你想說的話，在整理資料報表的時候很方便
-- head(資料名稱): 查看前6筆資料
-- tail(資料名稱): 查看前6筆資料
+
+```{r echo=F}
+# 查看 後 10筆資料
+tail(riceYield)
+```
+在上面使用到的2個函數(function)的意思：
+
+- head(資料名稱): 查看該資料前6筆的值
+- tail(資料名稱): 查看該資料後6筆的值
 
 ---
+
 補充
-這邊要注意，在R裡面，如果直接輸入「東西的名稱」，不要用冒號("或')括起來，就會得到「該東西的內容」。
 
-例如水稻產量資料，在R裡面我叫他為 "riceYield" ，所以riceYield就會連結到該筆資料。
+* 在R中直接輸入「東西的名稱」，而沒有用冒號 ( " or ' ) 括起來，就會得到「該東西的內容」。例如上述資料集為 "riceYield" ，所以輸入 riceYield 就會連結到該筆資料。
 
-另外，大小寫英文字母，在R程式裡面是不一樣的，所以輸入 riceyield 或 Riceyield 或 RiceYield，R會跳出錯誤，代表R找不到這個東西(object 'riceyield' not found)。
+* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 riceyield 或 Riceyield 或 RiceYield 會跳出錯誤，R會跟你說，它找不到這個東西(object 'riceyield' not found)，因為它只認得riceYield。
 ```{r echo=TRUE, error=TRUE}
 print(riceyield)
 ```
+
 ---
 
 如果想要查看整筆資料，也可以直接輸入資料名稱，或是print(資料名稱)
-```{r echo=TRUE, error=TRUE}
+```{r eval=F,echo=TRUE, error=TRUE}
 riceYield
 # 等同於
 print(riceYield)
 ```
-
+```{r echo=FALSE, error=TRUE}
+riceYield
+```
 
 ### 兩樣本t檢定
 
 t檢定在R中是這樣執行的：
 
-```{r error=TRUE}
-t.test(data = riceYield, # 1
-       yield~variety,    # 2
-       paired = F)       # 3
+```{r echo=FALSE}
+t.test(data = riceYield, 
+       yield ~ variety,    
+       paired = F)       
+```
+- t.test上面有三個指令
+  - 第1個指令是告訴R該筆資料的名稱，這筆資料名是我在自己創造的亂數資料riceYield，所以輸入 data = riceYield
+  - 第2個指令和第1個指令中間用 , 相隔
+  - 第2個指令是告訴R比較的方式，寫法是 " 觀測值 ~ 處理名稱 "，注意這裡觀測值和處理名稱都沒有用冒號框住
+  - 第3個指令是樣本是否成對
+
+
+現在來逐行看報表：
+
+```{r echo=T}
+t.test(data = riceYield, 
+       yield ~ variety,    
+       paired = F,
+       conf.level = 0.95)       
 ```
 
-- 第1行是告訴R該筆資料名稱，這筆資料名是我在自己創造的亂數資料riceYield
 
+- 第1行，告訴你這個報表是Welch Two Sample t-test
+(Welch的t檢定是在兩族群變異數不相等的時候採用的t檢定方式)
 
+- 第2行: 表示這一筆資料是將yield依照variety分組比較，記得上面我們輸入的" 觀測值 ~ 處理名稱 "嗎?
 
+- 重點在第3行，可以看到重要的檢定結果：
+  - t  : t 值
+  - df :自由度
+  - p-value : 表示本次檢定所得 p 值
+  p值的表示方式比較特別，用到"e"，e代表10的幾次方：
+$3.639e-08 = 3.639 \times 10^{-8}$
 
+  這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( $H_0:\mu_1 - \mu_2 =0$ )。
 
-
+結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。不過，顯著水準$\alpha$在`t.test`函數中沒有辦法設定，是這個函數的小缺憾
