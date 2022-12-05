@@ -19,7 +19,6 @@ github-repo: MullerLi/rcookbook-agri
 
 這是一本關於統計程式語言 _R_ 的筆記，嘗試用白話文記錄我在 **農業試驗研究** 上使用的 _R_ 程式語言。
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
 
 ## Usage 
 
