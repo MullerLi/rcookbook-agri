@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agronomy Research</title>
-  <meta name="description" content="這是利用R bookdown發布的小網站，主要記錄我使用的農業試驗研究數據分析流程與心得。" />
+  <title>R Cookbook for Agricultural Research</title>
+  <meta name="description" content="簡介如何利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agronomy Research" />
+  <meta property="og:title" content="R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="https://mullerli.github.io/rcookbook-agri/images/cover.jpg" />
-  <meta property="og:description" content="這是利用R bookdown發布的小網站，主要記錄我使用的農業試驗研究數據分析流程與心得。" />
-  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
+  
+  <meta property="og:description" content="簡介如何利用R程式語言完成農學試驗的統計分析" />
+  <meta name="github-repo" content="yijutseng/DataAnalyticsWithRBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agronomy Research" />
+  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
   
-  <meta name="twitter:description" content="這是利用R bookdown發布的小網站，主要記錄我使用的農業試驗研究數據分析流程與心得。" />
-  <meta name="twitter:image" content="https://mullerli.github.io/rcookbook-agri/images/cover.jpg" />
+  <meta name="twitter:description" content="簡介如何利用R程式語言完成農學試驗的統計分析" />
+  
 
 
 
@@ -157,7 +157,12 @@ div.csl-indent {
 <li><a href="./">R Cookbook for Agronomy Research</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#這是什麼"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#為什麼要寫這本書"><i class="fa fa-check"></i><b>1.2</b> 為什麼要寫這本書?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#其他參考資訊推薦"><i class="fa fa-check"></i><b>1.3</b> 其他參考資訊推薦：</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前…</a></li>
 <li class="chapter" data-level="3" data-path="試驗設計三原則.html"><a href="試驗設計三原則.html"><i class="fa fa-check"></i><b>3</b> 試驗設計三原則</a></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
@@ -202,7 +207,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Cookbook for Agronomy Research</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Cookbook for Agricultural Research</a>
           </h1>
         </div>
 
@@ -211,31 +216,71 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">R Cookbook for Agronomy Research</h1>
+<h1 class="title">R Cookbook for Agricultural Research</h1>
 <p class="author"><em><p>“CHL 臺灣🤞”</p></em></p>
 <p class="date"><em>2022-12-05</em></p>
 </div>
 <div id="關於" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>這是一本關於統計程式語言 R 的筆記，嘗試用白話文記錄我在 <strong>農業試驗研究</strong> 上使用的 R 程式語言。</p>
-<p><strong>這是什麼?</strong></p>
-<p>這是一個利用R語言與Github網站建構的R語言教學。</p>
+<p>格式受 <a href="https://www.books.com.tw/products/0010844486">R cookbook (譯：R錦囊妙計)</a> 啟發</p>
+<div id="這是什麼" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> 這是什麼?<a href="index.html#這是什麼" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>這是一個利用 <a href="https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80">R</a> 撰寫，部屬在Github Page上的電子書。</p>
 <p>在這本書中，我將介紹農業研究常用的統計學、試驗設計學、資料繪圖的 R 程式語言。</p>
-<p>你不需要具備有基本的程式編成經驗，但必須具備有基礎的試驗設計學知識。</p>
-<p>主要面向者是需要做統計分析的、在臺灣做農業試驗研究的工作人員。</p>
-<p><strong>為什麼要寫這本書?</strong></p>
-<p>撰寫程式碼以及使用電腦分析資料，對同仁來說可能還是偏難。尤其在學術訓練過程沒有接觸到統計學的研究者，在資料調查後以及整理後，也不知道如何做好分析。</p>
-<p>我也是出來工作後，邊做邊學R，現在覺得資訊量有點過載，嘗試著把學到的東西整理出來。</p>
-<p><strong>為什麼我有資格寫這本書</strong></p>
+<p>你不需要具備有寫程式的經驗，但必須：</p>
 <ol style="list-style-type: decimal">
-<li><p>我是遺傳組畢業，自學統計程式語言，深知跨領域學習的難處。</p></li>
-<li><p>我在第一線農試驗研究，知道在農試驗場域工作者最需要的資訊。</p></li>
+<li><p>安裝好R</p></li>
+<li><p>具備有基礎的試驗設計學知識。</p></li>
 </ol>
-<p>ttt</p>
-<p>published by R bookdown</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>基礎的環境設置和問題，日後再補充上。</p>
+<p>這本書直面需要做統計分析的、在臺灣做農業試驗研究的工作人員。</p>
+</div>
+<div id="為什麼要寫這本書" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 為什麼要寫這本書?<a href="index.html#為什麼要寫這本書" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>撰寫程式碼以及使用電腦分析資料是一件困難的事情。</p>
+<p>尤其在學術訓練過程沒有接觸到統計學的研究者，在資料調查後以及整理後，也不知道如何做好分析。</p>
+<p>我也是出來工作後，邊做邊學，現在覺得資訊量有點過載，這個筆記也是過去學到的東西有系統地整理出來。</p>
+<p>本書的R語言版本：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.2.2 (2022-10-31 ucrt)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19045)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8 
+## [2] LC_CTYPE=Chinese (Traditional)_Taiwan.utf8   
+## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8
+## [4] LC_NUMERIC=C                                 
+## [5] LC_TIME=Chinese (Traditional)_Taiwan.utf8    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] bookdown_0.30   digest_0.6.30   R6_2.5.1        jsonlite_1.8.3 
+##  [5] magrittr_2.0.3  evaluate_0.18   stringi_1.7.8   cachem_1.0.6   
+##  [9] rlang_1.0.6     cli_3.4.1       rstudioapi_0.14 jquerylib_0.1.4
+## [13] bslib_0.4.1     rmarkdown_2.18  tools_4.2.2     stringr_1.4.1  
+## [17] xfun_0.34       yaml_2.3.6      fastmap_1.1.0   compiler_4.2.2 
+## [21] htmltools_0.5.3 knitr_1.40      sass_0.4.2</code></pre>
+</div>
+<div id="其他參考資訊推薦" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> 其他參考資訊推薦：<a href="index.html#其他參考資訊推薦" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="http://yijutseng.github.io/DataScienceRBook/index.html">資料科學與R語言</a> by 長庚大學資管系曾意儒老師。
+<ul>
+<li>這是中文版免費的R教科書。</li>
+</ul></li>
+<li><a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> by Hadley Wickham and Garrett Grolemund.
+<ul>
+<li><a href="https://hadley.nz/">Hadley Wickham</a>是<a href="https://posit.co/download/rstudio-desktop/"><strong>RStudio</strong></a>的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。</li>
+</ul></li>
+</ul>
 
+</div>
 </div>
             </section>
 
@@ -270,7 +315,7 @@ gitbook.start({
 },
 "fontsettings": {
 "theme": "white",
-"family": "sans",
+"family": "Microsoft JhengHei",
 "size": 2
 },
 "edit": {
@@ -285,7 +330,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf", "_main.epub"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null
