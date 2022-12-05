@@ -8,16 +8,35 @@ bibliography: [book.bib, packages.bib]
 url: https://mullerli.github.io/rcookbook-agri/
 cover-image: images/cover.jpg
 description: |
-  This is a minimal example of using the bookdown package to write a book.
-  The HTML output format for this example is bookdown::gitbook,
-  set in the _output.yml file.
+  這是利用R bookdown發布的小網站，主要記錄我使用的農業試驗研究數據分析流程與心得。
 link-citations: yes
 github-repo: MullerLi/rcookbook-agri
 ---
 
 # 關於
 
+
 這是一本關於統計程式語言 _R_ 的筆記，嘗試用白話文記錄我在 **農業試驗研究** 上使用的 _R_ 程式語言。
+
+**這本GitBook是什麼?**
+這本GitBook中，我將介紹農業研究常用的統計學、試驗設計學、資料繪圖的 R 程式語言。你不需要具備有基本的程式編成經驗，但必須具備有基礎的試驗設計學知識。
+
+
+**為什麼要寫這本書?**
+撰寫程式碼以及使用電腦分析資料，對同仁來說可能還是偏難。尤其在學術訓練過程沒有接觸到統計學的研究者，在資料調查後以及整理後，也不知道如何做好分析。
+
+我也是出來工作後，邊做邊學R，現在覺得資訊量有點過載，嘗試著把學到的東西整理出來。
+
+**為什麼是我寫這本書**
+1. 我是遺傳組畢業，自學統計程式語言，深知跨領域學習的難處。
+2. 我在第一線農試驗研究，知道在農試驗場域工作者最需要的資訊。
+
+
+
+published by R bookdown
+```{r}
+qqnorm(iris$Sepal.Length)
+```
 
 
 ```{r include=FALSE}

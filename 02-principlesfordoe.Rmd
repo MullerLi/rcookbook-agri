@@ -1,0 +1,9 @@
+# 試驗設計三原則
+
+1. 隨機 (randomlize)
+
+2. 重複 (replicate)
+
+3. 區集 (block)
+
+
