@@ -1,0 +1,174 @@
+---
+title: "08-MyStatNote"
+author: "CHL"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+#### 例 2.1 兩樣本的t檢定(標準差未知)
+
+利用螢光胺基酸檢測兩種組織的螢光亮度，計算螢光亮度是否有差異。
+| 觀測值 | 神經組織 | 肌肉組織 |
+| ------ | -------- | -------- |
+| 1      | 6625     | 3900     |
+| 2      | 6000     | 3500     |
+| 3      | 5450     | 3450     |
+| 4      | 5200     | 3200     |
+| 5      | 5175     | 2980     |
+| 6      | 4900     | 2800     |
+| 7      | 4750     | 2500     |
+| 8      | 4500     | 2400     |
+| 9      | 3985     | 2200     |
+| 10     | 900      | 1200     |
+| 11     | 450      | 1150     |
+| 12     | 2800     | 1130     |
+
+* 計算：
+神經組織平均值為$\mu_1$、肌肉組織為$\mu_2$
+| 組織 | 平均值  | 標準差  |
+| ---- | ------- | ------- |
+| 神經 | 1917.99 | 960.51  |
+| 肌肉 | 4227.92 | 2534.17 |
+
+因為兩樣本的標準差差異太大，所以不能確定 $\sigma_1^2 = \sigma_2^2$
+需計算ｔ值與pooled自由度
+
+* 虛無假說
+$H_0: \mu_1 =\mu_2$
+$H_1: \mu_1 >\mu_2$
+
+* 計算t值
+$t_0 = \frac{\mu_1-\mu_2} { \sqrt {{\frac {S_1^2}{n_1}}+ \frac{S_2^2}{n_2}{} }}$
+$t_0 = \frac {2309.93} {\sqrt{\frac{1917.99^2}{12}+\frac{960.51^2}{12}}} =2.7354$
+
+* 計算pool樣本的自由度v：
+$$v = \frac{(\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2})^2}{\frac{(\frac{S_1^2}{n_1})^2}{n_1}+\frac{(\frac{S_2^2}{n_2})^2}{n_2}}$$
+
+v = 16.1995
+
+$t_0 = 2.7354$ 
+$t_{0.025,17}=0.690$
+$t_{0.025,16}=0.689$
+
+$\therefore$ reject $H_0$
+
+
+### 例 2.2 Z檢定
+
+抽樣4個紡紗的折斷力，平均值為214，過去經驗顯示
+
+
+### 例 2.3 變異數檢定
+
+抽樣新、舊機臺的樣本，測得資料如下，檢定兩樣本的變異數是否有差異。
+| 機臺 | n   | S^2  |
+| ---- | --- | ---- |
+| 1    | 12  | 14.5 |
+| 2    | 10  | 10.8 |
+
+* 虛無假說
+$H_0: \sigma_0^2=\sigma_1^2$
+$H_1: \sigma_0^2 \ne \sigma_1^2$
+
+* 檢定統計量
+$F_0=\frac{S_1^2}{S_2^2}=14.5/10.8=1.34$
+
+* 棄卻域
+$F_0=1.34$
+$F_{0.05,12-1,10-1}=F_{0.05,11,9}=3.1$
+
+$\because F_0 < 3.1$
+$\therefore DO NOT reject H_0$
+
+新舊機臺的變異數相等。
+
+
+### 例3.1 3.2 3.3 固定型CRD
+
+| 功率 | 蝕刻率                          |
+| ---- | ------ | --- | --- | --- | --- |
+| 160  | 575    | 542 | 530 | 539 | 570 |
+| 180  | 565    | 593 | 590 | 579 | 610 |
+| 200  | 600    | 651 | 610 | 637 | 629 |
+| 220  | 725    | 700 | 715 | 685 | 710 |
+
+
+令$y_{ij}=\mu+\tau_{i}+\epsilon_{ij}$
+$\tau_i$為第i個處理效應
+$\epsilon_{ij}$為第ij項觀測值的誤差
+
+* 假設檢定
+$H_0:\tau_1=\tau_2=...=\tau_4=0$
+$H_1:\tau_i\ne0$對至少一個 i
+
+* 平均值表
+
+| 處理 | 總和 | 重複數 | 平均值 |
+| ---- | ---- | ------ | ------ |
+| 1    | 2756 | 5      | 551.2  |
+| 2    | 2937 | 5      | 587.4  |
+| 3    | 3127 | 5      | 625.4  |
+| 4    | 3535 | 5      | 707    |
+
+* ANOVA表
+
+| 變異來源 | 自由度 | SS       | MS       | F值    |
+| -------- | ------ | -------- | -------- | ------ |
+| 處理     | 3      | 66870.55 | 22290.18 | 66.797 |
+| 誤差     | 16     | 5339.2   | 333.7    |        |
+| 總計     | 19     | 72209.75 |          |        |
+
+$C=y_{..}^2/N=12355^2/20=7632301.25$
+$SS_t= \frac{1}{5}\sum_{i=1}^4y_{i.}^2-C=(2756^2+2937^2+3127^2+3535^2)/5-C=66870.55$
+$SS_T=\sum_{i=1}^a\sum_{j=1}^5{y_{ij}^2}-C=(575^2+...)-C=72209.75$
+$SS_E=72209.75-66870.55=5339.2$
+
+$\because F_0=66.797 > F_{0.01,3,16}=5.29$
+$\therefore$ reject $H_0$ at $\alpha=0.001$
+
+* 信賴區間
+$L(\mu_4)= \bar y_{4}\pm t_{0.025}\sqrt{\frac{MS_E}{n}}$
+$L(\mu_1-\mu_2)=(\bar y_1-\bar y_2)\pm t_{0.025} \sqrt{MS_E(\frac{1}{n_1}+\frac{1}{n_2})}$
+
+* 點估計式
+$\tau_1=\bar y_{1.}-\bar y_{..}$
+
+
+### 例3.5 Levene's test
+| 變異來源 | SS  | 自由度 | MS  | F0    |
+| -------- | --- | ------ | --- | ----- |
+| 方法     | 708 | 3      | 236 | 76.07 |
+| 誤差     |     | 20     |     |       |
+| 總和     |     | 23     |     |       |
+
+$H_0:\sigma_1^2=\sigma_2^2=...=\sigma_a^2$
+$H_1:\sigma_i^2\ne \sigma_j^2$對任何一個 i, j
+
+$\because F_0=76.07>F_{0.01,3,20}=4.55$
+$\therefore$reject $H_0$ at $\alpha = 0.01$
+

@@ -23,3 +23,10 @@ sharing-your-book
 publishing
 pages
 metadata-for-sharing
+r-markdown
+including-plots
+例-2.1-兩樣本的t檢定標準差未知
+例-2.2-z檢定
+例-2.3-變異數檢定
+例3.1-3.2-3.3-固定型crd
+例3.5-levenes-test
