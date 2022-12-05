@@ -4,22 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第3 章 平均值檢定 | R Cookbook for Agricultural Research</title>
+  <title>第 3 章 平均值檢定 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第3 章 平均值檢定 | R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="第 3 章 平均值檢定 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
-  <meta name="github-repo" content="yijutseng/DataAnalyticsWithRBook" />
+  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第3 章 平均值檢定 | R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="第 3 章 平均值檢定 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
 
+<meta name="author" content="李誠紘 Cheng Hong, Li" />
 
 
 <meta name="date" content="2022-12-05" />
@@ -160,19 +161,19 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#這是什麼"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#為什麼要寫這本書"><i class="fa fa-check"></i><b>1.2</b> 為什麼要寫這本書?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#這不是什麼"><i class="fa fa-check"></i><b>1.2</b> 這不是什麼?</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#推薦參考資訊"><i class="fa fa-check"></i><b>1.3</b> 推薦參考資訊</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前…</a>
+<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個r程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個R程式碼</a></li>
+<li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個-r-程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個 R 程式碼</a></li>
 <li class="chapter" data-level="2.2" data-path="開始之前.html"><a href="開始之前.html#第一張圖"><i class="fa fa-check"></i><b>2.2</b> 第一張圖</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>3</b> 平均值檢定</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩群平均值</a>
+<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩個族群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩個族群平均值</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#產生資料"><i class="fa fa-check"></i><b>3.1.1</b> 產生資料</a></li>
+<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#資料下載"><i class="fa fa-check"></i><b>3.1.1</b> 資料下載</a></li>
 <li class="chapter" data-level="3.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>3.1.2</b> 兩樣本t檢定</a></li>
 <li class="chapter" data-level="3.1.3" data-path="平均值檢定.html"><a href="平均值檢定.html#產生結果表"><i class="fa fa-check"></i><b>3.1.3</b> 產生結果表</a></li>
 </ul></li>
@@ -228,39 +229,40 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="平均值檢定" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">第3 章</span> 平均值檢定<a href="平均值檢定.html#平均值檢定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="利用t檢定比較兩群平均值" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> 利用t檢定比較兩群平均值<a href="平均值檢定.html#利用t檢定比較兩群平均值" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h1><span class="header-section-number">第 3 章</span> 平均值檢定<a href="平均值檢定.html#平均值檢定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="利用t檢定比較兩個族群平均值" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 利用t檢定比較兩個族群平均值<a href="平均值檢定.html#利用t檢定比較兩個族群平均值" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>在分析實驗結果時，我們最關切的問題，應屬”平均值之間是否有差異”。</p>
-<p>假設今天有一個新品種水稻，據研究者說，這個品種相較現有品種而言，有更高的產量(yield)。因此，農民如果種植新品種，最後可以收穫更多更重的稻穀。</p>
-<p>這時候，就可以應用<code>t檢定</code>來測試新品種與現有品種產量平均值之間是否有差異，如果發現確實有差異，那就可以說明新品種確實比較”高產”。</p>
-<div id="產生資料" class="section level3 hasAnchor" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> 產生資料<a href="平均值檢定.html#產生資料" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>資料會由亂數產生，下面這個程式碼只要執行一次就好。</p>
+<p>要比較兩個平均值的差異，可以應用<code>t檢定</code>。</p>
+<p>超過兩組平均值需要比較的時，<code>t檢定</code>就不再適用，要改採<code>變異數分析</code>或是<code>變方分析</code> (analysis of variance, <code>ANOVA</code>) 來檢定各組平均是否有差異。</p>
+<div id="資料下載" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 資料下載<a href="平均值檢定.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>本筆資料為<a href="cookbook-agri\dataset\riceyield.csv">riceYield</a>，會由亂數產生，下面這個程式碼只要執行一次就好。</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="平均值檢定.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
 <span id="cb6-2"><a href="平均值檢定.html#cb6-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
 <span id="cb6-3"><a href="平均值檢定.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;variety&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
 <span id="cb6-4"><a href="平均值檢定.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
-<span id="cb6-5"><a href="平均值檢定.html#cb6-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
+<span id="cb6-5"><a href="平均值檢定.html#cb6-5" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb6-6"><a href="平均值檢定.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(riceYield,<span class="at">file =</span> <span class="st">&#39;d:/123.csv&#39;</span>)</span></code></pre></div>
 <p>現在來看看這筆資料長怎樣：</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="平均值檢定.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
 <span id="cb7-2"><a href="平均值檢定.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
 <pre><code>##   variety    yield
-## 1       A 4777.457
-## 2       A 4921.725
-## 3       A 4525.181
-## 4       A 5002.844
-## 5       A 4798.282
-## 6       A 5211.809</code></pre>
+## 1       A 4379.770
+## 2       A 5146.858
+## 3       A 5418.471
+## 4       A 5291.106
+## 5       A 5048.903
+## 6       A 5031.939</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="平均值檢定.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
 <span id="cb9-2"><a href="平均值檢定.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
 <pre><code>##    variety    yield
-## 15       B 6422.435
-## 16       B 6306.927
-## 17       B 6501.793
-## 18       B 6314.491
-## 19       B 6284.933
-## 20       B 6689.514</code></pre>
+## 15       B 6782.352
+## 16       B 6808.808
+## 17       B 6539.193
+## 18       B 6734.335
+## 19       B 6315.283
+## 20       B 7215.782</code></pre>
 <p>在上面使用到的2個函數(function)的意思：</p>
 <ul>
 <li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
@@ -273,33 +275,33 @@ div.csl-indent {
 <li><p>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，R會跟你說，它找不到這個東西(object ‘riceyield’ not found)，因為它只認得<code>riceYield</code>。</p></li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="平均值檢定.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
-<pre><code>## Error in print(riceyield): 找不到物件 &#39;riceyield&#39;</code></pre>
+<pre><code>## Error in print(riceyield): object &#39;riceyield&#39; not found</code></pre>
 <hr />
 <p>如果想要查看整筆資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="平均值檢定.html#cb13-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
 <span id="cb13-2"><a href="平均值檢定.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
 <span id="cb13-3"><a href="平均值檢定.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
 <pre><code>##    variety    yield
-## 1        A 4777.457
-## 2        A 4921.725
-## 3        A 4525.181
-## 4        A 5002.844
-## 5        A 4798.282
-## 6        A 5211.809
-## 7        A 4815.242
-## 8        A 4996.139
-## 9        A 5168.282
-## 10       A 5200.520
-## 11       B 6331.306
-## 12       B 5959.877
-## 13       B 6118.321
-## 14       B 6482.532
-## 15       B 6422.435
-## 16       B 6306.927
-## 17       B 6501.793
-## 18       B 6314.491
-## 19       B 6284.933
-## 20       B 6689.514</code></pre>
+## 1        A 4379.770
+## 2        A 5146.858
+## 3        A 5418.471
+## 4        A 5291.106
+## 5        A 5048.903
+## 6        A 5031.939
+## 7        A 5521.150
+## 8        A 5729.665
+## 9        A 4783.421
+## 10       A 4638.122
+## 11       B 7484.086
+## 12       B 6027.544
+## 13       B 6014.813
+## 14       B 7205.899
+## 15       B 6782.352
+## 16       B 6808.808
+## 17       B 6539.193
+## 18       B 6734.335
+## 19       B 6315.283
+## 20       B 7215.782</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> 兩樣本t檢定<a href="平均值檢定.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -308,13 +310,13 @@ div.csl-indent {
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by variety
-## t = -14.758, df = 17.897, p-value = 1.848e-11
+## t = -7.85, df = 17.415, p-value = 4.009e-07
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1598.776 -1200.154
+##  -2046.834 -1180.904
 ## sample estimates:
 ## mean in group A mean in group B 
-##        4941.748        6341.213</code></pre>
+##        5098.941        6712.809</code></pre>
 <ul>
 <li><code>t.test</code>上面有三個指令
 <ul>
@@ -333,13 +335,13 @@ div.csl-indent {
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by variety
-## t = -14.758, df = 17.897, p-value = 1.848e-11
+## t = -7.85, df = 17.415, p-value = 4.009e-07
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1598.776 -1200.154
+##  -2046.834 -1180.904
 ## sample estimates:
 ## mean in group A mean in group B 
-##        4941.748        6341.213</code></pre>
+##        5098.941        6712.809</code></pre>
 <ul>
 <li>第1行告訴你這個報表是<code>Welch Two Sample t-test</code></li>
 </ul>

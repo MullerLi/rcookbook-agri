@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
-  <meta name="github-repo" content="yijutseng/DataAnalyticsWithRBook" />
+  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
@@ -20,6 +20,7 @@
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
 
+<meta name="author" content="李誠紘 Cheng Hong, Li" />
 
 
 <meta name="date" content="2022-12-05" />
@@ -160,19 +161,19 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#這是什麼"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#為什麼要寫這本書"><i class="fa fa-check"></i><b>1.2</b> 為什麼要寫這本書?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#這不是什麼"><i class="fa fa-check"></i><b>1.2</b> 這不是什麼?</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#推薦參考資訊"><i class="fa fa-check"></i><b>1.3</b> 推薦參考資訊</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前…</a>
+<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個r程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個R程式碼</a></li>
+<li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個-r-程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個 R 程式碼</a></li>
 <li class="chapter" data-level="2.2" data-path="開始之前.html"><a href="開始之前.html#第一張圖"><i class="fa fa-check"></i><b>2.2</b> 第一張圖</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>3</b> 平均值檢定</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩群平均值</a>
+<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩個族群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩個族群平均值</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#產生資料"><i class="fa fa-check"></i><b>3.1.1</b> 產生資料</a></li>
+<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#資料下載"><i class="fa fa-check"></i><b>3.1.1</b> 資料下載</a></li>
 <li class="chapter" data-level="3.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>3.1.2</b> 兩樣本t檢定</a></li>
 <li class="chapter" data-level="3.1.3" data-path="平均值檢定.html"><a href="平均值檢定.html#產生結果表"><i class="fa fa-check"></i><b>3.1.3</b> 產生結果表</a></li>
 </ul></li>
@@ -229,54 +230,23 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em><p>“CHL 臺灣🤞”</p></em></p>
+<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
 <p class="date"><em>2022-12-05</em></p>
 </div>
 <div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>這是一本關於統計程式語言 R 的筆記，嘗試用白話文記錄我在 <strong>農業試驗研究</strong> 上使用的 R 程式語言。</p>
-<p>格式受 <a href="https://www.books.com.tw/products/0010844486">R cookbook (譯：R錦囊妙計)</a> 啟發</p>
 <div id="這是什麼" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> 這是什麼?<a href="index.html#這是什麼" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>這是一個利用 <a href="https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80">R</a> 撰寫，部屬在Github Page上的電子書。</p>
+<p>這是一個利用 <a href="https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80">R</a> bookdown 撰寫，部屬在Github Page上的電子書。</p>
+<p>這是我的學習筆記、速查本。</p>
 <p>在這本書中，我將介紹農業研究常用的統計學、試驗設計學、資料繪圖的 R 程式語言。</p>
-<p>你不需要具備有寫程式的經驗，但必須：</p>
-<ol style="list-style-type: decimal">
-<li><p>安裝好R</p></li>
-<li><p>具備有基礎的試驗設計學知識。</p></li>
-</ol>
-<p>基礎的環境設置和問題，日後再補充上。</p>
+<p>你不需要具備有寫程式的經驗，但必須具備有基礎的試驗設計學知識。</p>
 <p>這本書直面需要做統計分析的、在臺灣做農業試驗研究的工作人員。</p>
 </div>
-<div id="為什麼要寫這本書" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> 為什麼要寫這本書?<a href="index.html#為什麼要寫這本書" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>撰寫程式碼以及使用電腦分析資料是一件困難的事情。尤其在學術訓練過程沒有接觸到統計學的研究者，在資料調查後以及整理後，也不知道如何做好統計分析。</p>
-<p>這本書提供的程式碼，或許幫得上他們的忙。</p>
-<p>本書的R語言版本：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
-<pre><code>## R version 4.2.2 (2022-10-31 ucrt)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19045)
-## 
-## Matrix products: default
-## 
-## locale:
-## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8 
-## [2] LC_CTYPE=Chinese (Traditional)_Taiwan.utf8   
-## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8
-## [4] LC_NUMERIC=C                                 
-## [5] LC_TIME=Chinese (Traditional)_Taiwan.utf8    
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## loaded via a namespace (and not attached):
-##  [1] bookdown_0.30   digest_0.6.30   R6_2.5.1        jsonlite_1.8.3 
-##  [5] magrittr_2.0.3  evaluate_0.18   stringi_1.7.8   cachem_1.0.6   
-##  [9] rlang_1.0.6     cli_3.4.1       rstudioapi_0.14 jquerylib_0.1.4
-## [13] bslib_0.4.1     rmarkdown_2.18  tools_4.2.2     stringr_1.4.1  
-## [17] xfun_0.34       yaml_2.3.6      fastmap_1.1.0   compiler_4.2.2 
-## [21] htmltools_0.5.3 knitr_1.40      sass_0.4.2</code></pre>
+<div id="這不是什麼" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 這不是什麼?<a href="index.html#這不是什麼" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>若你已經了解資料科學與 R 語言，這本書對你來說會太簡單。</p>
 </div>
 <div id="推薦參考資訊" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> 推薦參考資訊<a href="index.html#推薦參考資訊" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -290,6 +260,34 @@ div.csl-indent {
 <li><a href="https://hadley.nz/">Hadley Wickham</a>是<a href="https://posit.co/download/rstudio-desktop/"><strong>RStudio</strong></a>的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。</li>
 </ul></li>
 </ul>
+<p>本書的R語言版本：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.2.2 (2022-10-31 ucrt)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19044)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8  LC_CTYPE=C                                   
+## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8 LC_NUMERIC=C                                 
+## [5] LC_TIME=Chinese (Traditional)_Taiwan.utf8    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_3.4.0  magrittr_2.0.3 bookdown_0.30 
+## 
+## loaded via a namespace (and not attached):
+##  [1] bslib_0.4.1      jquerylib_0.1.4  pillar_1.8.1     compiler_4.2.2   tools_4.2.2      digest_0.6.30   
+##  [7] jsonlite_1.8.3   lattice_0.20-45  nlme_3.1-160     evaluate_0.18    lifecycle_1.0.3  tibble_3.1.8    
+## [13] gtable_0.3.1     mgcv_1.8-41      pkgconfig_2.0.3  rlang_1.0.6      Matrix_1.5-1     cli_3.4.1       
+## [19] DBI_1.1.3        rstudioapi_0.14  yaml_2.3.6       xfun_0.34        fastmap_1.1.0    stringr_1.4.1   
+## [25] withr_2.5.0      dplyr_1.0.10     knitr_1.40       sass_0.4.2       generics_0.1.3   vctrs_0.5.0     
+## [31] grid_4.2.2       tidyselect_1.2.0 glue_1.6.2       R6_2.5.1         fansi_1.0.3      rmarkdown_2.18  
+## [37] farver_2.1.1     scales_1.2.1     htmltools_0.5.3  splines_4.2.2    rsconnect_0.8.28 assertthat_0.2.1
+## [43] colorspace_2.0-3 labeling_0.4.2   utf8_1.2.2       stringi_1.7.8    munsell_0.5.0    cachem_1.0.6</code></pre>
 
 </div>
 </div>

@@ -18,7 +18,7 @@ output:
         family: Microsoft JhengHei
       download: null
 documentclass: book
-github-repo: yijutseng/DataAnalyticsWithRBook
+github-repo: MullerLi/rcookbook-agri
 description: "利用R程式語言完成農學試驗的統計分析"
 url: 'https://mullerli.github.io/rcookbook-agri/'
 ---
@@ -27,41 +27,23 @@ url: 'https://mullerli.github.io/rcookbook-agri/'
 
 這是一本關於統計程式語言 R 的筆記，嘗試用白話文記錄我在 **農業試驗研究** 上使用的 R 程式語言。
 
-格式受 [R cookbook (譯：R錦囊妙計)](https://www.books.com.tw/products/0010844486) 啟發
 
 ## 這是什麼?
 
-這是一個利用 [R](https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80) 撰寫，部屬在Github Page上的電子書。
+這是一個利用 [R](https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80) bookdown 撰寫，部屬在Github Page上的電子書。
+
+這是我的學習筆記、速查本。
 
 在這本書中，我將介紹農業研究常用的統計學、試驗設計學、資料繪圖的 R 程式語言。
 
-你不需要具備有寫程式的經驗，但必須：
-
-(1) 安裝好R
-
-(2) 具備有基礎的試驗設計學知識。
-
-基礎的環境設置和問題，日後再補充上。
-
+你不需要具備有寫程式的經驗，但必須具備有基礎的試驗設計學知識。
 
 這本書直面需要做統計分析的、在臺灣做農業試驗研究的工作人員。
 
+## 這不是什麼?
 
-## 為什麼要寫這本書?
+若你已經了解資料科學與 R 語言，這本書對你來說會太簡單。
 
-撰寫程式碼以及使用電腦分析資料是一件困難的事情。尤其在學術訓練過程沒有接觸到統計學的研究者，在資料調查後以及整理後，也不知道如何做好統計分析。
-
-這本書提供的程式碼，或許幫得上他們的忙。
-
-
-
-
-
-
-本書的R語言版本：
-```{r}
-sessionInfo()
-```
 
 
 
@@ -74,6 +56,17 @@ sessionInfo()
 
 * [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund.
   * [Hadley Wickham](https://hadley.nz/)是[**RStudio**](https://posit.co/download/rstudio-desktop/)的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。
+  
+  
+  
+
+本書的R語言版本：
+```{r}
+sessionInfo()
+```
+
+
+
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

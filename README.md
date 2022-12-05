@@ -1,14 +1,5 @@
-Welcome! 
+This is a book about agricultural statistical analysis. 
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+這是一本關於農學試驗設計分析的R程式語言書，利用R bookdown撰寫成。
 
-This template provides a skeleton file structure that you can edit to create your book. 
-
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
-333
-
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+https://mullerli.github.io/rcookbook-agri/
