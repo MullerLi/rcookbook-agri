@@ -1,22 +1,54 @@
-# 9.0 利用bookdown寫書
+# 利用bookdown寫書
+
+bookdown 提供的函數可以將R markdown檔案 (.Rmd) 檔，轉換成pdf、html、LaTex、epub等格式。
+
+目前已經應用在產生研究報告、學位論文、Gitbook、個人簡歷等。
+
+本章將介紹如何利用Github發布一個簡單的電子書，只要可以上網就能瀏覽。
+
+事前準備：
+* 安裝好git
+* 安裝好RStudio
+
+## 連結R studio和Github
+
+1. 在 Github 註冊，開啟一個'倉庫' (repository)，先記住'倉庫名稱'與倉庫的 URL
+
+2. 開啟 RStudio，由 Tool -> Global... -> Git，找到 Rstudio 的 SSH key
+
+3. 在 Github personal setting -> key 裡面，輸入 Rstudio 的 SSH key
+
+3. 在 R studio 中...
+
+  file -> NewProject -> version control -> 輸入第一步的建立的'倉庫名稱'與URL -> create new project -> create a book
 
 
-## 9.1 連結R studio和Github
+在project底下，可以看到RStudio自動產生了許多檔案，這些檔案已經包含一個簡易版的電子書，不要更動檔案的位置。
 
-1. 在 Github 上面開啟一個'倉庫' (repository)，先記住'倉庫名稱'與URL
+## 筆記結構
 
-2. 在 Github 個人頁面裡面，輸入Rstudio的 SSH key
+檔案夾中有些地方是我們可以更動的：
+- index.Rmd   : 該電子書的首頁
+- 01-xxxx.Rmd : 第1章書本的內容
+如果撰寫的書籍還不想要發布，可以在檔案名稱前面加上底線
+```
+# bookdown將不會發布檔名最前面包含底線的檔案
+__01-xxx.Rmd
+```
+- 02...
+- _bookdown.yml: 產生電子書的樣式
+- _output.yml  : 產生電子書/pdf等格式的樣式
 
-3. 在 R studio 中，
+這些檔案可以自由修改，每一章節書本內容盡量精簡。
 
-  file -> NewProject -> version control -> 輸入第一步的建立的name與url -> create new project
+修改完後點選 RStudio的knit
 
 
-## 9.2 把筆記變成網站書
+## 把筆記變成網站書
 
-1. 在任何 '.rmd' 檔案編輯資訊，儲存
+1. 在任何 '01-xxxx.rmd' 檔案編輯資訊，儲存
 
-2. 在下方R console輸入指令
+2. 在下方R console輸入指令，下面"index.Rmd"可以修改成要輸出的章節
 
 ```{r eval=FALSE, include=FALSE}
 
@@ -29,21 +61,39 @@ lapply(list.files(pattern = '.Rmd'),function(x)  bookdown::render_book(input = p
 
 ```
 
-3. 執行後，bookdown會自動將markdown檔案轉存為可發布的html~
+3. 執行後，資料夾會多出不少東西，因為 bookdown 已將 markdown 檔案轉存其他格式(範例是gitbook)
 
 
-## 9.3 發布網站書
+## 發布網站書
 
 1. 在 R studio 右上角找到Git
 
-2. 點選 Commit
+2. 點 Commit
 
-3. 勾選左上所有更動的檔案
+3. 左上方格中，選取所有有更動的檔案
 
-4. 在右方message輸入更新資訊
+4. 在右方 message 輸入更新資訊，註明日期與修正處
 
 5. 點右下 commit
 
-6. 點 push，成功！
+6. 點 push，資料就能成功上傳到 github 的倉庫中
+
+
+## 發布
+
+1. 在 Github repository 頁面找到 Settings
+
+2. 左邊找到 Pages
+
+3. 在Build and deployment中找到Branch
+
+4. Branch 下方左方選擇 main、右方選擇 docs
+
+5. 等待幾分鐘之後重新整理，你的網站已經發布在
+
+https:// <Github id> .github.io/ <repository name> /
+
+  
+
 
 

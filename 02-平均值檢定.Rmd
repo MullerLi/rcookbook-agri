@@ -86,9 +86,9 @@ riceYield
 
 `t檢定`在R中是這樣執行的：
 
-```{r echo=FALSE}
+```{r echo=T , eval = F}
 t.test(data = riceYield, 
-       yield ~ variety,    
+       yield ~ treatment,    
        paired = F)       
 ```
 - `t.test`上面有三個指令
@@ -100,21 +100,18 @@ t.test(data = riceYield,
 
 現在來逐行看報表：
 
-```{r echo=T}
+```{r echo=FALSE}
 t.test(data = riceYield, 
-       yield ~ variety,    
+       yield ~ treatment,    
        paired = F,
        conf.level = 0.95)       
 ```
 
 
-- 第1行告訴你這個報表是`Welch Two Sample t-test`
-  - Welch的t檢定是正統`t檢定`的一種變形，是在兩個樣本變異數不同時採用的`近似t檢定`方法，當兩樣本數量(n)相同時，不論變異數如何，採用正統t檢定即可
-
-- 第2行: 表示這一筆資料是將`yield`依照`treatment`分組比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
+- 第2行: 表示資料是將`yield`依照`treatment`分組 (A vs B) 比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
 
 
-- 重點在第3行，可以看到重要的檢定結果：
+- 第3行: 為檢定結果：
   - `t`  : t 值
   - `df` :自由度
   - `p-value` : 表示本次檢定所得 p 值

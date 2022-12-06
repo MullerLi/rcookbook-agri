@@ -23,7 +23,7 @@
 <meta name="author" content="李誠紘 Cheng Hong, Li" />
 
 
-<meta name="date" content="2022-12-05" />
+<meta name="date" content="2022-12-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,6 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#資料下載"><i class="fa fa-check"></i><b>3.1.1</b> 資料下載</a></li>
 <li class="chapter" data-level="3.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>3.1.2</b> 兩樣本t檢定</a></li>
-<li class="chapter" data-level="3.1.3" data-path="平均值檢定.html"><a href="平均值檢定.html#產生結果表"><i class="fa fa-check"></i><b>3.1.3</b> 產生結果表</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
@@ -237,131 +236,118 @@ div.csl-indent {
 <p>超過兩組平均值需要比較的時，<code>t檢定</code>就不再適用，要改採<code>變異數分析</code>或是<code>變方分析</code> (analysis of variance, <code>ANOVA</code>) 來檢定各組平均是否有差異。</p>
 <div id="資料下載" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> 資料下載<a href="平均值檢定.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>本筆資料為<a href="cookbook-agri\dataset\riceyield.csv">riceYield</a>，會由亂數產生，下面這個程式碼只要執行一次就好。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="平均值檢定.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
-<span id="cb6-2"><a href="平均值檢定.html#cb6-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
-<span id="cb6-3"><a href="平均值檢定.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;variety&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
-<span id="cb6-4"><a href="平均值檢定.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
-<span id="cb6-5"><a href="平均值檢定.html#cb6-5" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb6-6"><a href="平均值檢定.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(riceYield,<span class="at">file =</span> <span class="st">&#39;d:/123.csv&#39;</span>)</span></code></pre></div>
+<p>本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="平均值檢定.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
+<span id="cb1-2"><a href="平均值檢定.html#cb1-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="平均值檢定.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
+<span id="cb1-4"><a href="平均值檢定.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
+<span id="cb1-5"><a href="平均值檢定.html#cb1-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
 <p>現在來看看這筆資料長怎樣：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="平均值檢定.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
-<span id="cb7-2"><a href="平均值檢定.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
-<pre><code>##   variety    yield
-## 1       A 5367.599
-## 2       A 4757.511
-## 3       A 4923.657
-## 4       A 5295.084
-## 5       A 5237.809
-## 6       A 5434.349</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="平均值檢定.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
-<span id="cb9-2"><a href="平均值檢定.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
-<pre><code>##    variety    yield
-## 15       B 6115.226
-## 16       B 6750.817
-## 17       B 7001.392
-## 18       B 6401.511
-## 19       B 7218.449
-## 20       B 6618.001</code></pre>
-<p>在上面使用到的2個函數(function)的意思：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="平均值檢定.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
+<span id="cb2-2"><a href="平均值檢定.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
+<pre><code>##   treatment    yield
+## 1         A 5015.090
+## 2         A 5308.283
+## 3         A 4875.547
+## 4         A 5436.963
+## 5         A 4537.099
+## 6         A 5025.210</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="平均值檢定.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
+<span id="cb4-2"><a href="平均值檢定.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 15         B 6495.895
+## 16         B 6723.648
+## 17         B 6365.323
+## 18         B 6906.569
+## 19         B 6406.712
+## 20         B 6584.346</code></pre>
+<p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，<code>treatment</code>和<code>yield</code>；</p>
+<p>在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX…，這些值我們稱為觀測值 (observation)</p>
+<p>觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
+<p>而上方使用到的2個函數(function)的意思：</p>
 <ul>
 <li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
 <li><code>tail(資料名稱)</code>: 查看該資料後6筆的值</li>
 </ul>
+<p>利用這兩個函數，我們可以很快速地查看資料的大致樣態。</p>
 <hr />
 <p>補充</p>
 <ul>
-<li><p>在R中直接輸入「東西的名稱」，而沒有用冒號 ( <code>"</code> or <code>'</code> ) 括起來，就會得到「該東西的內容」。例如上述資料集為 “<code>riceYield</code>” ，所以輸入 <code>riceYield</code> 就會連結到該筆資料。</p></li>
-<li><p>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，R會跟你說，它找不到這個東西(object ‘riceyield’ not found)，因為它只認得<code>riceYield</code>。</p></li>
+<li>在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( <code>"</code> or <code>'</code> ) 括起來，就會得到「該東西的內容」。</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="平均值檢定.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
-<pre><code>## Error in print(riceyield): object &#39;riceyield&#39; not found</code></pre>
+<p>例如上述資料集為 “<code>riceYield</code>” ，所以輸入 <code>riceYield</code> 就會連結到該筆資料。</p>
+<ul>
+<li>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，找不到這個東西(object ‘riceyield’ not found)，因為<code>riceYield</code>才有意義。</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="平均值檢定.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
+<pre><code>## Error in print(riceyield): 找不到物件 &#39;riceyield&#39;</code></pre>
 <hr />
-<p>如果想要查看整筆資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="平均值檢定.html#cb13-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
-<span id="cb13-2"><a href="平均值檢定.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
-<span id="cb13-3"><a href="平均值檢定.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
-<pre><code>##    variety    yield
-## 1        A 5367.599
-## 2        A 4757.511
-## 3        A 4923.657
-## 4        A 5295.084
-## 5        A 5237.809
-## 6        A 5434.349
-## 7        A 5281.583
-## 8        A 5143.759
-## 9        A 5589.771
-## 10       A 4596.646
-## 11       B 7579.097
-## 12       B 6764.765
-## 13       B 6209.460
-## 14       B 6426.764
-## 15       B 6115.226
-## 16       B 6750.817
-## 17       B 7001.392
-## 18       B 6401.511
-## 19       B 7218.449
-## 20       B 6618.001</code></pre>
+<p>如果想要查看<strong>整筆</strong>資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="平均值檢定.html#cb8-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
+<span id="cb8-2"><a href="平均值檢定.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
+<span id="cb8-3"><a href="平均值檢定.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 1          A 5015.090
+## 2          A 5308.283
+## 3          A 4875.547
+## 4          A 5436.963
+## 5          A 4537.099
+## 6          A 5025.210
+## 7          A 5520.488
+## 8          A 5096.867
+## 9          A 3927.819
+## 10         A 5262.197
+## 11         B 6633.838
+## 12         B 6773.340
+## 13         B 6034.642
+## 14         B 6560.962
+## 15         B 6495.895
+## 16         B 6723.648
+## 17         B 6365.323
+## 18         B 6906.569
+## 19         B 6406.712
+## 20         B 6584.346</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> 兩樣本t檢定<a href="平均值檢定.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>t檢定</code>在R中是這樣執行的：</p>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  yield by variety
-## t = -8.8124, df = 15.872, p-value = 1.648e-07
-## alternative hypothesis: true difference in means between group A and group B is not equal to 0
-## 95 percent confidence interval:
-##  -1917.864 -1173.679
-## sample estimates:
-## mean in group A mean in group B 
-##        5162.777        6708.548</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="平均值檢定.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
+<span id="cb10-2"><a href="平均值檢定.html#cb10-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
+<span id="cb10-3"><a href="平均值檢定.html#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
 <ul>
 <li><code>t.test</code>上面有三個指令
 <ul>
 <li>第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料<code>riceYield</code>，所以輸入 <code>data = riceYield</code></li>
 <li>第2個指令和第1個指令中間用 <code>,</code> 相隔</li>
 <li>第2個指令是告訴R比較的方式，寫法是 <code>觀測值 ~ 處理名稱</code>，注意這裡觀測值和處理名稱都<strong>沒有用冒號框住</strong></li>
-<li>第3個指令是樣本<strong>是否成對</strong></li>
+<li>第3個指令是樣本是否成對</li>
 </ul></li>
 </ul>
 <p>現在來逐行看報表：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="平均值檢定.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
-<span id="cb16-2"><a href="平均值檢定.html#cb16-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> variety,    </span>
-<span id="cb16-3"><a href="平均值檢定.html#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F,</span>
-<span id="cb16-4"><a href="平均值檢定.html#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span>)       </span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
-## data:  yield by variety
-## t = -8.8124, df = 15.872, p-value = 1.648e-07
+## data:  yield by treatment
+## t = -9.1894, df = 13.49, p-value = 3.545e-07
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1917.864 -1173.679
+##  -1910.550 -1185.392
 ## sample estimates:
 ## mean in group A mean in group B 
-##        5162.777        6708.548</code></pre>
+##        5000.556        6548.527</code></pre>
 <ul>
-<li>第1行告訴你這個報表是<code>Welch Two Sample t-test</code></li>
-</ul>
-<p>(Welch的t檢定是<code>t檢定</code>的一種變形)</p>
+<li><p>第2行: 表示資料是將<code>yield</code>依照<code>treatment</code>分組 (A vs B) 比較，記得上面我們輸入的 <code>觀測值 ~ 處理名稱</code> 嗎?</p></li>
+<li><p>第3行: 為檢定結果：</p>
 <ul>
-<li><p>第2行: 表示這一筆資料是將<code>yield</code>依照<code>variety</code>分組比較，記得上面我們輸入的 <code>觀測值 ~ 處理名稱</code> 嗎?</p></li>
-<li><p>重點在第3行，可以看到重要的檢定結果：</p>
-<ul>
-<li><code>t</code> : t 值</li>
-<li><code>df</code> :自由度</li>
-<li><code>p-value</code> : 表示本次檢定所得 p 值
+<li><p><code>t</code> : t 值</p></li>
+<li><p><code>df</code> :自由度</p></li>
+<li><p><code>p-value</code> : 表示本次檢定所得 p 值
 p值的表示方式比較特別，用到”e”，e代表10的幾次方：
-<span class="math inline">\(3.639e-08 = 3.639 \times 10^{-8}\)</span></li>
-</ul>
-<p>這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( <span class="math inline">\(H_0:\mu_1 - \mu_2 =0\)</span> )。</p></li>
+<span class="math inline">\(123456e-08 = 1.23456 \times 10^{-8}\)</span></p></li>
+<li><p>這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( <span class="math inline">\(H_0:\mu_1 - \mu_2 =0\)</span> )。</p></li>
+</ul></li>
 </ul>
 <p>結論：在<span class="math inline">\(\alpha = 0.05\)</span>時，兩品種產量具顯著差異。顯著水準<span class="math inline">\(\alpha\)</span>在<code>t.test</code>函數中沒有辦法設定，是這個函數的小缺憾。</p>
-</div>
-<div id="產生結果表" class="section level3 hasAnchor" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> 產生結果表<a href="平均值檢定.html#產生結果表" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 
 </div>
 </div>
