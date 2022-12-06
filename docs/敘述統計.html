@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 4 章 平均值檢定 | R Cookbook for Agricultural Research</title>
+  <title>第 3 章 敘述統計 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 4 章 平均值檢定 | R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="第 3 章 敘述統計 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 4 章 平均值檢定 | R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="第 3 章 敘述統計 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="敘述統計.html"/>
-<link rel="next" href="footnotes-and-citations.html"/>
+<link rel="prev" href="開始之前.html"/>
+<link rel="next" href="平均值檢定.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -232,129 +232,48 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="平均值檢定" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">第 4 章</span> 平均值檢定<a href="平均值檢定.html#平均值檢定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="利用t檢定比較兩個族群平均值" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> 利用t檢定比較兩個族群平均值<a href="平均值檢定.html#利用t檢定比較兩個族群平均值" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>在分析實驗結果時，我們最關切的問題，應屬”平均值之間是否有差異”。</p>
-<p>要比較兩個平均值的差異，可以應用<code>t檢定</code>。</p>
-<p>超過兩組平均值需要比較的時，<code>t檢定</code>就不再適用，要改採<code>變異數分析</code>或是<code>變方分析</code> (analysis of variance, <code>ANOVA</code>) 來檢定各組平均是否有差異。</p>
-<div id="資料下載" class="section level3 hasAnchor" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> 資料下載<a href="平均值檢定.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="平均值檢定.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
-<span id="cb7-2"><a href="平均值檢定.html#cb7-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
-<span id="cb7-3"><a href="平均值檢定.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
-<span id="cb7-4"><a href="平均值檢定.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
-<span id="cb7-5"><a href="平均值檢定.html#cb7-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
-<p>現在來看看這筆資料長怎樣：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="平均值檢定.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
-<span id="cb8-2"><a href="平均值檢定.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
-<pre><code>##   treatment    yield
-## 1         A 4202.358
-## 2         A 4572.962
-## 3         A 5130.388
-## 4         A 4896.308
-## 5         A 4845.350
-## 6         A 4943.770</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="平均值檢定.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
-<span id="cb10-2"><a href="平均值檢定.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
-<pre><code>##    treatment    yield
-## 15         B 6334.437
-## 16         B 6840.489
-## 17         B 6274.802
-## 18         B 6424.516
-## 19         B 6554.388
-## 20         B 6133.145</code></pre>
-<p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，<code>treatment</code>和<code>yield</code>；</p>
-<p>在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX…，這些值我們稱為觀測值 (observation)</p>
-<p>觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
-<p>而上方使用到的2個函數(function)的意思：</p>
-<ul>
-<li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
-<li><code>tail(資料名稱)</code>: 查看該資料後6筆的值</li>
-</ul>
-<p>利用這兩個函數，我們可以很快速地查看資料的大致樣態。</p>
-<hr />
-<p>補充</p>
-<ul>
-<li>在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( <code>"</code> or <code>'</code> ) 括起來，就會得到「該東西的內容」。</li>
-</ul>
-<p>例如上述資料集為 “<code>riceYield</code>” ，所以輸入 <code>riceYield</code> 就會連結到該筆資料。</p>
-<ul>
-<li>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，找不到這個東西(object ‘riceyield’ not found)，因為<code>riceYield</code>才有意義。</li>
-</ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="平均值檢定.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
-<pre><code>## Error in print(riceyield): object &#39;riceyield&#39; not found</code></pre>
-<hr />
-<p>如果想要查看<strong>整筆</strong>資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="平均值檢定.html#cb14-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
-<span id="cb14-2"><a href="平均值檢定.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
-<span id="cb14-3"><a href="平均值檢定.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
-<pre><code>##    treatment    yield
-## 1          A 4202.358
-## 2          A 4572.962
-## 3          A 5130.388
-## 4          A 4896.308
-## 5          A 4845.350
-## 6          A 4943.770
-## 7          A 5650.333
-## 8          A 5557.580
-## 9          A 5152.992
-## 10         A 4247.126
-## 11         B 6429.487
-## 12         B 5963.678
-## 13         B 5715.156
-## 14         B 6459.280
-## 15         B 6334.437
-## 16         B 6840.489
-## 17         B 6274.802
-## 18         B 6424.516
-## 19         B 6554.388
-## 20         B 6133.145</code></pre>
+<div id="敘述統計" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">第 3 章</span> 敘述統計<a href="敘述統計.html#敘述統計" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>這一章節的目的是介紹如何讀取資料，將資料進行簡單的統計量計算分析，例如平均值、樣本變異數、樣本數等等。</p>
+<div id="資料格式" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 資料格式<a href="敘述統計.html#資料格式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>統計分析的資料，以 Excel 檔整理成以下格式，並統一存成 UFT-8 編碼的 csv 檔。</p>
+<pre><code>##    處理 產量
+## 1     A    1
+## 2     A    2
+## 3     A    3
+## 4     A    4
+## 5     A    5
+## 6     A    6
+## 7     A    7
+## 8     A    8
+## 9     A    9
+## 10    A   10
+## 11    B   11
+## 12    B   12
+## 13    B   13
+## 14    B   14
+## 15    B   15
+## 16    B   16
+## 17    B   17
+## 18    B   18
+## 19    B   19
+## 20    B   20</code></pre>
+<p>首先看到這個東西稱為資料表 (dataframe)，</p>
+<p>資料表由2個變數 (variables) 組成，<code>處理</code>和<code>產量</code>；</p>
+<p>變數名稱所在的位置稱為欄位 (columns)，欄位有順序，在上表中，第1欄為<code>處理</code>、第2欄為<code>產量</code>。</p>
+<p>每個欄位下面都有資料值 (values)，稱為觀測值 (observations)，</p>
+<p>觀測值左方的數字為列 (row) 數，可以看到這筆資料有2欄20列。</p>
+<p>若細究資料表的結構，其實他的2個欄位是由2個有名稱的向量組成。</p>
+<p>在開始前，請下載<a href=""><code>此檔案</code></a>，將其存放在 D 槽，以利後續分析。</p>
 </div>
-<div id="兩樣本t檢定" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> 兩樣本t檢定<a href="平均值檢定.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>t檢定</code>在R中是這樣執行的：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="平均值檢定.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
-<span id="cb16-2"><a href="平均值檢定.html#cb16-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
-<span id="cb16-3"><a href="平均值檢定.html#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
-<ul>
-<li><code>t.test</code>上面有三個指令
-<ul>
-<li>第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料<code>riceYield</code>，所以輸入 <code>data = riceYield</code></li>
-<li>第2個指令和第1個指令中間用 <code>,</code> 相隔</li>
-<li>第2個指令是告訴R比較的方式，寫法是 <code>觀測值 ~ 處理名稱</code>，注意這裡觀測值和處理名稱都<strong>沒有用冒號框住</strong></li>
-<li>第3個指令是樣本是否成對</li>
-</ul></li>
-</ul>
-<p>現在來逐行看報表：</p>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  yield by treatment
-## t = -7.5908, df = 15.435, p-value = 1.366e-06
-## alternative hypothesis: true difference in means between group A and group B is not equal to 0
-## 95 percent confidence interval:
-##  -1783.215 -1002.827
-## sample estimates:
-## mean in group A mean in group B 
-##        4919.917        6312.938</code></pre>
-<ul>
-<li><p>第2行: 表示資料是將<code>yield</code>依照<code>treatment</code>分組 (A vs B) 比較，記得上面我們輸入的 <code>觀測值 ~ 處理名稱</code> 嗎?</p></li>
-<li><p>第3行: 為檢定結果：</p>
-<ul>
-<li><p><code>t</code> : t 值</p></li>
-<li><p><code>df</code> :自由度</p></li>
-<li><p><code>p-value</code> : 表示本次檢定所得 p 值
-p值的表示方式比較特別，用到”e”，e代表10的幾次方：
-<span class="math inline">\(123456e-08 = 1.23456 \times 10^{-8}\)</span></p></li>
-<li><p>這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( <span class="math inline">\(H_0:\mu_1 - \mu_2 =0\)</span> )。</p></li>
-</ul></li>
-</ul>
-<p>結論：在<span class="math inline">\(\alpha = 0.05\)</span>時，兩品種產量具顯著差異。顯著水準<span class="math inline">\(\alpha\)</span>在<code>t.test</code>函數中沒有辦法設定，是這個函數的小缺憾。</p>
+<div id="讀取資料" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 讀取資料<a href="敘述統計.html#讀取資料" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>csv 檔可以用 Excel 檔開啟，因此，一旦將原始資料 (raw data) 從紙本輸入到 Excel 中，再轉存成 .csv檔，就可以直接由 R 讀取，相當方便。</p>
+</div>
+<div id="section" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> </h2>
 
-</div>
 </div>
 </div>
             </section>
@@ -362,8 +281,8 @@ p值的表示方式比較特別，用到”e”，e代表10的幾次方：
           </div>
         </div>
       </div>
-<a href="敘述統計.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="footnotes-and-citations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="開始之前.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="平均值檢定.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -394,7 +313,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/03-ttest.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/02-describe.Rmd",
 "text": "Edit"
 },
 "history": {

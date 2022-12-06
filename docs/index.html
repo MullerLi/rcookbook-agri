@@ -169,15 +169,20 @@ div.csl-indent {
 <li class="chapter" data-level="2.1" data-path="開始之前.html"><a href="開始之前.html#第一個-r-程式碼"><i class="fa fa-check"></i><b>2.1</b> 第一個 R 程式碼</a></li>
 <li class="chapter" data-level="2.2" data-path="開始之前.html"><a href="開始之前.html#第一張圖"><i class="fa fa-check"></i><b>2.2</b> 第一張圖</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>3</b> 平均值檢定</a>
+<li class="chapter" data-level="3" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>3</b> 敘述統計</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩個族群平均值"><i class="fa fa-check"></i><b>3.1</b> 利用t檢定比較兩個族群平均值</a>
+<li class="chapter" data-level="3.1" data-path="敘述統計.html"><a href="敘述統計.html#資料格式"><i class="fa fa-check"></i><b>3.1</b> 資料格式</a></li>
+<li class="chapter" data-level="3.2" data-path="敘述統計.html"><a href="敘述統計.html#讀取資料"><i class="fa fa-check"></i><b>3.2</b> 讀取資料</a></li>
+<li class="chapter" data-level="3.3" data-path="敘述統計.html"><a href="敘述統計.html#section"><i class="fa fa-check"></i><b>3.3</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>4</b> 平均值檢定</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#資料下載"><i class="fa fa-check"></i><b>3.1.1</b> 資料下載</a></li>
-<li class="chapter" data-level="3.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>3.1.2</b> 兩樣本t檢定</a></li>
+<li class="chapter" data-level="4.1" data-path="平均值檢定.html"><a href="平均值檢定.html#利用t檢定比較兩個族群平均值"><i class="fa fa-check"></i><b>4.1</b> 利用t檢定比較兩個族群平均值</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="平均值檢定.html"><a href="平均值檢定.html#資料下載"><i class="fa fa-check"></i><b>4.1.1</b> 資料下載</a></li>
+<li class="chapter" data-level="4.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>4.1.2</b> 兩樣本t檢定</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
@@ -263,15 +268,13 @@ div.csl-indent {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.2.2 (2022-10-31 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19045)
+## Running under: Windows 10 x64 (build 19044)
 ## 
 ## Matrix products: default
 ## 
 ## locale:
-## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8 
-## [2] LC_CTYPE=Chinese (Traditional)_Taiwan.utf8   
-## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8
-## [4] LC_NUMERIC=C                                 
+## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8  LC_CTYPE=Chinese (Traditional)_Taiwan.utf8   
+## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8 LC_NUMERIC=C                                 
 ## [5] LC_TIME=Chinese (Traditional)_Taiwan.utf8    
 ## 
 ## attached base packages:
@@ -281,19 +284,16 @@ div.csl-indent {
 ## [1] ggplot2_3.4.0  magrittr_2.0.3
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] highr_0.9        bslib_0.4.1      compiler_4.2.2   pillar_1.8.1    
-##  [5] jquerylib_0.1.4  tools_4.2.2      digest_0.6.30    lattice_0.20-45 
-##  [9] nlme_3.1-160     jsonlite_1.8.3   evaluate_0.18    lifecycle_1.0.3 
-## [13] tibble_3.1.8     gtable_0.3.1     mgcv_1.8-41      pkgconfig_2.0.3 
-## [17] rlang_1.0.6      Matrix_1.5-3     DBI_1.1.3        cli_3.4.1       
-## [21] rstudioapi_0.14  yaml_2.3.6       xfun_0.34        fastmap_1.1.0   
-## [25] withr_2.5.0      dplyr_1.0.10     stringr_1.4.1    knitr_1.40      
-## [29] generics_0.1.3   sass_0.4.2       vctrs_0.5.0      tidyselect_1.2.0
-## [33] grid_4.2.2       glue_1.6.2       R6_2.5.1         fansi_1.0.3     
-## [37] rmarkdown_2.18   bookdown_0.30    farver_2.1.1     splines_4.2.2   
-## [41] scales_1.2.1     htmltools_0.5.3  assertthat_0.2.1 rsconnect_0.8.28
-## [45] colorspace_2.0-3 labeling_0.4.2   utf8_1.2.2       stringi_1.7.8   
-## [49] munsell_0.5.0    cachem_1.0.6</code></pre>
+##  [1] highr_0.9        bslib_0.4.1      compiler_4.2.2   pillar_1.8.1     jquerylib_0.1.4 
+##  [6] tools_4.2.2      digest_0.6.30    lattice_0.20-45  nlme_3.1-160     jsonlite_1.8.3  
+## [11] evaluate_0.18    lifecycle_1.0.3  tibble_3.1.8     gtable_0.3.1     mgcv_1.8-41     
+## [16] pkgconfig_2.0.3  rlang_1.0.6      Matrix_1.5-1     DBI_1.1.3        cli_3.4.1       
+## [21] rstudioapi_0.14  yaml_2.3.6       xfun_0.34        fastmap_1.1.0    withr_2.5.0     
+## [26] stringr_1.4.1    dplyr_1.0.10     knitr_1.40       generics_0.1.3   sass_0.4.2      
+## [31] vctrs_0.5.0      tidyselect_1.2.0 grid_4.2.2       glue_1.6.2       R6_2.5.1        
+## [36] fansi_1.0.3      rmarkdown_2.18   bookdown_0.30    farver_2.1.1     splines_4.2.2   
+## [41] scales_1.2.1     htmltools_0.5.3  assertthat_0.2.1 colorspace_2.0-3 labeling_0.4.2  
+## [46] utf8_1.2.2       stringi_1.7.8    munsell_0.5.0    cachem_1.0.6</code></pre>
 
 </div>
 </div>
