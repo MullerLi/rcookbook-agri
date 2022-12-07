@@ -37,8 +37,8 @@ print('Hello world!')
 你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-pkg = c('magrittr','ggplot2')
-if ( any(pkg) %in% installed.packages() == TRUE) install.packages(pkg[!pkg %in% rownames(installed.packages())]) 
+pkg <- 'ggplot2'
+if ( pkg %in% installed.packages() == TRUE) install.packages(pkg) 
 invisible(lapply(pkg, library, character.only = TRUE))
 
 ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Petal.Width, color = Species))+

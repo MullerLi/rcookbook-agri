@@ -116,8 +116,8 @@ print('Hello world!')
 你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-pkg = c('magrittr','ggplot2')
-if ( any(pkg) %in% installed.packages() == TRUE) install.packages(pkg[!pkg %in% rownames(installed.packages())]) 
+pkg <- 'ggplot2'
+if ( pkg %in% installed.packages() == TRUE) install.packages(pkg) 
 invisible(lapply(pkg, library, character.only = TRUE))
 
 ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Petal.Width, color = Species))+
@@ -199,8 +199,8 @@ iris_df <- read.csv( file = 'D:/iris.csv' )
 1. 箭頭 (<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，取代"箭頭左方"的物件。如果左方的物件是空的，那他就會是箭頭右方物件的新名字。（從今天開始你的代號就是9527！）
 
 2. 取名的時候，要注意規則統一。好的命名原則有兩個：
-  - 底線模式：例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
-  - 駝峰模式：例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭開小
+  - 底線: 例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
+  - 駝峰: 例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭開小
 
 
 ## 
@@ -338,16 +338,26 @@ $123456e-08 = 1.23456 \times 10^{-8}$
 
 <!--chapter:end:03-ttest.Rmd-->
 
----
-title: "linear comparison"
-author: "CHL"
-date: "`r Sys.Date()`"
-output: html_document
----
+# ANOVA
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+## linear model
+
+
+
+## ANOVA
+
+
+
+## LSD test
+
+
+## generate the table
+
+
+
+## Plot the data
+
+<!--chapter:end:04-anova.Rmd-->
 
 ## 有計畫的比較平均值
 

@@ -54,8 +54,8 @@ iris_df <- read.csv( file = 'D:/iris.csv' )
 1. 箭頭 (<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，取代"箭頭左方"的物件。如果左方的物件是空的，那他就會是箭頭右方物件的新名字。（從今天開始你的代號就是9527！）
 
 2. 取名的時候，要注意規則統一。好的命名原則有兩個：
-  - 底線模式：例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
-  - 駝峰模式：例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭開小
+  - 底線: 例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
+  - 駝峰: 例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭開小
 
 
 ## 

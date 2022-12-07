@@ -1,14 +1,3 @@
----
-title: "linear comparison"
-author: "CHL"
-date: "`r Sys.Date()`"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## 有計畫的比較平均值
 
 變方分析結果可以告知「平均值之間是否有差異」。我們可以再利用 {agricolae} 中的 `LSD.test` 進行多重比較，就可以做出完整的結果表格。

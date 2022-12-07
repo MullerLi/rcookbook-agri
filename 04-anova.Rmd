@@ -1,0 +1,18 @@
+# ANOVA
+
+## linear model
+
+
+
+## ANOVA
+
+
+
+## LSD test
+
+
+## generate the table
+
+
+
+## Plot the data
