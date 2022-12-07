@@ -1,0 +1,312 @@
+
+## 拆解 LSD.test 筆記
+
+```{r}
+
+my_LSD.test<-function (y, trt, DFerror, MSerror, alpha = 0.05, p.adj = c("none", 
+                                                            "holm", "hommel", "hochberg", "bonferroni", "BH", "BY", 
+                                                            "fdr"), group = TRUE, main = NULL, console = FALSE) 
+
+```
+
+
+```{r}
+
+m1<-lm(data=iris,  Sepal.Length~Species)
+
+# 輸入 model，回傳誤差的degree of freedom
+df.residual(m1)
+
+# 輸入 model，回傳誤差的sum of square 
+deviance(m1)
+
+# MSE的算法：誤差SS/誤差自由度
+MSE <-function(model) return(deviance(model)/df.residual(model))
+MSE(m1)
+```
+
+
+```{r}
+# pmatch: 在第二個物件裡面找尋前一個物件的元素，逐一模糊比對，並只回傳第一個找到的"位置"
+
+pmatch("Species", c("Sepal.Length", "Species") ) # returns 2
+                                       ##*
+pmatch("med", c("mean", "median", "mode")) # returns 2
+                            #*
+pmatch('me',  c('me','me','1','me'),duplicates.ok=T) # 1
+                 #*
+
+# duplicates.ok = F (預設為F) 第二個物件被比對到之後，不再進行模糊比對
+pmatch(c('me','me'),  c('me','me','1','me'),duplicates.ok=T) # 1 1
+                         #* 
+pmatch(c('me','me'),  c('me','me','1','me'),duplicates.ok=F) # 1 2
+                         #*   #*
+
+ipch <- pmatch(trt, names(A))
+```
+
+```{r}
+# subset 參數依序為
+# 1:dataframe, 2:篩選條件(filter)，可以是TRUE或FALSE的表格，3.選出欄位(select)
+
+subset(airquality, Temp > 80, select = c(Ozone, Temp))
+
+subset(mtcars , vs==1 | am ==0 , select = c(mpg,cyl,vs,am))
+
+# 應用：快速去掉na值data
+
+mydata <- data.frame('x' = c(NA,NA,3,4),
+                     'y' = seq(1:4) )
+
+subset(mydata , is.na(mydata$x) == FALSE )
+                      #注意
+```
+
+```{r}
+#p.adjust 給予p值、調整方法、樣本數，回傳調整後p值
+
+p.adjust( 0.001 , 'bonferroni', 10)
+p.adjust( 0.001 , 'bonferroni', 100)
+
+#(p, method = p.adjust.methods, n = length(p))
+
+#p.adjust.methods
+# c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+#   "fdr", "none")
+
+```
+
+
+
+```{r}
+{
+  p.adj <- match.arg(p.adj)
+  clase <- c("aov", "lm")
+  name.y <- paste(deparse(substitute(y)))
+  name.t <- paste(deparse(substitute(trt)))
+  if (is.null(main)) 
+    main <- paste(name.y, "~", name.t)
+  if ("aov" %in% class(y) | "lm" %in% class(y)) {
+    if (is.null(main)) 
+      main <- y$call
+   
+    
+    # 計算MSE
+    DFerror <- df.residual(y)
+    MSerror <- deviance(y)/DFerror
+    # A 為lm的資料表
+    A <- m1$model
+    
+    # y 為lm的資料表中y變數的值（剛好在第一欄）
+    y <- A[, 1] 
+    trt = 'Species'
+    names(A)[-1]
+    
+    # ipch 是 "處理" 在模型formula中的位置
+    ipch <- pmatch(trt, names(A))
+    # nipch 是 "處理" 在模型formula中的長度(有時會輸入trt為vector)
+    nipch <- length(ipch)
+    
+    for (i in 1:nipch) {
+      if (is.na(ipch[i])) 
+        return(if (console) cat("Name: ", trt, "\n", 
+                                names(A)[-1], "\n"))
+    }
+    name.t <- names(A)[ipch][1]
+    
+    trt <- A[, ipch]
+    # 處理為1組：產生 "處理" 的data.frame
+    if (nipch > 1) {
+      trt <- A[, ipch[1]]
+      # 處理多於兩組：產生 "處理1:處理2" 的data.frame
+      for (i in 2:nipch) {
+        name.t <- paste(name.t, names(A)[ipch][i], sep = ":")
+        trt <- paste(trt, A[, ipch[i]], sep = ":")
+      }
+    }
+    # y觀測值的名稱
+    name.y <- names(A)[1]
+  }
+  ##
+  junto <- subset(data.frame(y, trt), is.na(y) == FALSE)
+  ##
+  Mean <- mean(junto[, 1])
+  CV <- sqrt(MSerror) * 100/Mean
+  medians <- tapply.stat(junto[, 1], junto[, 2], stat = "median")
+  for (i in c(1, 5, 2:4)) {
+    x <- tapply.stat(junto[, 1], junto[, 2], function(x) quantile(x)[i])
+    medians <- cbind(medians, x[, 2])
+  }
+  medians <- medians[, 3:7]
+  names(medians) <- c("Min", "Max", "Q25", "Q50", "Q75")
+  means <- tapply.stat(junto[, 1], junto[, 2], stat = "mean")
+  sds <- tapply.stat(junto[, 1], junto[, 2], stat = "sd")
+  nn <- tapply.stat(junto[, 1], junto[, 2], stat = "length")
+  std.err <- sqrt(MSerror)/sqrt(nn[, 2])
+  Tprob <- qt(1 - alpha/2, DFerror)
+  LCL <- means[, 2] - Tprob * std.err
+  UCL <- means[, 2] + Tprob * std.err
+  means <- data.frame(means, std = sds[, 2], r = nn[, 2], 
+                      LCL, UCL, medians)
+  names(means)[1:2] <- c(name.t, name.y)
+  ntr <- nrow(means)
+  nk <- choose(ntr, 2)
+  if (p.adj != "none") {
+    a <- 1e-06
+    b <- 1
+    for (i in 1:100) {
+      x <- (b + a)/2
+      xr <- rep(x, nk)
+      d <- p.adjust(xr, p.adj)[1] - alpha
+      ar <- rep(a, nk)
+      fa <- p.adjust(ar, p.adj)[1] - alpha
+      if (d * fa < 0) 
+        b <- x
+      if (d * fa > 0) 
+        a <- x
+    }
+    Tprob <- qt(1 - x/2, DFerror)
+  }
+  nr <- unique(nn[, 2])
+  if (console) {
+    cat("\nStudy:", main)
+    if (console) 
+      cat("\n\nLSD t Test for", name.y, "\n")
+    if (p.adj != "none") 
+      cat("P value adjustment method:", p.adj, "\n")
+    cat("\nMean Square Error: ", MSerror, "\n\n")
+    cat(paste(name.t, ",", sep = ""), " means and individual (", 
+        (1 - alpha) * 100, "%) CI\n\n")
+    print(data.frame(row.names = means[, 1], means[, 2:8]))
+    cat("\nAlpha:", alpha, "; DF Error:", DFerror)
+    cat("\nCritical Value of t:", Tprob, "\n")
+  }
+  statistics <- data.frame(MSerror = MSerror, Df = DFerror, 
+                           Mean = Mean, CV = CV)
+  if (length(nr) == 1) 
+    LSD <- Tprob * sqrt(2 * MSerror/nr)
+  if (group & length(nr) == 1 & console) {
+    if (p.adj == "none") 
+      cat("\nleast Significant Difference:", LSD, "\n")
+    else cat("\nMinimum Significant Difference:", LSD, "\n")
+  }
+  if (group & length(nr) != 1 & console) 
+    cat("\nGroups according to probability of means differences and alpha level(", 
+        alpha, ")\n")
+  if (length(nr) == 1 & p.adj == "none") 
+    statistics <- data.frame(statistics, t.value = Tprob, 
+                             LSD = LSD)
+  if (length(nr) == 1 & p.adj != "none") 
+    statistics <- data.frame(statistics, t.value = Tprob, 
+                             MSD = LSD)
+  LSD = " "
+  comb <- utils::combn(ntr, 2)
+  nn <- ncol(comb)
+  dif <- rep(0, nn)
+  pvalue <- dif
+  sdtdif <- dif
+  sig <- rep(" ", nn)
+  for (k in 1:nn) {
+    i <- comb[1, k]
+    j <- comb[2, k]
+    dif[k] <- means[i, 2] - means[j, 2]
+    sdtdif[k] <- sqrt(MSerror * (1/means[i, 4] + 1/means[j, 
+                                                         4]))
+    pvalue[k] <- 2 * (1 - pt(abs(dif[k])/sdtdif[k], DFerror))
+  }
+  
+  if (p.adj != "none") 
+    pvalue <- p.adjust(pvalue, p.adj)
+  pvalue <- round(pvalue, 4)
+  for (k in 1:nn) {
+    if (pvalue[k] <= 0.001) 
+      sig[k] <- "***"
+    else if (pvalue[k] <= 0.01) 
+      sig[k] <- "**"
+    else if (pvalue[k] <= 0.05) 
+      sig[k] <- "*"
+    else if (pvalue[k] <= 0.1) 
+      sig[k] <- "."
+  }
+  
+  tr.i <- means[comb[1, ], 1]
+  tr.j <- means[comb[2, ], 1]
+  LCL <- dif - Tprob * sdtdif
+  UCL <- dif + Tprob * sdtdif
+  
+  comparison <- data.frame(difference = dif, pvalue = pvalue, 
+                           signif. = sig, LCL, UCL)
+  if (p.adj != "bonferroni" & p.adj != "none") {
+    comparison <- comparison[, 1:3]
+  }
+  rownames(comparison) <- paste(tr.i, tr.j, sep = " - ")
+  if (!group) {
+    if (console) {
+      cat("\nComparison between treatments means\n\n")
+      print(comparison)
+    }
+    groups <- NULL
+  }
+  if (group) {
+    comparison = NULL
+    Q <- matrix(1, ncol = ntr, nrow = ntr)
+    p <- pvalue
+    k <- 0
+    for (i in 1:(ntr - 1)) {
+      for (j in (i + 1):ntr) {
+        k <- k + 1
+        Q[i, j] <- p[k]
+        Q[j, i] <- p[k]
+      }
+    }
+    ?orderPvalue
+    groups <- orderPvalue(means[, 1], means[, 2], alpha, 
+                          Q, console)
+    names(groups)[1] <- name.y
+    if (console) {
+      cat("\nTreatments with the same letter are not significantly different.\n\n")
+      print(groups)
+    }
+  }
+  parameters <- data.frame(test = "Fisher-LSD", p.ajusted = p.adj, 
+                           name.t = name.t, ntr = ntr, alpha = alpha)
+  rownames(parameters) <- " "
+  rownames(statistics) <- " "
+  rownames(means) <- means[, 1]
+  means <- means[, -1]
+  output <- list(statistics = statistics, parameters = parameters, 
+                 means = means, comparison = comparison, groups = groups)
+  class(output) <- "group"
+  invisible(output)
+}
+
+
+myf(aov(lm(data=iris, Sepal.Length~Species)),'Species')
+
+```
+This is an R Markdown document themed with [`{bslib}` package](https://rstudio.github.io/bslib/). `{bslib}` makes it easy to customize the main colors and fonts of a `html_document`, [`flexdashboard::flex_dashboard`](https://flexdashboard-pkg.netlify.app/articles/articles/theme.html), [shiny::fluidPage()](https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html), or more generally any website that uses [Bootstrap](https://getbootstrap.com/) for styling. The `theme` parameter in the yaml front-matter of this Rmd document describes a [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html) object. This particular example uses Bootstrap 3 (`version: 3`), which is primarily for 'legacy' documents that would break with Bootstrap 4 or above.
+
+## Themed Plots {.tabset .tabset-pills}
+
+When running this document with [`{thematic}`](https://rstudio.github.io/thematic/) installed, the `thematic::thematic_rmd(font = "auto")` effectively translates `theme` (CSS) settings to new global theming defaults for `{ggplot2}`, `{lattice}`, and `{base}` R graphics:
+
+### ggplot2
+
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() + geom_smooth()
+```
+
+### lattice
+
+```{r}
+lattice::show.settings()
+```
+
+### base
+
+```{r}
+plot(pressure, col = thematic::thematic_get_option("accent"))
+```
