@@ -23,7 +23,7 @@
 <meta name="author" content="李誠紘 Cheng Hong, Li" />
 
 
-<meta name="date" content="2022-12-06" />
+<meta name="date" content="2022-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="敘述統計.html"/>
-<link rel="next" href="footnotes-and-citations.html"/>
+<link rel="next" href="anova.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -119,28 +119,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -173,7 +151,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="敘述統計.html"><a href="敘述統計.html#資料格式"><i class="fa fa-check"></i><b>3.1</b> 資料格式</a></li>
 <li class="chapter" data-level="3.2" data-path="敘述統計.html"><a href="敘述統計.html#讀取資料"><i class="fa fa-check"></i><b>3.2</b> 讀取資料</a></li>
-<li class="chapter" data-level="3.3" data-path="敘述統計.html"><a href="敘述統計.html#section"><i class="fa fa-check"></i><b>3.3</b> </a></li>
+<li class="chapter" data-level="3.3" data-path="敘述統計.html"><a href="敘述統計.html#敘述統計量表"><i class="fa fa-check"></i><b>3.3</b> 敘述統計量表</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>4</b> 平均值檢定</a>
 <ul>
@@ -183,34 +161,18 @@ div.csl-indent {
 <li class="chapter" data-level="4.1.2" data-path="平均值檢定.html"><a href="平均值檢定.html#兩樣本t檢定"><i class="fa fa-check"></i><b>4.1.2</b> 兩樣本t檢定</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> ANOVA</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
-<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+<li class="chapter" data-level="5.1" data-path="anova.html"><a href="anova.html#linear-model"><i class="fa fa-check"></i><b>5.1</b> linear model</a></li>
+<li class="chapter" data-level="5.2" data-path="anova.html"><a href="anova.html#anova-1"><i class="fa fa-check"></i><b>5.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="anova.html"><a href="anova.html#lsd-test"><i class="fa fa-check"></i><b>5.3</b> LSD test</a></li>
+<li class="chapter" data-level="5.4" data-path="anova.html"><a href="anova.html#generate-the-table"><i class="fa fa-check"></i><b>5.4</b> generate the table</a></li>
+<li class="chapter" data-level="5.5" data-path="anova.html"><a href="anova.html#plot-the-data"><i class="fa fa-check"></i><b>5.5</b> Plot the data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<li class="chapter" data-level="6" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>6</b> 有計畫的比較平均值</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
-<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
-<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
-<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
-<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="8" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html"><i class="fa fa-check"></i><b>8</b> 兩個平均值的檢定</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#虛無假說"><i class="fa fa-check"></i><b>8.1</b> 虛無假說</a></li>
-<li class="chapter" data-level="8.2" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#族群變異數已知z檢定"><i class="fa fa-check"></i><b>8.2</b> 族群變異數已知：z檢定</a></li>
-<li class="chapter" data-level="8.3" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#t檢定樣本平均值與常數比較"><i class="fa fa-check"></i><b>8.3</b> t檢定，樣本平均值與常數比較</a></li>
-<li class="chapter" data-level="8.4" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#兩獨立樣本的-t-檢定"><i class="fa fa-check"></i><b>8.4</b> 兩獨立樣本的 t 檢定</a></li>
-<li class="chapter" data-level="8.5" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#正統-t-檢定exact-t-test樣本標準差相同-計算pooled-s"><i class="fa fa-check"></i><b>8.5</b> 正統 t 檢定(exact t test)，樣本標準差相同 (計算pooled S)</a></li>
-<li class="chapter" data-level="8.6" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#近似-t-檢定族群標準差不同-計算pooled-自由度"><i class="fa fa-check"></i><b>8.6</b> 近似 t 檢定，族群標準差不同 (計算pooled 自由度)</a></li>
-<li class="chapter" data-level="8.7" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#小記"><i class="fa fa-check"></i><b>8.7</b> 小記：</a></li>
-<li class="chapter" data-level="8.8" data-path="兩個平均值的檢定.html"><a href="兩個平均值的檢定.html#兩平均值差的信賴區間"><i class="fa fa-check"></i><b>8.8</b> 兩平均值差的信賴區間</a></li>
+<li class="chapter" data-level="6.1" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html#計畫性比較-簡單crd"><i class="fa fa-check"></i><b>6.1</b> 計畫性比較-簡單CRD</a></li>
+<li class="chapter" data-level="6.2" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html#計畫性比較-複雜資料"><i class="fa fa-check"></i><b>6.2</b> 計畫性比較-複雜資料</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -242,30 +204,30 @@ div.csl-indent {
 <div id="資料下載" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> 資料下載<a href="平均值檢定.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="平均值檢定.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
-<span id="cb7-2"><a href="平均值檢定.html#cb7-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
-<span id="cb7-3"><a href="平均值檢定.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
-<span id="cb7-4"><a href="平均值檢定.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
-<span id="cb7-5"><a href="平均值檢定.html#cb7-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="平均值檢定.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
+<span id="cb21-2"><a href="平均值檢定.html#cb21-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb21-3"><a href="平均值檢定.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
+<span id="cb21-4"><a href="平均值檢定.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
+<span id="cb21-5"><a href="平均值檢定.html#cb21-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
 <p>現在來看看這筆資料長怎樣：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="平均值檢定.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
-<span id="cb8-2"><a href="平均值檢定.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="平均值檢定.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
+<span id="cb22-2"><a href="平均值檢定.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
 <pre><code>##   treatment    yield
-## 1         A 4202.358
-## 2         A 4572.962
-## 3         A 5130.388
-## 4         A 4896.308
-## 5         A 4845.350
-## 6         A 4943.770</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="平均值檢定.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
-<span id="cb10-2"><a href="平均值檢定.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
+## 1         A 5029.809
+## 2         A 4954.528
+## 3         A 5361.860
+## 4         A 5158.729
+## 5         A 5334.475
+## 6         A 5165.477</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="平均值檢定.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
+<span id="cb24-2"><a href="平均值檢定.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 15         B 6334.437
-## 16         B 6840.489
-## 17         B 6274.802
-## 18         B 6424.516
-## 19         B 6554.388
-## 20         B 6133.145</code></pre>
+## 15         B 6447.767
+## 16         B 6339.491
+## 17         B 6667.099
+## 18         B 6049.419
+## 19         B 6635.300
+## 20         B 6484.837</code></pre>
 <p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，<code>treatment</code>和<code>yield</code>；</p>
 <p>在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX…，這些值我們稱為觀測值 (observation)</p>
 <p>觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
@@ -284,41 +246,41 @@ div.csl-indent {
 <ul>
 <li>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，找不到這個東西(object ‘riceyield’ not found)，因為<code>riceYield</code>才有意義。</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="平均值檢定.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="平均值檢定.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
 <pre><code>## Error in print(riceyield): object &#39;riceyield&#39; not found</code></pre>
 <hr />
 <p>如果想要查看<strong>整筆</strong>資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="平均值檢定.html#cb14-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
-<span id="cb14-2"><a href="平均值檢定.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
-<span id="cb14-3"><a href="平均值檢定.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="平均值檢定.html#cb28-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
+<span id="cb28-2"><a href="平均值檢定.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
+<span id="cb28-3"><a href="平均值檢定.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 1          A 4202.358
-## 2          A 4572.962
-## 3          A 5130.388
-## 4          A 4896.308
-## 5          A 4845.350
-## 6          A 4943.770
-## 7          A 5650.333
-## 8          A 5557.580
-## 9          A 5152.992
-## 10         A 4247.126
-## 11         B 6429.487
-## 12         B 5963.678
-## 13         B 5715.156
-## 14         B 6459.280
-## 15         B 6334.437
-## 16         B 6840.489
-## 17         B 6274.802
-## 18         B 6424.516
-## 19         B 6554.388
-## 20         B 6133.145</code></pre>
+## 1          A 5029.809
+## 2          A 4954.528
+## 3          A 5361.860
+## 4          A 5158.729
+## 5          A 5334.475
+## 6          A 5165.477
+## 7          A 4735.813
+## 8          A 5347.143
+## 9          A 4696.798
+## 10         A 5568.647
+## 11         B 7116.342
+## 12         B 6890.260
+## 13         B 7314.823
+## 14         B 6657.442
+## 15         B 6447.767
+## 16         B 6339.491
+## 17         B 6667.099
+## 18         B 6049.419
+## 19         B 6635.300
+## 20         B 6484.837</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> 兩樣本t檢定<a href="平均值檢定.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>t檢定</code>在R中是這樣執行的：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="平均值檢定.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
-<span id="cb16-2"><a href="平均值檢定.html#cb16-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
-<span id="cb16-3"><a href="平均值檢定.html#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="平均值檢定.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
+<span id="cb30-2"><a href="平均值檢定.html#cb30-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
+<span id="cb30-3"><a href="平均值檢定.html#cb30-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
 <ul>
 <li><code>t.test</code>上面有三個指令
 <ul>
@@ -333,13 +295,13 @@ div.csl-indent {
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by treatment
-## t = -7.5908, df = 15.435, p-value = 1.366e-06
+## t = -10.326, df = 16.814, p-value = 1.076e-08
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1783.215 -1002.827
+##  -1836.786 -1213.114
 ## sample estimates:
 ## mean in group A mean in group B 
-##        4919.917        6312.938</code></pre>
+##        5135.328        6660.278</code></pre>
 <ul>
 <li><p>第2行: 表示資料是將<code>yield</code>依照<code>treatment</code>分組 (A vs B) 比較，記得上面我們輸入的 <code>觀測值 ~ 處理名稱</code> 嗎?</p></li>
 <li><p>第3行: 為檢定結果：</p>
@@ -363,7 +325,7 @@ p值的表示方式比較特別，用到”e”，e代表10的幾次方：
         </div>
       </div>
 <a href="敘述統計.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="footnotes-and-citations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

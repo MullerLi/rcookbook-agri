@@ -40,7 +40,7 @@ csv 檔可以用 Excel 檔開啟，因此，一旦將寫在紙上的原始資料
 ## 讀取資料
 
 使用`read.csv`函數
-```{r}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 iris_df <- read.csv( file = 'D:/iris.csv' )
 ```
 
@@ -51,14 +51,118 @@ iris_df <- read.csv( file = 'D:/iris.csv' )
 
 這裡有些細節要交代：
 
-1. 箭頭 (<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，取代"箭頭左方"的物件。如果左方的物件是空的，那他就會是箭頭右方物件的新名字。（從今天開始你的代號就是9527！）
+1. 箭頭 (<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，放入"箭頭左方"的物件。
+
+如果左方的物件是空的，左方物件就會變成箭頭右方物件的名字。（從今天開始你的代號就是9527！）
+
+```{r}
+x <- c('破壞死光')
+cat('x = ',x)
+
+x <- c('千變萬花')
+cat('\n新的x = ',x)
+
+```
+
 
 2. 取名的時候，要注意規則統一。好的命名原則有兩個：
   - 底線: 例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
-  - 駝峰: 例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭開小
+  - 駝峰: 例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭為大小字母。
 
 
-## 
+## 敘述統計量表
+
+產生敘述統計量表的方式應該有千萬種，這邊只介紹 2 種方法。
+
+{psych} 套件的 `descrieBy`和`describe`
+
+1. 安裝 {psych} 並啟用
+
+```{r message=FALSE, warning=FALSE}
+# 檢查有無安裝，若無則繼續安裝套件
+if('psych'%in%installed.packages() == FALSE) install.packages('psych')
+
+# 啟用
+library(psych)
+```
 
 
+2. 輸入`describe`
 
+```{r}
+# 產生敘述統計表
+# 使用範例資料集 mtcars (一個車子雜誌的資料)
+psych::describe (mtcars)
+```
+
+這裡你可能會覺得疑惑，報表內的`median`我還看得懂是中位數，那`trimmed`是什麼? 切碎的蠍子嗎?
+
+當對函數的功能有疑惑時，只要在函數前面輸入 `?` 再執行，就可以讀取該函數的說明文檔。
+
+文檔內會包含使用函數的方式、函數吃什麼參數、吐什麼結果、以及範例。
+
+```{r}
+?describeBy
+```
+
+在文檔中可以找到 "trim=.1 – trim means by dropping the top and bottom trim fraction"，也就是去掉最大與最小值的平均值。
+
+
+3. 分組敘述統計與輸出
+
+以上表為例，上表是計算所有變數(mpg, cyl, disp...)的敘述統計量，如果今天想算手排或自排 (vs=1 or 0) 以及 汽缸數 (cyl = 4,6,8) 不同組合的敘述統計量，就要用到分組。
+
+我最常使用 `tidyverse` 來進行分組計算。
+
+```{r}
+pkg<-'tidyverse'
+if(pkg %in% installed.packages() == F) install.packages('tidyverse')
+library(tidyverse)
+
+mtcars %>% 
+  group_by ( vs , cyl ) %>% 
+  summarise( across ( where( is.numeric) , list('avg'=mean, 'se'= se ))) %>% 
+  round(digits = 2)
+```
+
+
+這邊用到的是`tidyverse`中`dplyr`和`magrittr`套件的數個功能~
+
+1. `%>%`: 管線子(pipe)
+
+R 中會用到非常非常多函數( `f(x)` )，如果有一個任務需要你同時使用多個函數，下意識可能會這樣寫：
+```{r eval=FALSE, include=FALSE}
+# 產生100個隨機數字
+x <- rnorm (100)
+# 取絕對值(abs)、開根號(sqrt)、四捨五入到小數點後第二位(round)、顯示前6筆
+x1 <- abs(x)
+x2 <- sqrt(x1)
+x3 <- round(x2 , digits = 2)
+head(x3)
+```
+
+或是這樣，這是所謂的巢狀函數
+```{r eval=FALSE, include=FALSE}
+# 產生100個隨機數字、取絕對值(abs)、開根號(sqrt)、四捨五入到小數點第二位、顯示前6筆
+head(round(sqrt(abs(rnorm (100))),2))
+```
+
+這樣寫起來既冗且不清楚，此時正是管線子派上用場的時候了
+
+在 RStudio 中，管線子`%>%`可以輸入 ctrl+shift+m 就可以產生
+
+```{r}
+rnorm (100) %>% 
+  abs %>% 
+  sqrt %>% 
+  round( . , digits = 2) %>% 
+  head
+# enter 換行，看起來比較舒服
+```
+上面可以發現， `%>%` 一定是左丟到右，而各函數的()甚至可以節省起來
+
+除非函數的參數需要另外輸入，例`round( . , digits = 2) `這一行用 `.` 告訴管線子，資料傳入到第一個參數；用`digits = 2`取四捨五入到小數點後第二位
+
+2. `group_by( 分組變數A , 分組變數B , ... )`
+
+3. `summarize( across ( 條件判斷 , list ( 敘述統計函數1 , 敘述統計函數2 )))`

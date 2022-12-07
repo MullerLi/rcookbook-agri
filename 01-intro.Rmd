@@ -38,7 +38,7 @@ print('Hello world!')
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 pkg <- 'ggplot2'
-if ( pkg %in% installed.packages() == TRUE) install.packages(pkg) 
+if ( pkg %in% installed.packages() == FALSE) install.packages(pkg) 
 invisible(lapply(pkg, library, character.only = TRUE))
 
 ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Petal.Width, color = Species))+
