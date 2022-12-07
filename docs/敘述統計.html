@@ -324,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-3"><a href="敘述統計.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  sqrt <span class="sc">%&gt;%</span> </span>
 <span id="cb18-4"><a href="敘述統計.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>( . , <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb18-5"><a href="敘述統計.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  head</span></code></pre></div>
-<pre><code>## [1] 0.57 1.21 0.37 0.88 0.65 0.77</code></pre>
+<pre><code>## [1] 0.62 0.66 0.93 1.07 1.03 1.35</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="敘述統計.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># enter 換行，看起來比較舒服</span></span></code></pre></div>
 <p>上面可以發現， <code>%&gt;%</code> 一定是左丟到右，而各函數的()甚至可以節省起來</p>
 <p>除非函數的參數需要另外輸入，例<code>round( . , digits = 2)</code>這一行用 <code>.</code> 告訴管線子，資料傳入到第一個參數；用<code>digits = 2</code>取四捨五入到小數點後第二位</p>
