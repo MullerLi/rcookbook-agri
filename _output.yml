@@ -1,20 +1,30 @@
 bookdown::gitbook:
   css: style.css
+  highlight: tango
+  output:
+    bookdown::html_book:
+      theme: lumen
   config:
     toc:
       before: |
         <li><a href="./">R Cookbook for Agronomy Research</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://mullerli.github.io/rcookbook-agri/%s
+    edit: 
+      link: https://mullerli.github.io/rcookbook-agri/%s
     download: null
-    fontsettings:
-        family:Microsoft JhengHei
-        
+    sharing:
+      github: yes
+      facebook: no
+      twitter: no
+      all: no
+    
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
+
 bookdown::epub_book: default
+

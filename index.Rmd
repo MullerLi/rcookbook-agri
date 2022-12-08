@@ -5,18 +5,8 @@ date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
-link-citations: yes
-colorlinks: yes
-lot: yes
-lof: yes
-download: no
 site: bookdown::bookdown_site
-output: 
-  bookdown::gitbook:
-    config:
-      fontsettings:
-        family: Microsoft JhengHei
-      download: null
+output: bookdown::gitbook
 documentclass: book
 github-repo: MullerLi/rcookbook-agri
 description: "利用R程式語言完成農學試驗的統計分析"
@@ -39,24 +29,13 @@ url: 'https://mullerli.github.io/rcookbook-agri/'
 要讀懂這本書，基礎的試驗設計學知識是必須的。
 
 
-## 這不是什麼?
-
-這不是大神寫的書，但這是少見的試驗設計學跟 R 語言的參考文本。
-
-這不是讓你學到高深機器學習技巧的參考文本。若你已經了解資料科學、R 語言，這本書對你來說會太簡單
-
-
-
-
-## 推薦參考資訊
+## 資源
 
 * 
-[資料科學與R語言](http://yijutseng.github.io/DataScienceRBook/index.html) by 長庚大學資管系曾意儒老師。
-  * 這是中文版免費的R教科書。
+[資料科學與R語言](http://yijutseng.github.io/DataScienceRBook/index.html) by 長庚大學資管系曾意儒老師。中文版免費的R教科書。
 
 
-* [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund.
-  * [Hadley Wickham](https://hadley.nz/)是[**RStudio**](https://posit.co/download/rstudio-desktop/)的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。
+* [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund。[Hadley Wickham](https://hadley.nz/)是[RStudio](https://posit.co/download/rstudio-desktop/)的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。
   
   
   

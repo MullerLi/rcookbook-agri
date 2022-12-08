@@ -30,9 +30,11 @@ L1$groups
 
 上述分析包含兩張報表：
 
--   以品種為變因的單因子變方分析，結果`Species`的 *P*\<0.001，顯示棄卻三個品種效應為零的假說（白話文：三品種的平均值之間有顯著差異），
+-   以品種為變因的單因子變方分析，結果`Species`的 *P*<0.001，棄卻三個品種效應為零的假說（白話文：三品種的平均值之間有顯著差異），
 
--   LSD檢定表與各組差異（看起來三個品種平均值兩兩不同），這是基於第一點變方分析的error，是受到變方分析結果保護的保護的LSD (protected LSD)，第一型錯誤率經模擬研究屬於「以試驗為單位的第一型錯誤率」。
+- LSD檢定顯示三個品種平均值兩兩不同，這個結果基於第一點變方分析的線性模式。
+
+- 因為變方分析顯示品種間具顯著差異，所以進行的LSD檢定屬於「受到變方分析結果保護的保護的LSD (protected LSD)」，第一型錯誤率，經模擬研究，確認是屬於「以試驗為單位的第一型錯誤率」。
 
 若想單獨檢定virginica和setosa之間的差異，或是想知道virginica是不是setosa的1.5倍的計畫性比較呢？
 
@@ -122,7 +124,7 @@ riceHerbicide %<>%
          applytime = as.factor(applytime),
          rate = as.factor(rate),
          rep = as.factor(rep))
-riceHerbicide %>% map(class)
+riceHerbicide %>% str
 ```
 接下來可以進行分析
 
@@ -137,7 +139,7 @@ riceHerbicide %>%
 ```
 上表可以看到，控制組(ck)其實產量蠻低的，不到1500，所以殺草劑處理為變因的F檢定很可能是顯著的。
 
-但若是想做計畫性的比較(例如：除草劑效果跟手除效果比較)，就要用線性對比來分析。
+但若是想做計畫性的比較(例如: 比較除草劑效果跟手除效果)，就要用線性對比來分析。
 
 2. 建立線性模式物件
 
@@ -145,7 +147,7 @@ riceHerbicide %>%
 m2 <- lm (data = riceHerbicide , yield ~ treatment + rep ) 
 m2 %>% anova
 ```
-可以看到處理間平均值有顯著差異
+處理間平均值具顯著差異
 
 3. 多重比較
 ```{r}
@@ -153,7 +155,7 @@ L2 <- LSD.test(m2, trt='treatment')
 L2$group
 ```
 
-多重比較可以看出手除兩次(handweeding twice)不遜於除草劑，而Propanil/Ioxynil除草劑效果比較不好，控制組雜草叢生，所以產量最低。
+多重比較可以看出手除兩次(handweeding twice)不遜於除草劑，而Propanil/Ioxynil除草劑效果比較不好。控制組可能因為雜草叢生，所以產量最低。
 
 
 4. 線性對比：除草劑效果跟手除效果比較
@@ -169,17 +171,17 @@ riceHerbicide$treatment %>% levels()
 ```{r}
 # 線性模式
 cfm <- rbind(
-  '0CK -5hand + Herbicide'     = c( 0 , -5 , 1 , 1 , 1 , 1 , 1 ),
+  '-5hand + Herbicide'     = c( 0 , -5 , 1 , 1 , 1 , 1 , 1 ),
   'hand - Propanil/Bromoxynil' = c( 0 , 1  , 0 , 0 , 0 , -1, 0 ),
   'hand - Propanil/Ioxynil'    = c( 0 , 1  , 0 , 0 , 0 , 0 , -1 ) )
 
-glht( m2,
-      linfct = mcp( treatment = cfm)
-      ) %>% summary
+glht( m2 , linfct = mcp( treatment = cfm)) %>%
+  summary
 
 
 ```
-上表可以看出，手除草的效果其實不遜於Propanil/Bromoxynil和Propanil/Ioxynil。
+上表可以看出，手除草的效果其實不遜於除草劑Propanil/Bromoxynil和Propanil/Ioxynil(不論施用時間)。
 
 大家可以多去田裡拔拔草，有益材料生長以及身心健康。
+
 

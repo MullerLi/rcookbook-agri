@@ -1,4 +1,3 @@
-
 # 開始之前
 
 事前作業：下載與安裝好 [R](https://cran.r-project.org/) 及 [RStudio](https://posit.co/download/rstudio-desktop/)
@@ -58,6 +57,9 @@ ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Petal.Width, color = Spe
 
 這個資料集非常有名，包含有加拿大加斯帕半島採集到的三種鳶尾花品種形態資料。(葉茂生老師說：形不是型！不可以弄錯)
 
-像這樣的資料集已經內建在R程式，我們稱為範例資料集，可以用簡單的指令叫出來。
+像這樣的資料集有非常多已經內建在R程式中，我們稱為[範例資料集](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)，可以用`data()`查看可利用那些資料。
+
+
+
 
 
