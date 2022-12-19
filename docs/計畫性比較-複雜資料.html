@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.2 計畫性比較-複雜資料 | R Cookbook for Agricultural Research</title>
+  <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.2 計畫性比較-複雜資料 | R Cookbook for Agricultural Research" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.2 計畫性比較-複雜資料 | R Cookbook for Agricultural Research" />
+  
+  <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
+  
+
+<meta name="author" content="李誠紘 Cheng Hong, Li" />
+
+
+<meta name="date" content="2022-12-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="計畫性比較-簡單crd.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for Agronomy Research</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="這是什麼.html"><a href="這是什麼.html"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>2.1</b> 為什麼要用R?</a></li>
+<li class="chapter" data-level="2.2" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>2.2</b> 下載與安裝R</a></li>
+<li class="chapter" data-level="2.3" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>2.3</b> 第一個 R 程式碼</a></li>
+<li class="chapter" data-level="2.4" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>2.4</b> 第一張圖</a></li>
+<li class="chapter" data-level="2.5" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>2.5</b> 學習地圖(Roadmap)</a></li>
+<li class="chapter" data-level="2.6" data-path="資源.html"><a href="資源.html"><i class="fa fa-check"></i><b>2.6</b> 資源</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>3</b> 敘述統計</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="資料格式.html"><a href="資料格式.html"><i class="fa fa-check"></i><b>3.1</b> 資料格式</a></li>
+<li class="chapter" data-level="3.2" data-path="讀取資料.html"><a href="讀取資料.html"><i class="fa fa-check"></i><b>3.2</b> 讀取資料</a></li>
+<li class="chapter" data-level="3.3" data-path="敘述統計量表.html"><a href="敘述統計量表.html"><i class="fa fa-check"></i><b>3.3</b> 敘述統計量表</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>4</b> 平均值檢定</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html"><i class="fa fa-check"></i><b>4.1</b> 利用t檢定比較兩個族群平均值</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#資料下載"><i class="fa fa-check"></i><b>4.1.1</b> 資料下載</a></li>
+<li class="chapter" data-level="4.1.2" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定"><i class="fa fa-check"></i><b>4.1.2</b> 兩樣本t檢定</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-model.html"><a href="linear-model.html"><i class="fa fa-check"></i><b>5.1</b> linear model</a></li>
+<li class="chapter" data-level="5.2" data-path="anova-1.html"><a href="anova-1.html"><i class="fa fa-check"></i><b>5.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="lsd-test.html"><a href="lsd-test.html"><i class="fa fa-check"></i><b>5.3</b> LSD test</a></li>
+<li class="chapter" data-level="5.4" data-path="generate-the-table.html"><a href="generate-the-table.html"><i class="fa fa-check"></i><b>5.4</b> generate the table</a></li>
+<li class="chapter" data-level="5.5" data-path="plot-the-data.html"><a href="plot-the-data.html"><i class="fa fa-check"></i><b>5.5</b> Plot the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>6</b> 有計畫的比較平均值</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html"><i class="fa fa-check"></i><b>6.1</b> 計畫性比較-簡單CRD</a></li>
+<li class="chapter" data-level="6.2" data-path="計畫性比較-複雜資料.html"><a href="計畫性比較-複雜資料.html"><i class="fa fa-check"></i><b>6.2</b> 計畫性比較-複雜資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Cookbook for Agricultural Research</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="計畫性比較-複雜資料" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 計畫性比較-複雜資料<a href="計畫性比較-複雜資料.html#計畫性比較-複雜資料" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>接下來利用林俊隆老師書中案例IRRI陸稻殺草劑試驗，資料存放在 riceHerbic</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="計畫性比較-複雜資料.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
+<span id="cb64-2"><a href="計畫性比較-複雜資料.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(magrittr)</span></code></pre></div>
+<pre><code>## 載入需要的套件：magrittr</code></pre>
+<pre><code>## 
+## 載入套件：&#39;magrittr&#39;</code></pre>
+<pre><code>## 下列物件被遮斷自 &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## 下列物件被遮斷自 &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="計畫性比較-複雜資料.html#cb69-1" aria-hidden="true" tabindex="-1"></a>riceHerbicide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;dataset/riceHerbicide.csv&#39;</span>)</span>
+<span id="cb69-2"><a href="計畫性比較-複雜資料.html#cb69-2" aria-hidden="true" tabindex="-1"></a>riceHerbicide <span class="sc">%&gt;%</span> str</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
+##  $ treatment: chr  &quot;Handweedingtwice&quot; &quot;Handweedingtwice&quot; &quot;Handweedingtwice&quot; &quot;Handweedingtwice&quot; ...
+##  $ applytime: chr  &quot;15and35&quot; &quot;15and35&quot; &quot;15and35&quot; &quot;15and35&quot; ...
+##  $ rate     : chr  &quot;.&quot; &quot;.&quot; &quot;.&quot; &quot;.&quot; ...
+##  $ rep      : int  1 2 3 4 1 2 3 1 2 3 ...
+##  $ yield    : int  3202 3060 2240 2690 2308 2335 1975 3390 2875 2775 ...</code></pre>
+<p>資料的形態不對，處理的部分被視為<code>character</code>，要修正成<code>factor</code></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="計畫性比較-複雜資料.html#cb71-1" aria-hidden="true" tabindex="-1"></a>riceHerbicide <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb71-2"><a href="計畫性比較-複雜資料.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">as.factor</span>(treatment),</span>
+<span id="cb71-3"><a href="計畫性比較-複雜資料.html#cb71-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">applytime =</span> <span class="fu">as.factor</span>(applytime),</span>
+<span id="cb71-4"><a href="計畫性比較-複雜資料.html#cb71-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">rate =</span> <span class="fu">as.factor</span>(rate),</span>
+<span id="cb71-5"><a href="計畫性比較-複雜資料.html#cb71-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">rep =</span> <span class="fu">as.factor</span>(rep))</span>
+<span id="cb71-6"><a href="計畫性比較-複雜資料.html#cb71-6" aria-hidden="true" tabindex="-1"></a>riceHerbicide <span class="sc">%&gt;%</span> str</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
+##  $ treatment: Factor w/ 7 levels &quot;CK&quot;,&quot;Handweedingtwice&quot;,..: 2 2 2 2 4 4 4 4 4 4 ...
+##  $ applytime: Factor w/ 5 levels &quot;.&quot;,&quot;14&quot;,&quot;15and35&quot;,..: 3 3 3 3 5 5 5 5 5 5 ...
+##  $ rate     : Factor w/ 6 levels &quot;.&quot;,&quot;1.5&quot;,&quot;2&quot;,..: 1 1 1 1 4 4 4 4 4 4 ...
+##  $ rep      : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 1 2 3 4 1 2 3 1 2 3 ...
+##  $ yield    : int  3202 3060 2240 2690 2308 2335 1975 3390 2875 2775 ...</code></pre>
+<p>接下來可以進行分析</p>
+<ol style="list-style-type: decimal">
+<li>首先建立一個統計敘述表</li>
+</ol>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="計畫性比較-複雜資料.html#cb73-1" aria-hidden="true" tabindex="-1"></a>se<span class="ot">&lt;-</span><span class="cf">function</span>(x) <span class="fu">return</span>( <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">length</span>(x) )</span>
+<span id="cb73-2"><a href="計畫性比較-複雜資料.html#cb73-2" aria-hidden="true" tabindex="-1"></a>riceHerbicide <span class="sc">%&gt;%</span> </span>
+<span id="cb73-3"><a href="計畫性比較-複雜資料.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>( treatment , applytime ) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-4"><a href="計畫性比較-複雜資料.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">across</span>( is.numeric, <span class="fu">list</span>(<span class="st">&#39;n&#39;</span> <span class="ot">=</span> length,<span class="st">&#39;avg&#39;</span><span class="ot">=</span>mean,<span class="st">&#39;se&#39;</span><span class="ot">=</span>se )))</span></code></pre></div>
+<pre><code>## Warning: Use of bare predicate functions was deprecated in tidyselect 1.1.0.
+## ℹ Please use wrap predicates in `where()` instead.
+##   # Was:
+##   data %&gt;% select(is.numeric)
+## 
+##   # Now:
+##   data %&gt;% select(where(is.numeric))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;treatment&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 10 × 5
+## # Groups:   treatment [7]
+##    treatment           applytime yield_n yield_avg yield_se
+##    &lt;fct&gt;               &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 CK                  .               4     1237.     71.2
+##  2 Handweedingtwice    15and35         4     2798     108. 
+##  3 Phenyedipham        14              3     2565.    117. 
+##  4 Proapnil/2,4-D      28              6     2610.     84.2
+##  5 Proapnil/CHCH       21              3     2568.     96.6
+##  6 Propanil/Bromoxynil 14              4     2948.    104. 
+##  7 Propanil/Bromoxynil 21              4     3644     167. 
+##  8 Propanil/Bromoxynil 28              4     2484.    136. 
+##  9 Propanil/Ioxynil    14              4     2910.    126. 
+## 10 Propanil/Ioxynil    28              4     2041      48.5</code></pre>
+<p>上表可以看到，控制組(ck)其實產量蠻低的，不到1500，所以殺草劑處理為變因的F檢定很可能是顯著的。</p>
+<p>但若是想做計畫性的比較(例如: 比較除草劑效果跟手除效果)，就要用線性對比來分析。</p>
+<ol start="2" style="list-style-type: decimal">
+<li>建立線性模式物件</li>
+</ol>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="計畫性比較-複雜資料.html#cb77-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span> (<span class="at">data =</span> riceHerbicide , yield <span class="sc">~</span> treatment <span class="sc">+</span> rep ) </span>
+<span id="cb77-2"><a href="計畫性比較-複雜資料.html#cb77-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="sc">%&gt;%</span> anova</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: yield
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## treatment  6 9874945 1645824  5.1905 0.0009145 ***
+## rep        3  822264  274088  0.8644 0.4702886    
+## Residuals 30 9512515  317084                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>處理間平均值具顯著差異</p>
+<ol start="3" style="list-style-type: decimal">
+<li>多重比較</li>
+</ol>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="計畫性比較-複雜資料.html#cb79-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">LSD.test</span>(m2, <span class="at">trt=</span><span class="st">&#39;treatment&#39;</span>)</span>
+<span id="cb79-2"><a href="計畫性比較-複雜資料.html#cb79-2" aria-hidden="true" tabindex="-1"></a>L2<span class="sc">$</span>group</span></code></pre></div>
+<pre><code>##                        yield groups
+## Propanil/Bromoxynil 3025.250      a
+## Handweedingtwice    2798.000     ab
+## Proapnil/2,4-D      2609.667     ab
+## Proapnil/CHCH       2567.667     ab
+## Phenyedipham        2564.667     ab
+## Propanil/Ioxynil    2475.250      b
+## CK                  1237.250      c</code></pre>
+<p>多重比較可以看出手除兩次(handweeding twice)不遜於除草劑，而Propanil/Ioxynil除草劑效果比較不好。控制組可能因為雜草叢生，所以產量最低。</p>
+<ol start="4" style="list-style-type: decimal">
+<li>線性對比：除草劑效果跟手除效果比較</li>
+</ol>
+<p>這裡的處理因子有7個等級，建立矩陣前，先查看這7個等級的順序，再依此建立比較矩陣。</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="計畫性比較-複雜資料.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compaison: CK vs Herbicide</span></span>
+<span id="cb81-2"><a href="計畫性比較-複雜資料.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 因子排列順序</span></span>
+<span id="cb81-3"><a href="計畫性比較-複雜資料.html#cb81-3" aria-hidden="true" tabindex="-1"></a>riceHerbicide<span class="sc">$</span>treatment <span class="sc">%&gt;%</span> <span class="fu">levels</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;CK&quot;                  &quot;Handweedingtwice&quot;    &quot;Phenyedipham&quot;       
+## [4] &quot;Proapnil/2,4-D&quot;      &quot;Proapnil/CHCH&quot;       &quot;Propanil/Bromoxynil&quot;
+## [7] &quot;Propanil/Ioxynil&quot;</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="計畫性比較-複雜資料.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 特定線性模式</span></span>
+<span id="cb83-2"><a href="計畫性比較-複雜資料.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glht</span>( m2 , <span class="at">linfct =</span> <span class="fu">mcp</span>( <span class="at">treatment =</span> <span class="st">&#39;Tukey&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="計畫性比較-複雜資料.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  summary</span></code></pre></div>
+<pre><code>## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Tukey Contrasts
+## 
+## 
+## Fit: lm(formula = yield ~ treatment + rep, data = riceHerbicide)
+## 
+## Linear Hypotheses:
+##                                             Estimate Std. Error t value
+## Handweedingtwice - CK == 0                   1560.75     398.17   3.920
+## Phenyedipham - CK == 0                       1254.01     434.44   2.886
+## Proapnil/2,4-D - CK == 0                     1299.01     368.64   3.524
+## Proapnil/CHCH - CK == 0                      1257.01     434.44   2.893
+## Propanil/Bromoxynil - CK == 0                1788.00     325.11   5.500
+## Propanil/Ioxynil - CK == 0                   1238.00     344.83   3.590
+## Phenyedipham - Handweedingtwice == 0         -306.74     434.44  -0.706
+## Proapnil/2,4-D - Handweedingtwice == 0       -261.74     368.64  -0.710
+## Proapnil/CHCH - Handweedingtwice == 0        -303.74     434.44  -0.699
+## Propanil/Bromoxynil - Handweedingtwice == 0   227.25     325.11   0.699
+## Propanil/Ioxynil - Handweedingtwice == 0     -322.75     344.83  -0.936
+## Proapnil/2,4-D - Phenyedipham == 0             45.00     398.17   0.113
+## Proapnil/CHCH - Phenyedipham == 0               3.00     459.77   0.007
+## Propanil/Bromoxynil - Phenyedipham == 0       533.99     368.64   1.449
+## Propanil/Ioxynil - Phenyedipham == 0          -16.01     386.14  -0.041
+## Proapnil/CHCH - Proapnil/2,4-D == 0           -42.00     398.17  -0.105
+## Propanil/Bromoxynil - Proapnil/2,4-D == 0     488.99     288.18   1.697
+## Propanil/Ioxynil - Proapnil/2,4-D == 0        -61.01     310.25  -0.197
+## Propanil/Bromoxynil - Proapnil/CHCH == 0      530.99     368.64   1.440
+## Propanil/Ioxynil - Proapnil/CHCH == 0         -19.01     386.14  -0.049
+## Propanil/Ioxynil - Propanil/Bromoxynil == 0  -550.00     257.02  -2.140
+##                                             Pr(&gt;|t|)    
+## Handweedingtwice - CK == 0                   0.00726 ** 
+## Phenyedipham - CK == 0                       0.08726 .  
+## Proapnil/2,4-D - CK == 0                     0.01992 *  
+## Proapnil/CHCH - CK == 0                      0.08586 .  
+## Propanil/Bromoxynil - CK == 0                &lt; 0.001 ***
+## Propanil/Ioxynil - CK == 0                   0.01698 *  
+## Phenyedipham - Handweedingtwice == 0         0.99068    
+## Proapnil/2,4-D - Handweedingtwice == 0       0.99040    
+## Proapnil/CHCH - Handweedingtwice == 0        0.99116    
+## Propanil/Bromoxynil - Handweedingtwice == 0  0.99117    
+## Propanil/Ioxynil - Handweedingtwice == 0     0.96157    
+## Proapnil/2,4-D - Phenyedipham == 0           1.00000    
+## Proapnil/CHCH - Phenyedipham == 0            1.00000    
+## Propanil/Bromoxynil - Phenyedipham == 0      0.76372    
+## Propanil/Ioxynil - Phenyedipham == 0         1.00000    
+## Proapnil/CHCH - Proapnil/2,4-D == 0          1.00000    
+## Propanil/Bromoxynil - Proapnil/2,4-D == 0    0.61358    
+## Propanil/Ioxynil - Proapnil/2,4-D == 0       0.99999    
+## Propanil/Bromoxynil - Proapnil/CHCH == 0     0.76829    
+## Propanil/Ioxynil - Proapnil/CHCH == 0        1.00000    
+## Propanil/Ioxynil - Propanil/Bromoxynil == 0  0.34704    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## (Adjusted p values reported -- single-step method)</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="計畫性比較-複雜資料.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 特定線性模式</span></span>
+<span id="cb85-2"><a href="計畫性比較-複雜資料.html#cb85-2" aria-hidden="true" tabindex="-1"></a>cfm <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb85-3"><a href="計畫性比較-複雜資料.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;-5hand + Herbicide&#39;</span>     <span class="ot">=</span> <span class="fu">c</span>( <span class="dv">0</span> , <span class="sc">-</span><span class="dv">5</span> , <span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">1</span> ),</span>
+<span id="cb85-4"><a href="計畫性比較-複雜資料.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;hand - Propanil/Bromoxynil&#39;</span> <span class="ot">=</span> <span class="fu">c</span>( <span class="dv">0</span> , <span class="dv">1</span>  , <span class="dv">0</span> , <span class="dv">0</span> , <span class="dv">0</span> , <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span> ),</span>
+<span id="cb85-5"><a href="計畫性比較-複雜資料.html#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;hand - Propanil/Ioxynil&#39;</span>    <span class="ot">=</span> <span class="fu">c</span>( <span class="dv">0</span> , <span class="dv">1</span>  , <span class="dv">0</span> , <span class="dv">0</span> , <span class="dv">0</span> , <span class="dv">0</span> , <span class="sc">-</span><span class="dv">1</span> ) )</span>
+<span id="cb85-6"><a href="計畫性比較-複雜資料.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="計畫性比較-複雜資料.html#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glht</span>( m2 , <span class="at">linfct =</span> <span class="fu">mcp</span>( <span class="at">treatment =</span> cfm)) <span class="sc">%&gt;%</span></span>
+<span id="cb85-8"><a href="計畫性比較-複雜資料.html#cb85-8" aria-hidden="true" tabindex="-1"></a>  summary</span></code></pre></div>
+<pre><code>## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: User-defined Contrasts
+## 
+## 
+## Fit: lm(formula = yield ~ treatment + rep, data = riceHerbicide)
+## 
+## Linear Hypotheses:
+##                                 Estimate Std. Error t value Pr(&gt;|t|)
+## -5hand + Herbicide == 0           -967.7     1531.7  -0.632    0.777
+## hand - Propanil/Bromoxynil == 0   -227.3      325.1  -0.699    0.730
+## hand - Propanil/Ioxynil == 0       322.7      344.8   0.936    0.565
+## (Adjusted p values reported -- single-step method)</code></pre>
+<p>上表可以看出，手除草的效果其實不遜於除草劑Propanil/Bromoxynil和Propanil/Ioxynil(不論施用時間)。</p>
+<p>大家可以多去田裡拔拔草，有益材料生長以及身心健康。</p>
+
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="計畫性比較-簡單crd.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://mullerli.github.io/rcookbook-agri/05-GLHG.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

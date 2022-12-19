@@ -1,4 +1,4 @@
---- 
+---
 title: "R Cookbook for Agricultural Research"
 author: "李誠紘 Cheng Hong, Li"
 date: "`r Sys.Date()`"
@@ -17,7 +17,6 @@ url: 'https://mullerli.github.io/rcookbook-agri/'
 
 這是一本關於統計程式語言 R 的筆記，嘗試 (用白話文) 記錄我在 **農業試驗研究** 上使用的 R 程式語言。
 
-
 ## 這是什麼?
 
 這是一個利用 [R](https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80) bookdown 撰寫，部屬在Github Page上的電子書。
@@ -28,29 +27,25 @@ url: 'https://mullerli.github.io/rcookbook-agri/'
 
 要讀懂這本書，基礎的試驗設計學知識是必須的。
 
-
-## 資源
-
-* 
-[資料科學與R語言](http://yijutseng.github.io/DataScienceRBook/index.html) by 長庚大學資管系曾意儒老師。中文版免費的R教科書。
-
-
-* [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund。[Hadley Wickham](https://hadley.nz/)是[RStudio](https://posit.co/download/rstudio-desktop/)的科學家，也是R語言的耶穌。他寫出來的套件(packages)讓R語言變得更容易使用。這本書用生動有趣的文法介紹資料科學與R的好用套件。
-  
-  
-  
-
-本書的R語言版本：
-```{r}
-sessionInfo()
+本書使用到的套件，複製到R環境執行即完成安裝與啟用：
+```{r include=TRUE}
+pkgs <- c('car','MASS','magrittr','tidyverse','lme4','lmerTest','multcomp','agricolae','dplyr','lsmeans','emmeans','psych')
+if (!any(pkgs %in% installed.packages())) {install.packages(pkgs[!pkgs %in% installed.packages()])}
+invisible(lapply(pkgs , library , character.only=TRUE))
 ```
 
 
-
+本書的R版本
+```{r}
+sessionInfo()
+```
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
+library(formatR)
+library(knitr)
+
 ```

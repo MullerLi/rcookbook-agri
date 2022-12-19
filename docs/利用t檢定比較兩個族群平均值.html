@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research</title>
+  <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research" />
+  
+  <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
+  
+
+<meta name="author" content="李誠紘 Cheng Hong, Li" />
+
+
+<meta name="date" content="2022-12-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="平均值檢定.html"/>
+<link rel="next" href="anova.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for Agronomy Research</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="這是什麼.html"><a href="這是什麼.html"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>2.1</b> 為什麼要用R?</a></li>
+<li class="chapter" data-level="2.2" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>2.2</b> 下載與安裝R</a></li>
+<li class="chapter" data-level="2.3" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>2.3</b> 第一個 R 程式碼</a></li>
+<li class="chapter" data-level="2.4" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>2.4</b> 第一張圖</a></li>
+<li class="chapter" data-level="2.5" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>2.5</b> 學習地圖(Roadmap)</a></li>
+<li class="chapter" data-level="2.6" data-path="資源.html"><a href="資源.html"><i class="fa fa-check"></i><b>2.6</b> 資源</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>3</b> 敘述統計</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="資料格式.html"><a href="資料格式.html"><i class="fa fa-check"></i><b>3.1</b> 資料格式</a></li>
+<li class="chapter" data-level="3.2" data-path="讀取資料.html"><a href="讀取資料.html"><i class="fa fa-check"></i><b>3.2</b> 讀取資料</a></li>
+<li class="chapter" data-level="3.3" data-path="敘述統計量表.html"><a href="敘述統計量表.html"><i class="fa fa-check"></i><b>3.3</b> 敘述統計量表</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>4</b> 平均值檢定</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html"><i class="fa fa-check"></i><b>4.1</b> 利用t檢定比較兩個族群平均值</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#資料下載"><i class="fa fa-check"></i><b>4.1.1</b> 資料下載</a></li>
+<li class="chapter" data-level="4.1.2" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定"><i class="fa fa-check"></i><b>4.1.2</b> 兩樣本t檢定</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-model.html"><a href="linear-model.html"><i class="fa fa-check"></i><b>5.1</b> linear model</a></li>
+<li class="chapter" data-level="5.2" data-path="anova-1.html"><a href="anova-1.html"><i class="fa fa-check"></i><b>5.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="lsd-test.html"><a href="lsd-test.html"><i class="fa fa-check"></i><b>5.3</b> LSD test</a></li>
+<li class="chapter" data-level="5.4" data-path="generate-the-table.html"><a href="generate-the-table.html"><i class="fa fa-check"></i><b>5.4</b> generate the table</a></li>
+<li class="chapter" data-level="5.5" data-path="plot-the-data.html"><a href="plot-the-data.html"><i class="fa fa-check"></i><b>5.5</b> Plot the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>6</b> 有計畫的比較平均值</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html"><i class="fa fa-check"></i><b>6.1</b> 計畫性比較-簡單CRD</a></li>
+<li class="chapter" data-level="6.2" data-path="計畫性比較-複雜資料.html"><a href="計畫性比較-複雜資料.html"><i class="fa fa-check"></i><b>6.2</b> 計畫性比較-複雜資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Cookbook for Agricultural Research</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="利用t檢定比較兩個族群平均值" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 利用t檢定比較兩個族群平均值<a href="利用t檢定比較兩個族群平均值.html#利用t檢定比較兩個族群平均值" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在分析實驗結果時，我們最關切的問題，應屬”平均值之間是否有差異”。</p>
+<p>要比較兩個平均值的差異，可以應用<code>t檢定</code>。</p>
+<p>超過兩組平均值需要比較的時，<code>t檢定</code>就不再適用，要改採<code>變異數分析</code>或是<code>變方分析</code> (analysis of variance, <code>ANOVA</code>) 來檢定各組平均是否有差異。</p>
+<div id="資料下載" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 資料下載<a href="利用t檢定比較兩個族群平均值.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="利用t檢定比較兩個族群平均值.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
+<span id="cb20-2"><a href="利用t檢定比較兩個族群平均值.html#cb20-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb20-3"><a href="利用t檢定比較兩個族群平均值.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
+<span id="cb20-4"><a href="利用t檢定比較兩個族群平均值.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
+<span id="cb20-5"><a href="利用t檢定比較兩個族群平均值.html#cb20-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
+<p>現在來看看這筆資料長怎樣：</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="利用t檢定比較兩個族群平均值.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
+<span id="cb21-2"><a href="利用t檢定比較兩個族群平均值.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
+<pre><code>##   treatment    yield
+## 1         A 5224.234
+## 2         A 5470.045
+## 3         A 5420.421
+## 4         A 4912.370
+## 5         A 4888.767
+## 6         A 4406.588</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用t檢定比較兩個族群平均值.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
+<span id="cb23-2"><a href="利用t檢定比較兩個族群平均值.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 15         B 6807.735
+## 16         B 6480.776
+## 17         B 7095.848
+## 18         B 5859.819
+## 19         B 5946.086
+## 20         B 5870.863</code></pre>
+<p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，<code>treatment</code>和<code>yield</code>；</p>
+<p>在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX…，這些值我們稱為觀測值 (observation)</p>
+<p>觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
+<p>而上方使用到的2個函數(function)的意思：</p>
+<ul>
+<li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
+<li><code>tail(資料名稱)</code>: 查看該資料後6筆的值</li>
+</ul>
+<p>利用這兩個函數，我們可以很快速地查看資料的大致樣態。</p>
+<hr />
+<p>補充</p>
+<ul>
+<li>在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( <code>"</code> or <code>'</code> ) 括起來，就會得到「該東西的內容」。</li>
+</ul>
+<p>例如上述資料集為 “<code>riceYield</code>” ，所以輸入 <code>riceYield</code> 就會連結到該筆資料。</p>
+<ul>
+<li>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 <code>riceyield</code> 或 <code>Riceyield</code> 或 <code>RiceYield</code> 會跳出錯誤，找不到這個東西(object ‘riceyield’ not found)，因為<code>riceYield</code>才有意義。</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="利用t檢定比較兩個族群平均值.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
+<pre><code>## Error in print(riceyield): 找不到物件 &#39;riceyield&#39;</code></pre>
+<hr />
+<p>如果想要查看<strong>整筆</strong>資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="利用t檢定比較兩個族群平均值.html#cb27-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
+<span id="cb27-2"><a href="利用t檢定比較兩個族群平均值.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
+<span id="cb27-3"><a href="利用t檢定比較兩個族群平均值.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 1          A 5224.234
+## 2          A 5470.045
+## 3          A 5420.421
+## 4          A 4912.370
+## 5          A 4888.767
+## 6          A 4406.588
+## 7          A 5031.941
+## 8          A 5335.079
+## 9          A 5859.621
+## 10         A 4562.571
+## 11         B 6444.471
+## 12         B 6701.033
+## 13         B 5787.874
+## 14         B 7107.067
+## 15         B 6807.735
+## 16         B 6480.776
+## 17         B 7095.848
+## 18         B 5859.819
+## 19         B 5946.086
+## 20         B 5870.863</code></pre>
+</div>
+<div id="兩樣本t檢定" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 兩樣本t檢定<a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>t檢定</code>在R中是這樣執行的：</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="利用t檢定比較兩個族群平均值.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
+<span id="cb29-2"><a href="利用t檢定比較兩個族群平均值.html#cb29-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
+<span id="cb29-3"><a href="利用t檢定比較兩個族群平均值.html#cb29-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
+<ul>
+<li><code>t.test</code>上面有三個指令
+<ul>
+<li>第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料<code>riceYield</code>，所以輸入 <code>data = riceYield</code></li>
+<li>第2個指令和第1個指令中間用 <code>,</code> 相隔</li>
+<li>第2個指令是告訴R比較的方式，寫法是 <code>觀測值 ~ 處理名稱</code>，注意這裡觀測值和處理名稱都<strong>沒有用冒號框住</strong></li>
+<li>第3個指令是樣本是否成對</li>
+</ul></li>
+</ul>
+<p>現在來逐行看報表：</p>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  yield by treatment
+## t = -6.0557, df = 17.553, p-value = 1.12e-05
+## alternative hypothesis: true difference in means between group A and group B is not equal to 0
+## 95 percent confidence interval:
+##  -1750.4798  -847.5072
+## sample estimates:
+## mean in group A mean in group B 
+##        5111.164        6410.157</code></pre>
+<ul>
+<li><p>第2行: 表示資料是將<code>yield</code>依照<code>treatment</code>分組 (A vs B) 比較，記得上面我們輸入的 <code>觀測值 ~ 處理名稱</code> 嗎?</p></li>
+<li><p>第3行: 為檢定結果：</p>
+<ul>
+<li><p><code>t</code> : t 值</p></li>
+<li><p><code>df</code> :自由度</p></li>
+<li><p><code>p-value</code> : 表示本次檢定所得 p 值
+p值的表示方式比較特別，用到”e”，e代表10的幾次方：
+<span class="math inline">\(123456e-08 = 1.23456 \times 10^{-8}\)</span></p></li>
+<li><p>這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( <span class="math inline">\(H_0:\mu_1 - \mu_2 =0\)</span> )。</p></li>
+</ul></li>
+</ul>
+<p>結論：在<span class="math inline">\(\alpha = 0.05\)</span>時，兩品種產量具顯著差異。顯著水準<span class="math inline">\(\alpha\)</span>在<code>t.test</code>函數中沒有辦法設定，是這個函數的小缺憾。</p>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="平均值檢定.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://mullerli.github.io/rcookbook-agri/03-ttest.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
