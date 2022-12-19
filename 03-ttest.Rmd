@@ -3,11 +3,7 @@
 
 ## 利用t檢定比較兩個族群平均值
 
-在分析實驗結果時，我們最關切的問題，應屬"平均值之間是否有差異"。
-
-要比較兩個平均值的差異，可以應用`t檢定`。
-
-超過兩組平均值需要比較的時，`t檢定`就不再適用，要改採`變異數分析`或是`變方分析` (analysis of variance, `ANOVA`) 來檢定各組平均是否有差異。
+在分析實驗結果時，我們最關切的問題，應屬"平均值之間是否有差異"。比較兩個平均值的差異，可以用t檢定；超過兩組平均值的比較，可用` (analysis of variance, ANOVA) 來檢定各組平均是否有差異。
 
 
 ### 資料下載
@@ -43,11 +39,7 @@ tail(riceYield)
 # 查看 後 10筆資料
 tail(riceYield)
 ```
-首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，`treatment`和`yield`；
-
-在每個欄位下面都有很多筆資料，例如 B 61XX、B 60XX...，這些值我們稱為觀測值 (observation)
-
-觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。
+首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，treatment和yield；在每個欄位下面都有很多筆資料，這些值我們稱為觀測值 (observation)；觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。
 
 而上方使用到的2個函數(function)的意思：
 
@@ -60,18 +52,18 @@ tail(riceYield)
 
 補充
 
-* 在 R 中直接輸入「東西的名稱」，而沒有用冒號 ( `"` or `'` ) 括起來，就會得到「該東西的內容」。
+* 在 R 中直接輸入「物件的名稱」，而沒有用冒號 ( " or ' ) 括起來，就會得到「物件的內容」。
 
-例如上述資料集為 "`riceYield`" ，所以輸入 `riceYield` 就會連結到該筆資料。
+例如上述資料集為"riceYield"，所以輸入riceYield就會連結到該筆資料。
 
-* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入 `riceyield` 或 `Riceyield` 或 `RiceYield` 會跳出錯誤，找不到這個東西(object 'riceyield' not found)，因為`riceYield`才有意義。
+* 英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入riceyield或Riceyield或RiceYield會跳出錯誤，找不到這個東西(object 'riceyield' not found)，因為riceYield才有意義。
 ```{r echo=TRUE, error=TRUE}
 print(riceyield)
 ```
 
 ---
 
-如果想要查看**整筆**資料，可以直接輸入資料名稱，或是`print(資料名稱)`
+如果想要查看整筆資料，可以直接輸入資料名稱，或是`print(資料名稱)`、`view(資料名稱)`
 ```{r eval=F,echo=TRUE, error=TRUE}
 riceYield
 # 等同於
@@ -84,7 +76,6 @@ riceYield
 
 ### 兩樣本t檢定
 
-`t檢定`在R中是這樣執行的：
 
 ```{r echo=T , eval = F}
 t.test(data = riceYield, 
@@ -92,9 +83,9 @@ t.test(data = riceYield,
        paired = F)       
 ```
 - `t.test`上面有三個指令
-  - 第1個指令該筆資料的名稱，這筆資料名是我在自己創造的亂數資料`riceYield`，所以輸入 `data = riceYield`
-  - 第2個指令和第1個指令中間用 `,` 相隔
-  - 第2個指令是告訴R比較的方式，寫法是  `觀測值 ~ 處理名稱`，注意這裡觀測值和處理名稱都**沒有用冒號框住**
+  - 第1個指令該筆資料的名稱，這筆資料名是資料riceYield，輸入data = riceYield
+  - 第2個指令和第1個指令中間用 , 相隔
+  - 第2個指令是告訴R比較的方式，寫法是  觀測值 ~ 處理名稱，注意這裡觀測值和處理名稱都沒有用冒號框住
   - 第3個指令是樣本是否成對
 
 
@@ -108,18 +99,15 @@ t.test(data = riceYield,
 ```
 
 
-- 第2行: 表示資料是將`yield`依照`treatment`分組 (A vs B) 比較，記得上面我們輸入的 `觀測值 ~ 處理名稱` 嗎?
+- 第2行: 表示資料是將yield依照treatment分組 (A vs B) 比較
 
 
 - 第3行: 為檢定結果：
-  - `t`  : t 值
-  - `df` :自由度
-  - `p-value` : 表示本次檢定所得 p 值
+  - t  : t 值
+  - df :自由度
+  - p-value : 表示本次檢定所得 p 值
   p值的表示方式比較特別，用到"e"，e代表10的幾次方：
-$123456e-08 = 1.23456 \times 10^{-8}$
 
-  - 這邊可以看到p值很小，所以棄卻虛無假說：「兩樣本平均值相等」　( $H_0:\mu_1 - \mu_2 =0$ )。
-
-結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。顯著水準$\alpha$在`t.test`函數中沒有辦法設定，是這個函數的小缺憾。
+結論：在$\alpha = 0.05$時，兩品種產量具顯著差異。
 
 

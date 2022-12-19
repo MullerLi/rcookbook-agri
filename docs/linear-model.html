@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>5.2 linear model | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="5.2 linear model | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="5.2 linear model | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -23,15 +23,15 @@
 <meta name="author" content="李誠紘 Cheng Hong, Li" />
 
 
-<meta name="date" content="2022-12-20" />
+<meta name="date" content="2022-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="前提假設.html"/>
+<link rel="next" href="anova-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,52 +135,57 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R Cookbook for Agronomy Research</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a></li>
-<li class="chapter" data-level="2" data-path="這是什麼.html"><a href="這是什麼.html"><i class="fa fa-check"></i><b>2</b> 這是什麼?</a></li>
-<li class="chapter" data-level="3" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>3</b> 為什麼要用R?</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>3.1</b> 下載與安裝R</a></li>
-<li class="chapter" data-level="3.2" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>3.2</b> 第一個 R 程式碼</a></li>
-<li class="chapter" data-level="3.3" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>3.3</b> 第一張圖</a></li>
-<li class="chapter" data-level="3.4" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>3.4</b> 學習地圖(Roadmap)</a>
+<li class="chapter" data-level="1.1" data-path="這是什麼.html"><a href="這是什麼.html"><i class="fa fa-check"></i><b>1.1</b> 這是什麼?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="開始之前.html"><a href="開始之前.html"><i class="fa fa-check"></i><b>2</b> 開始之前</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#參考書"><i class="fa fa-check"></i><b>3.4.1</b> 參考書</a></li>
+<li class="chapter" data-level="2.1" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>2.1</b> 為什麼要用R?</a></li>
+<li class="chapter" data-level="2.2" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>2.2</b> 下載與安裝R</a></li>
+<li class="chapter" data-level="2.3" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>2.3</b> 第一個 R 程式碼</a></li>
+<li class="chapter" data-level="2.4" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>2.4</b> 第一張圖</a></li>
+<li class="chapter" data-level="2.5" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>2.5</b> 學習地圖(Roadmap)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#rstudio訪問"><i class="fa fa-check"></i><b>2.5.1</b> RStudio訪問</a></li>
+<li class="chapter" data-level="2.5.2" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#參考書"><i class="fa fa-check"></i><b>2.5.2</b> 參考書</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="資源.html"><a href="資源.html"><i class="fa fa-check"></i><b>2.6</b> 資源</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>3</b> 敘述統計</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="資料格式.html"><a href="資料格式.html"><i class="fa fa-check"></i><b>3.1</b> 資料格式</a></li>
+<li class="chapter" data-level="3.2" data-path="讀取資料.html"><a href="讀取資料.html"><i class="fa fa-check"></i><b>3.2</b> 讀取資料</a></li>
+<li class="chapter" data-level="3.3" data-path="敘述統計量表.html"><a href="敘述統計量表.html"><i class="fa fa-check"></i><b>3.3</b> 敘述統計量表</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>4</b> 平均值檢定</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html"><i class="fa fa-check"></i><b>4.1</b> 利用t檢定比較兩個族群平均值</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#資料下載"><i class="fa fa-check"></i><b>4.1.1</b> 資料下載</a></li>
+<li class="chapter" data-level="4.1.2" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定"><i class="fa fa-check"></i><b>4.1.2</b> 兩樣本t檢定</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>4</b> 敘述統計</a>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> ANOVA</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="資料格式.html"><a href="資料格式.html"><i class="fa fa-check"></i><b>4.1</b> 資料格式</a></li>
-<li class="chapter" data-level="4.2" data-path="讀取資料.html"><a href="讀取資料.html"><i class="fa fa-check"></i><b>4.2</b> 讀取資料</a></li>
-<li class="chapter" data-level="4.3" data-path="敘述統計量表.html"><a href="敘述統計量表.html"><i class="fa fa-check"></i><b>4.3</b> 敘述統計量表</a></li>
+<li class="chapter" data-level="5.1" data-path="前提假設.html"><a href="前提假設.html"><i class="fa fa-check"></i><b>5.1</b> 前提假設</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="前提假設.html"><a href="前提假設.html#檢驗方式"><i class="fa fa-check"></i><b>5.1.1</b> 檢驗方式</a></li>
+<li class="chapter" data-level="5.1.2" data-path="前提假設.html"><a href="前提假設.html#section"><i class="fa fa-check"></i><b>5.1.2</b> </a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>5</b> 平均值檢定</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html"><i class="fa fa-check"></i><b>5.1</b> 利用t檢定比較兩個族群平均值</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#資料下載"><i class="fa fa-check"></i><b>5.1.1</b> 資料下載</a></li>
-<li class="chapter" data-level="5.1.2" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定"><i class="fa fa-check"></i><b>5.1.2</b> 兩樣本t檢定</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-model.html"><a href="linear-model.html"><i class="fa fa-check"></i><b>5.2</b> linear model</a></li>
+<li class="chapter" data-level="5.3" data-path="anova-1.html"><a href="anova-1.html"><i class="fa fa-check"></i><b>5.3</b> ANOVA</a></li>
+<li class="chapter" data-level="5.4" data-path="lsd-test.html"><a href="lsd-test.html"><i class="fa fa-check"></i><b>5.4</b> LSD test</a></li>
+<li class="chapter" data-level="5.5" data-path="generate-the-table.html"><a href="generate-the-table.html"><i class="fa fa-check"></i><b>5.5</b> generate the table</a></li>
+<li class="chapter" data-level="5.6" data-path="plot-the-data.html"><a href="plot-the-data.html"><i class="fa fa-check"></i><b>5.6</b> Plot the data</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<li class="chapter" data-level="6" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>6</b> 有計畫的比較平均值</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="前提假設.html"><a href="前提假設.html"><i class="fa fa-check"></i><b>6.1</b> 前提假設</a>
+<li class="chapter" data-level="6.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html"><i class="fa fa-check"></i><b>6.1</b> 計畫性比較-簡單CRD</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="前提假設.html"><a href="前提假設.html#檢驗方式"><i class="fa fa-check"></i><b>6.1.1</b> 檢驗方式</a></li>
+<li class="chapter" data-level="6.1.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html#glht函數"><i class="fa fa-check"></i><b>6.1.1</b> glht函數</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="非常態資料的轉換.html"><a href="非常態資料的轉換.html"><i class="fa fa-check"></i><b>6.2</b> 非常態資料的轉換</a></li>
-<li class="chapter" data-level="6.3" data-path="線性模式.html"><a href="線性模式.html"><i class="fa fa-check"></i><b>6.3</b> 線性模式</a></li>
-<li class="chapter" data-level="6.4" data-path="anova-1.html"><a href="anova-1.html"><i class="fa fa-check"></i><b>6.4</b> ANOVA</a></li>
-<li class="chapter" data-level="6.5" data-path="lsd-test.html"><a href="lsd-test.html"><i class="fa fa-check"></i><b>6.5</b> LSD test</a></li>
-<li class="chapter" data-level="6.6" data-path="generate-the-table.html"><a href="generate-the-table.html"><i class="fa fa-check"></i><b>6.6</b> generate the table</a></li>
-<li class="chapter" data-level="6.7" data-path="plot-the-data.html"><a href="plot-the-data.html"><i class="fa fa-check"></i><b>6.7</b> Plot the data</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>7</b> 有計畫的比較平均值</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html"><i class="fa fa-check"></i><b>7.1</b> 計畫性比較-簡單CRD</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html#glht函數"><i class="fa fa-check"></i><b>7.1.1</b> glht函數</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="計畫性比較-複雜資料.html"><a href="計畫性比較-複雜資料.html"><i class="fa fa-check"></i><b>7.2</b> 計畫性比較-複雜資料</a></li>
+<li class="chapter" data-level="6.2" data-path="計畫性比較-複雜資料.html"><a href="計畫性比較-複雜資料.html"><i class="fa fa-check"></i><b>6.2</b> 計畫性比較-複雜資料</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -202,22 +207,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
-</div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<div id="linear-model" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> linear model<a href="linear-model.html#linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ANOVA</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="前提假設.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +248,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/04-anova.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>第 3 章 為什麼要用R? | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="第 3 章 為什麼要用R? | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="第 3 章 為什麼要用R? | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="這是什麼.html"/>
+<link rel="next" href="下載與安裝r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
+<div id="為什麼要用r" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">第 3 章</span> 為什麼要用R?<a href="為什麼要用r.html#為什麼要用r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>以下引用<a href="https://adv-r.hadley.nz/introduction.html">Advanced R的Why R</a>說明使用R的好理由:</p>
+<ul>
+<li><p>R完全免費而且開源。</p></li>
+<li><p>R的社群相當多元而且樂於討論。</p></li>
+<li><p>R有大量的統計分析、機器學習、數據視覺化、資料整理套件，任何想做的分析，幾乎已有人寫好程式碼與教學。</p></li>
+<li><p>R也有工具可以分享結果，例如<a href="https://rmarkdown.rstudio.com/">RMarkdown</a>可以將資料分析結果輸出成文件、簡報、動態網頁；<a href="https://shiny.rstudio.com/gallery/">Shiny</a>可以製作精美的互動網站。</p></li>
+<li><p>R包含最先進的統計分析與機器學習工具，而且不斷進化。</p></li>
+<li><p>RStudio公司開發好用的R工具並販售，然而，現在已經將獲利逐漸回饋給R的公共社群。其中50%的工程師在RStudio做的是開放原始碼的專案。</p></li>
+<li><p>R學習難度低、上限高，甚至可以在R中利用C、Fortran、C++語言加速程式執行流程。</p></li>
+</ul>
+<p>但R也有缺點，例如</p>
+<ul>
+<li><p>多數R使用者並非專業軟體工程師，許多野生的R程式碼都是為了快速解決問題而寫，不優美而且難懂。</p></li>
+<li><p>R的社群更專注在分析過程及結果，對達成軟體工程的知識實踐是零散的。例如沒有足夠多的R程序員使用源代碼控制(source code control)或自動化測試(automated testing)。</p></li>
+<li><p>太多的 R 函數使用技巧來減少輸入程式碼，導致程式碼難以理解，並且可能以意想不到的方式失敗。</p></li>
+<li><p>R 的程式語言包(packages)品質不一，有太多的特殊情況需要記住，導致每次使用 R ，你都會面臨超過 25 年的演變，這會使學習 R 變得困難。</p></li>
+<li><p>相較其他程式語言，R 執行效率低而且耗用電腦資源，糟糕的 R 程式碼可能會執行速度很慢。</p></li>
+</ul>
+<div class="figure">
+<img src="image/rmeme.jpg" width="384" alt="" />
+<p class="caption">如果統計程式是一台車</p>
 </div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<p><a href="https://www.reddit.com/r/rstats/comments/dn7fa7/i_thought_the_if_stats_programs_were_cars_meme/">from reddit</a></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="這是什麼.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="下載與安裝r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +265,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/01-intro.Rmd",
 "text": "Edit"
 },
 "history": {

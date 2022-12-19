@@ -1,9 +1,11 @@
 bookdown::gitbook:
   css: style.css
   highlight: tango
+  split_by: section
   output:
     bookdown::html_book:
       theme: lumen
+      
   config:
     toc:
       before: |

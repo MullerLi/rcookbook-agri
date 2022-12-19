@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>3.4 學習地圖(Roadmap) | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="3.4 學習地圖(Roadmap) | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="3.4 學習地圖(Roadmap) | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="第一張圖.html"/>
+<link rel="next" href="敘述統計.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,75 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
+<div id="學習地圖roadmap" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 學習地圖(Roadmap)<a href="學習地圖roadmap.html#學習地圖roadmap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>現在許多R的教程會直接建議從{tidyverse}學起，譬如以下這篇訪問，RStudio創辦人 J.J. Allaire(簡稱JJ)接受 Joseph B. Rickert(簡稱JBR)<a href="https://cosx.org/2016/11/interview-j-j-allaire/">訪問</a>也提到這一點。</p>
+<hr />
+<p>JBR: 對於初次接觸 R 的人，您有什麼建議嗎？無論是學生、經驗豐富的統計學家還是研究人員？</p>
+<p>JJ: 我會建議他們練習一下 Hadley Wickham 和 Garrett Grolemund 在 <a href="https://r4ds.had.co.nz/index.html">“R for Data Science”</a> 這本書中的寫的 R 程式碼。這本書詳細說明了在 R 中處理資料的 tidyverse 和基本原則。R 中有很多很好的工具，但並不是每個用 R 的人都能立刻找到這些工具。這正是我們試圖改變的。我還建議 R 的新手仔細看看我們在 RStudio 開發的所有工具和包。</p>
+<p>此外，當你有問題或遇到問題千萬不要放棄。在 StackOverflow 和其它地方有很多很有用的關於 R 的資訊，如果你仔細看它們的話，你有機會找到你的問題的答案。</p>
+<p>JBR: 您認為統計學家和資料科學家大體上應該知道哪些關於電腦科學的知識呢？</p>
+<p>JJ: 這是個有趣的問題。許多關於 R 的最普遍的看法和思考都圍繞著 Bo Cowgill 那著名的言論：“R 最好的地方在於它是由統計學家編寫的，R 最糟的地方也在於它是由統計學家編寫的。”</p>
+<p>然而事實上，R 的開發者們對程式設計和電腦科學相當瞭解。他們的目標一直都是提供一個讓掌握很少的電腦科學知識的人能實現想法的表示式語言。R 努力提供一種介面和語法，使得不懂電腦科學的人也可以使用 R 做一些複雜的資料分析。</p>
+<p>我認為總會存在一些不能用高級的指令解決的問題。所以學習基本的程式設計原則，做一些簡單的計算或者文字分析和語法分析這之類的事是有用的，但是 R 的重點還是不強迫每個人都成為電腦科學家。</p>
+<hr />
+<div id="參考書" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> 參考書<a href="學習地圖roadmap.html#參考書" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我買過R跟Python的參考書，但我認為R語言奠基在一個不斷進化的基礎上，而且最好的R語言參考書正是以Gitbook電子書的形式免費發行在網路上供人閱讀，因此花錢買書並不太划算。</p>
+<p>這邊提供一些有名的參考書。</p>
+<ul>
+<li><a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> by Hadley Wickham and Garrett Grolemund。 <a href="https://hadley.nz/">Hadley Wickham</a>是<a href="https://posit.co/download/rstudio-desktop/">RStudio</a>的工程師，基本上也是R語言的耶穌。他讓R語言變得更容易使用，這本書介紹R資料科學，也是我的第一本教科書。</li>
+</ul>
+<div class="figure">
+<img src="\image\R4DS.png" width="200" alt="" />
+<p class="caption">R4DS</p>
 </div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<ul>
+<li><p><a href="https://r4ds.hadley.nz/">R for Data Science 第二版</a> 好書的第二版一定也是好書(🦐挺起來)。</p></li>
+<li><p><a href="https://adv-r.hadley.nz/introduction.html">Advanced R</a> 當你有一段三行以上的程式碼要一再複製貼上重複使用，就要考慮使用函數，這本書介紹除了函數編程(Functional programming)以外也介紹R的物件導向編程(Object-oriented Programming)</p></li>
+</ul>
+<div class="figure">
+<img src="\image\ADVR.png" width="200" alt="" />
+<p class="caption">Advanced R</p>
 </div>
+<ul>
+<li><p><a href="https://hackmd.io/@LHB-0222/LearningR?type=view#">阿好伯的文章</a>中文且品質非常好的文章!</p></li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/143005986">知乎</a>中國的知識家，和臺灣的知識家水準完全不一樣，有非常多高參考價值的文章值得一讀。</p></li>
+</ul>
+<hr />
+<p>有結果後就可以準備輸出，這時可以用R忍者<a href="https://yihui.org/cn/vitae/">謝益輝</a>開發的套件，例如：</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/">RMarkdown cookbook</a></li>
+</ul>
+<div class="figure">
+<img src="\image\RMC.png" width="200" alt="" />
+<p class="caption">RMC</p>
+</div>
+<ul>
+<li><a href="https://bookdown.org/yihui/bookdown/">bookdown: Authoring Books and Technical Documents with R Markdown</a></li>
+</ul>
+<div class="figure">
+<img src="\image\BDC.jpg" width="200" alt="" />
+<p class="caption">BDC</p>
+</div>
+<p>另外是RMarkdown的另一種替代方案<a href="https://quarto.org/">Quarto</a>，可以用來產生簡潔易懂的程式碼與報告。</p>
+<p>D4S第二版也有專文介紹<a href="https://r4ds.hasdley.nz/quarto.html">Quarto</a>。</p>
+<ul>
+<li><p><a href="http://yijutseng.github.io/DataScienceRBook/index.html">資料科學與R語言</a> by 曾意儒老師，中文版免費的R教科書。</p></li>
+<li><p><a href="https://www.tmwr.org/">TIDY MODELING WITH R</a> 有關資料建模。</p></li>
+<li><p><a href="https://bookdown.org/">Bookdown Gallery</a>利用Bookdown建立的好書網站。</p></li>
+</ul>
+
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="第一張圖.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="敘述統計.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +301,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/01-intro.Rmd",
 "text": "Edit"
 },
 "history": {

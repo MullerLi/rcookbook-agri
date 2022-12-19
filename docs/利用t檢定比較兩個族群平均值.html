@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>5.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="5.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="5.1 利用t檢定比較兩個族群平均值 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="平均值檢定.html"/>
+<link rel="next" href="anova.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,129 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
+<div id="利用t檢定比較兩個族群平均值" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 利用t檢定比較兩個族群平均值<a href="利用t檢定比較兩個族群平均值.html#利用t檢定比較兩個族群平均值" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在分析實驗結果時，我們最關切的問題，應屬”平均值之間是否有差異”。比較兩個平均值的差異，可以用t檢定；超過兩組平均值的比較，可用` (analysis of variance, ANOVA) 來檢定各組平均是否有差異。</p>
+<div id="資料下載" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> 資料下載<a href="利用t檢定比較兩個族群平均值.html#資料下載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>本筆資料為riceYield，係由亂數產生，下面這個程式碼只要執行一次就好。</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="利用t檢定比較兩個族群平均值.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 產生亂數資料</span></span>
+<span id="cb20-2"><a href="利用t檢定比較兩個族群平均值.html#cb20-2" aria-hidden="true" tabindex="-1"></a>riceYield<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb20-3"><a href="利用t檢定比較兩個族群平均值.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;treatment&#39;</span> <span class="ot">=</span> (<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>),<span class="at">each=</span><span class="dv">10</span>) ),</span>
+<span id="cb20-4"><a href="利用t檢定比較兩個族群平均值.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;yield&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">5000</span> , <span class="at">sd =</span> <span class="dv">400</span>),<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span> , <span class="at">mean =</span> <span class="dv">6500</span> , <span class="at">sd =</span> <span class="dv">400</span>)</span>
+<span id="cb20-5"><a href="利用t檢定比較兩個族群平均值.html#cb20-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
+<p>現在來看看這筆資料長怎樣：</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="利用t檢定比較兩個族群平均值.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
+<span id="cb21-2"><a href="利用t檢定比較兩個族群平均值.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
+<pre><code>##   treatment    yield
+## 1         A 5962.758
+## 2         A 4752.266
+## 3         A 5255.423
+## 4         A 4929.099
+## 5         A 5623.326
+## 6         A 5214.577</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用t檢定比較兩個族群平均值.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
+<span id="cb23-2"><a href="利用t檢定比較兩個族群平均值.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 15         B 6605.357
+## 16         B 6383.130
+## 17         B 6533.632
+## 18         B 6325.325
+## 19         B 6820.914
+## 20         B 6601.373</code></pre>
+<p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，treatment和yield；在每個欄位下面都有很多筆資料，這些值我們稱為觀測值 (observation)；觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
+<p>而上方使用到的2個函數(function)的意思：</p>
+<ul>
+<li><code>head(資料名稱)</code>: 查看該資料前6筆的值</li>
+<li><code>tail(資料名稱)</code>: 查看該資料後6筆的值</li>
+</ul>
+<p>利用這兩個函數，我們可以很快速地查看資料的大致樣態。</p>
+<hr />
+<p>補充</p>
+<ul>
+<li>在 R 中直接輸入「物件的名稱」，而沒有用冒號 ( ” or ’ ) 括起來，就會得到「物件的內容」。</li>
+</ul>
+<p>例如上述資料集為”riceYield”，所以輸入riceYield就會連結到該筆資料。</p>
+<ul>
+<li>英文字母的大小寫在R程式裡面是不一樣的意思。所以輸入riceyield或Riceyield或RiceYield會跳出錯誤，找不到這個東西(object ‘riceyield’ not found)，因為riceYield才有意義。</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="利用t檢定比較兩個族群平均值.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceyield)</span></code></pre></div>
+<pre><code>## Error in h(simpleError(msg, call)): 在為 &#39;print&#39; 函式選擇方法時評估 &#39;x&#39; 引數發生錯誤: object &#39;riceyield&#39; not found</code></pre>
+<hr />
+<p>如果想要查看整筆資料，可以直接輸入資料名稱，或是<code>print(資料名稱)</code>、<code>view(資料名稱)</code></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="利用t檢定比較兩個族群平均值.html#cb27-1" aria-hidden="true" tabindex="-1"></a>riceYield</span>
+<span id="cb27-2"><a href="利用t檢定比較兩個族群平均值.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
+<span id="cb27-3"><a href="利用t檢定比較兩個族群平均值.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
+<pre><code>##    treatment    yield
+## 1          A 5962.758
+## 2          A 4752.266
+## 3          A 5255.423
+## 4          A 4929.099
+## 5          A 5623.326
+## 6          A 5214.577
+## 7          A 4388.342
+## 8          A 5051.350
+## 9          A 5110.653
+## 10         A 5418.159
+## 11         B 6465.530
+## 12         B 6040.212
+## 13         B 6421.674
+## 14         B 6038.639
+## 15         B 6605.357
+## 16         B 6383.130
+## 17         B 6533.632
+## 18         B 6325.325
+## 19         B 6820.914
+## 20         B 6601.373</code></pre>
 </div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<div id="兩樣本t檢定" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> 兩樣本t檢定<a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="利用t檢定比較兩個族群平均值.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> riceYield, </span>
+<span id="cb29-2"><a href="利用t檢定比較兩個族群平均值.html#cb29-2" aria-hidden="true" tabindex="-1"></a>       yield <span class="sc">~</span> treatment,    </span>
+<span id="cb29-3"><a href="利用t檢定比較兩個族群平均值.html#cb29-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> F)       </span></code></pre></div>
+<ul>
+<li><code>t.test</code>上面有三個指令
+<ul>
+<li>第1個指令該筆資料的名稱，這筆資料名是資料riceYield，輸入data = riceYield</li>
+<li>第2個指令和第1個指令中間用 , 相隔</li>
+<li>第2個指令是告訴R比較的方式，寫法是 觀測值 ~ 處理名稱，注意這裡觀測值和處理名稱都沒有用冒號框住</li>
+<li>第3個指令是樣本是否成對</li>
+</ul></li>
+</ul>
+<p>現在來逐行看報表：</p>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  yield by treatment
+## t = -7.823, df = 14.055, p-value = 1.73e-06
+## alternative hypothesis: true difference in means between group A and group B is not equal to 0
+## 95 percent confidence interval:
+##  -1596.3797  -909.5872
+## sample estimates:
+## mean in group A mean in group B 
+##        5170.595        6423.579</code></pre>
+<ul>
+<li><p>第2行: 表示資料是將yield依照treatment分組 (A vs B) 比較</p></li>
+<li><p>第3行: 為檢定結果：</p>
+<ul>
+<li>t : t 值</li>
+<li>df :自由度</li>
+<li>p-value : 表示本次檢定所得 p 值
+p值的表示方式比較特別，用到”e”，e代表10的幾次方：</li>
+</ul></li>
+</ul>
+<p>結論：在<span class="math inline">\(\alpha = 0.05\)</span>時，兩品種產量具顯著差異。</p>
+
 </div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="平均值檢定.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +355,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/03-ttest.Rmd",
 "text": "Edit"
 },
 "history": {

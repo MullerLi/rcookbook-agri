@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>第 2 章 這是什麼? | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="第 2 章 這是什麼? | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="第 2 章 這是什麼? | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="為什麼要用r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
-</div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<div id="這是什麼" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">第 2 章</span> 這是什麼?<a href="這是什麼.html#這是什麼" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>這是一個利用 <a href="https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80">R</a> bookdown 撰寫，部屬在Github Page上的電子書。</p>
+<p>這是一個用R來做試驗設計與分析的學習筆記，程式碼的速查本，包含農業研究常用的試驗設計學的 R 程式語言，要讀懂這本書，基礎的試驗設計學知識是必須的。</p>
+<p>本書使用到的套件，複製到R環境執行即完成安裝與啟用：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="這是什麼.html#cb1-1" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;car&#39;</span>,<span class="st">&#39;MASS&#39;</span>,<span class="st">&#39;magrittr&#39;</span>,<span class="st">&#39;tidyverse&#39;</span>,<span class="st">&#39;lme4&#39;</span>,<span class="st">&#39;lmerTest&#39;</span>,<span class="st">&#39;multcomp&#39;</span>,<span class="st">&#39;agricolae&#39;</span>,<span class="st">&#39;dplyr&#39;</span>,<span class="st">&#39;lsmeans&#39;</span>,<span class="st">&#39;emmeans&#39;</span>,<span class="st">&#39;psych&#39;</span>)</span>
+<span id="cb1-2"><a href="這是什麼.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">any</span>(pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>())) {<span class="fu">install.packages</span>(pkgs[<span class="sc">!</span>pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>()])}</span>
+<span id="cb1-3"><a href="這是什麼.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkgs , library , <span class="at">character.only=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<p>本書的R版本</p>
+<pre><code>## R version 4.2.2 (2022-10-31 ucrt)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19045)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Chinese (Traditional)_Taiwan.utf8 
+## [2] LC_CTYPE=Chinese (Traditional)_Taiwan.utf8   
+## [3] LC_MONETARY=Chinese (Traditional)_Taiwan.utf8
+## [4] LC_NUMERIC=C                                 
+## [5] LC_TIME=Chinese (Traditional)_Taiwan.utf8    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] knitr_1.40      formatR_1.12    psych_2.2.9     lmerTest_3.1-3 
+##  [5] lme4_1.1-31     Matrix_1.5-3    car_3.1-1       carData_3.0-5  
+##  [9] multcomp_1.4-20 TH.data_1.1-1   MASS_7.3-58.1   survival_3.4-0 
+## [13] mvtnorm_1.1-3   agricolae_1.3-5 magrittr_2.0.3  forcats_0.5.2  
+## [17] stringr_1.4.1   dplyr_1.0.10    purrr_0.3.5     readr_2.1.3    
+## [21] tidyr_1.2.1     tibble_3.1.8    ggplot2_3.4.0   tidyverse_1.3.2
+## [25] lsmeans_2.30-0  emmeans_1.8.3  
+## 
+## loaded via a namespace (and not attached):
+##  [1] googledrive_2.0.0   minqa_1.2.5         colorspace_2.0-3   
+##  [4] ellipsis_0.3.2      rsconnect_0.8.28    estimability_1.4.1 
+##  [7] fs_1.5.2            rstudioapi_0.14     farver_2.1.1       
+## [10] fansi_1.0.3         lubridate_1.9.0     xml2_1.3.3         
+## [13] codetools_0.2-18    splines_4.2.2       mnormt_2.1.1       
+## [16] cachem_1.0.6        jsonlite_1.8.3      nloptr_2.0.3       
+## [19] broom_1.0.1         cluster_2.1.4       dbplyr_2.2.1       
+## [22] shiny_1.7.3         compiler_4.2.2      httr_1.4.4         
+## [25] backports_1.4.1     assertthat_0.2.1    fastmap_1.1.0      
+## [28] gargle_1.2.1        cli_3.4.1           later_1.3.0        
+## [31] htmltools_0.5.3     tools_4.2.2         coda_0.19-4        
+## [34] gtable_0.3.1        glue_1.6.2          Rcpp_1.0.9         
+## [37] cellranger_1.1.0    jquerylib_0.1.4     vctrs_0.5.0        
+## [40] nlme_3.1-160        xfun_0.34           rvest_1.0.3        
+## [43] timechange_0.1.1    mime_0.12           miniUI_0.1.1.1     
+## [46] lifecycle_1.0.3     googlesheets4_1.0.1 zoo_1.8-11         
+## [49] scales_1.2.1        hms_1.1.2           promises_1.2.0.1   
+## [52] parallel_4.2.2      sandwich_3.0-2      thematic_0.1.2.1   
+## [55] yaml_2.3.6          sass_0.4.2          labelled_2.10.0    
+## [58] stringi_1.7.8       highr_0.9           klaR_1.7-1         
+## [61] AlgDesign_1.2.1     boot_1.3-28         rlang_1.0.6        
+## [64] pkgconfig_2.0.3     evaluate_0.18       lattice_0.20-45    
+## [67] labeling_0.4.2      tidyselect_1.2.0    bookdown_0.30      
+## [70] R6_2.5.1            generics_0.1.3      combinat_0.0-8     
+## [73] DBI_1.1.3           mgcv_1.8-41         pillar_1.8.1       
+## [76] haven_2.5.1         withr_2.5.0         abind_1.4-5        
+## [79] modelr_0.1.10       crayon_1.5.2        questionr_0.7.7    
+## [82] utf8_1.2.2          tzdb_0.3.0          rmarkdown_2.18     
+## [85] grid_4.2.2          readxl_1.4.1        reprex_2.0.2       
+## [88] digest_0.6.30       xtable_1.8-4        httpuv_1.6.6       
+## [91] numDeriv_2016.8-1.1 munsell_0.5.0       bslib_0.4.1</code></pre>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="為什麼要用r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

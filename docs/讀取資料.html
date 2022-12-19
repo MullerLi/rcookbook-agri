@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>4.2 讀取資料 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="4.2 讀取資料 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="4.2 讀取資料 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="資料格式.html"/>
+<link rel="next" href="敘述統計量表.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,31 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
-</div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<div id="讀取資料" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 讀取資料<a href="讀取資料.html#讀取資料" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>使用<code>read.csv</code>函數</p>
+<p>上方指令的意思是，讀取 csv 檔，檔案放在D槽底下，名稱為iris.csv (<code>file = 'D:/iris.csv'</code>)，而我想要幫這個資料表取名為<code>iris_df</code></p>
+<p>箭頭 (&lt;-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把”箭頭右方”的物件，放入”箭頭左方”的物件。</p>
+<p>如果左方的物件沒有指派物件，左方物件就會變成箭頭右方物件的名字。（從今天開始你的代號就是9527！）</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="讀取資料.html#cb8-1" aria-hidden="true" tabindex="-1"></a>快龍的招式 <span class="ot">&lt;-</span> <span class="st">&#39;破壞死光&#39;</span></span>
+<span id="cb8-2"><a href="讀取資料.html#cb8-2" aria-hidden="true" tabindex="-1"></a>快龍的招式 <span class="ot">&lt;-</span> <span class="st">&#39;千變萬花&#39;</span></span>
+<span id="cb8-3"><a href="讀取資料.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(快龍的招式)</span></code></pre></div>
+<pre><code>## [1] &quot;千變萬花&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>物件命名有兩個主要規則：</li>
+</ol>
+<ul>
+<li>底線：例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔</li>
+<li>駝峰：例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭為大小字母。</li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="資料格式.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="敘述統計量表.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +257,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/02-describe.Rmd",
 "text": "Edit"
 },
 "history": {

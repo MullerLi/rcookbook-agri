@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>6.1 前提假設 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="6.1 前提假設 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="6.1 前提假設 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="anova.html"/>
+<link rel="next" href="非常態資料的轉換.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,109 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
+<div id="前提假設" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> 前提假設<a href="前提假設.html#前提假設" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table style="width:99%;">
+<colgroup>
+<col width="18%" />
+<col width="51%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>前提假設</th>
+<th>檢定(R)</th>
+<th>補救方案</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>樣本常態與誤差獨立</td>
+<td><p>qqnorm(iris$Sepal.Length)：點要接近對角線，否則不符常態</p>
+<p>shapiro.test(iris$Sepal.Length)：顯著則不符常態</p></td>
+<td>Box-Cox數據轉換 (MASS::boxcox)</td>
+</tr>
+<tr class="even">
+<td>變異數均值</td>
+<td><p>bartlett.test(Sepal.Length~Species, data = iris)</p>
+<p>car::leveneTest(Sepal.Length~Species, data = iris)</p>
+<p>顯著代表變異數不均值</p></td>
+<td>Box-Cox數據轉換 (MASS::boxcox)</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>樣本與誤差具常態性且彼此獨立</li>
+</ol>
+<p><span class="math inline">\(\epsilon \sim {\sf NID}(0,\sigma^2)\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>變異數均值假設</li>
+</ol>
+<ul>
+<li><p>樣本是來自變異數相等的族群，譬如利用某機器量測一群稻穀樣本的重量，每次量測時，機器顯示的重量，都會受到機器本身設定的影響，呈現真實重量的固定百分比，因此具有這一群稻穀樣本會有相等的變異數。</p></li>
+<li><p>當違反假設，且變因是固定型效應，在處理重複數量均衡（彼此相同）時，對Fo僅有微弱的影響；但在處理數不均衡時，則會使顯著水準或型I錯誤率與預期值偏離。當變因是隨機型效應時，不論處理是否均衡，違反假設都會造成極大影響。</p></li>
+</ul>
+<div id="檢驗方式" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> 檢驗方式<a href="前提假設.html#檢驗方式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>常態性檢定：</li>
+</ol>
+<ul>
+<li>機率分布圖(QQ plot)：將殘差計算出來，從大排到小，按數據點在圖形上。如果屬於常態分佈，會像是一條直線，不會偏離太多。</li>
+<li>使用<code>qqnorm</code>查看QQ-plot</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="前提假設.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>可以看出點很貼近線，數據應該符合常態。</p>
+<ul>
+<li>使用<code>shapiro.tes</code>檢定，顯著則代表不符合常態。</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="前提假設.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  iris$Sepal.Length
+## W = 0.97609, p-value = 0.01018</code></pre>
+<p>因為<em>P</em>值不小於0.05，所以得知數據是常態分佈的資料。</p>
+<hr />
+<ol start="2" style="list-style-type: decimal">
+<li>獨立性與變異數均值的檢定：</li>
+</ol>
+<ul>
+<li>順序與殘差圖：殘差如不獨立，彼此會有相關性，會一連串的正或負。將實驗進行的時間順序為X軸，殘差為Y軸作圖，應該是無結構的。</li>
+<li>配適值與殘差圖：x軸為配適值(fitted value)，y軸為殘差(residuel)作圖。若殘差彼此之間獨立，ϵij畫出的圖不會有結構。喇叭狀代表違反獨立性與變異數均值假設。 <span class="math display">\[\hat y_{ij}=\bar y_{i.}+\epsilon_{ij}\]</span></li>
+</ul>
+<hr />
+<ol start="3" style="list-style-type: decimal">
+<li>變異數均值的檢定： <span class="math inline">\(H_0:\sigma_1^2=\sigma_2^2=...=\sigma_a^2\)</span> <span class="math inline">\(H_1:至少有一個\sigma_i^2不一樣\)</span></li>
+</ol>
+<ul>
+<li>Barlett’s test：顯著代表變異數不相等</li>
+<li>Levene’s test：顯著代表變異數不相等。</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="前提假設.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(iris<span class="sc">$</span>Sepal.Length<span class="sc">~</span>iris<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value   Pr(&gt;F)   
+## group   2  6.3527 0.002259 **
+##       147                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="前提假設.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(iris<span class="sc">$</span>Sepal.Length<span class="sc">~</span>iris<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  iris$Sepal.Length by iris$Species
+## Bartlett&#39;s K-squared = 16.006, df = 2, p-value = 0.0003345</code></pre>
+<p>上述兩個檢定皆為顯著，顯示iris數據的Sepal.Length在Species之間違反變異數相等的假說。</p>
 </div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="anova.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="非常態資料的轉換.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +335,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/04-anova.Rmd",
 "text": "Edit"
 },
 "history": {

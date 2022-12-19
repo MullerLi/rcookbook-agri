@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R Cookbook for Agricultural Research</title>
+  <title>6.2 非常態資料的轉換 | R Cookbook for Agricultural Research</title>
   <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R Cookbook for Agricultural Research" />
+  <meta property="og:title" content="6.2 非常態資料的轉換 | R Cookbook for Agricultural Research" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
   <meta name="github-repo" content="MullerLi/rcookbook-agri" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Cookbook for Agricultural Research" />
+  <meta name="twitter:title" content="6.2 非常態資料的轉換 | R Cookbook for Agricultural Research" />
   
   <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="這是什麼.html"/>
+<link rel="prev" href="前提假設.html"/>
+<link rel="next" href="線性模式.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -202,22 +202,71 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Cookbook for Agricultural Research</h1>
-<p class="author"><em>李誠紘 Cheng Hong, Li</em></p>
-<p class="date"><em>2022-12-20</em></p>
-</div>
-<div id="關於" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">第 1 章</span> 關於<a href="index.html#關於" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。</p>
+<div id="非常態資料的轉換" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 非常態資料的轉換<a href="非常態資料的轉換.html#非常態資料的轉換" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>下面是常見的資料轉換方式：</p>
+<ol style="list-style-type: decimal">
+<li>開根號</li>
+<li>取log</li>
+<li>倒數+根號</li>
+<li>倒數</li>
+<li>Box-Cox轉換：先求<span class="math inline">\(\lambda\)</span>值，計算log-likeihood峰值的lambda值，根據<span class="math inline">\(\lambda\)</span>對觀測值取一個函數。實際上，Box-Cox轉換就包含了平方根、log、倒數等函數。</li>
+</ol>
+<p>利用{MASS}<code>boxcox</code>可以計算出<span class="math inline">\(\lambda\)</span>值，但是後續取函數部分需要自行作業。因此我寫了一個函數<code>nboxcox</code>來完成常態性檢定與數據轉換，如果數據是常態，就不執行boxcox轉換；反之，則回傳轉換後數據。</p>
+<hr />
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="非常態資料的轉換.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box-Cox transform</span></span>
+<span id="cb38-2"><a href="非常態資料的轉換.html#cb38-2" aria-hidden="true" tabindex="-1"></a>nboxcox<span class="ot">&lt;-</span><span class="cf">function</span>(data , y){</span>
+<span id="cb38-3"><a href="非常態資料的轉換.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(tidyverse)</span>
+<span id="cb38-4"><a href="非常態資料的轉換.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  data_y<span class="ot">&lt;-</span><span class="fu">unlist</span>(<span class="fu">as.vector</span>(<span class="fu">select_if</span>(data[y],is.numeric)),<span class="at">use.names =</span> F)</span>
+<span id="cb38-5"><a href="非常態資料的轉換.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  shapiro_out <span class="ot">&lt;-</span> data_y <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span>
+<span id="cb38-6"><a href="非常態資料的轉換.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (shapiro_out<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb38-7"><a href="非常態資料的轉換.html#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st"> The variable&#39;</span>,<span class="fu">paste0</span>(<span class="st">&quot;&#39;&quot;</span>,y,<span class="st">&quot;&#39;&quot;</span>),<span class="st">&#39;is not normality.</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb38-8"><a href="非常態資料的轉換.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">require</span>(MASS)</span>
+<span id="cb38-9"><a href="非常態資料的轉換.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    forMu <span class="ot">&lt;-</span> <span class="fu">formula</span>( <span class="fu">paste0</span>(<span class="fu">as.character</span>(y),<span class="st">&#39;~1&#39;</span>))</span>
+<span id="cb38-10"><a href="非常態資料的轉換.html#cb38-10" aria-hidden="true" tabindex="-1"></a>    bc    <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(forMu,<span class="at">data =</span> data)</span>
+<span id="cb38-11"><a href="非常態資料的轉換.html#cb38-11" aria-hidden="true" tabindex="-1"></a>    lambda<span class="ot">&lt;-</span> bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]</span>
+<span id="cb38-12"><a href="非常態資料的轉換.html#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (lambda <span class="sc">!=</span> <span class="dv">0</span>){</span>
+<span id="cb38-13"><a href="非常態資料的轉換.html#cb38-13" aria-hidden="true" tabindex="-1"></a>      newy <span class="ot">&lt;-</span> (　data_y<span class="sc">^</span>(lambda)　<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>lambda</span>
+<span id="cb38-14"><a href="非常態資料的轉換.html#cb38-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(newy)</span>
+<span id="cb38-15"><a href="非常態資料的轉換.html#cb38-15" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span> <span class="cf">if</span>(lambda <span class="sc">==</span> <span class="dv">0</span> ){</span>
+<span id="cb38-16"><a href="非常態資料的轉換.html#cb38-16" aria-hidden="true" tabindex="-1"></a>      newy <span class="ot">&lt;-</span> <span class="fu">log</span>(data_y)</span>
+<span id="cb38-17"><a href="非常態資料的轉換.html#cb38-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(newy)}}</span>
+<span id="cb38-18"><a href="非常態資料的轉換.html#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(shapiro_out<span class="sc">$</span>p.value <span class="sc">&gt;=</span> <span class="fl">0.05</span>){</span>
+<span id="cb38-19"><a href="非常態資料的轉換.html#cb38-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;The variable&#39;</span>,<span class="fu">paste0</span>(<span class="st">&quot;&#39;&quot;</span>,y,<span class="st">&quot;&#39;&quot;</span>), <span class="st">&#39;is normality.</span><span class="sc">\n</span><span class="st">Returning original data.</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb38-20"><a href="非常態資料的轉換.html#cb38-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data_y)}}</span>
+<span id="cb38-21"><a href="非常態資料的轉換.html#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="非常態資料的轉換.html#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 範例</span></span>
+<span id="cb38-23"><a href="非常態資料的轉換.html#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="fu">nboxcox</span>(iris,<span class="st">&#39;Sepal.Length&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+##  The variable &#39;Sepal.Length&#39; is not normality.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<pre><code>##   [1] 1.455175 1.423312 1.389928 1.372623 1.439425 1.500388 1.372623 1.439425
+##   [9] 1.336687 1.423312 1.500388 1.406819 1.406819 1.318013 1.556402 1.542821
+##  [17] 1.500388 1.455175 1.542821 1.455175 1.500388 1.455175 1.372623 1.455175
+##  [25] 1.406819 1.439425 1.439425 1.470576 1.470576 1.389928 1.406819 1.500388
+##  [33] 1.470576 1.514825 1.423312 1.439425 1.514825 1.423312 1.336687 1.455175
+##  [41] 1.439425 1.354883 1.336687 1.439425 1.455175 1.406819 1.455175 1.372623
+##  [49] 1.485642 1.439425 1.701131 1.632643 1.690193 1.514825 1.644555 1.542821
+##  [57] 1.620517 1.423312 1.656259 1.470576 1.439425 1.569717 1.582778 1.595593
+##  [65] 1.528966 1.667763 1.528966 1.556402 1.608170 1.528966 1.569717 1.595593
+##  [73] 1.620517 1.595593 1.632643 1.656259 1.679072 1.667763 1.582778 1.542821
+##  [81] 1.514825 1.514825 1.556402 1.582778 1.500388 1.582778 1.667763 1.620517
+##  [89] 1.528966 1.514825 1.514825 1.595593 1.556402 1.439425 1.528966 1.542821
+##  [97] 1.542821 1.608170 1.455175 1.542821 1.620517 1.556402 1.711893 1.620517
+## [105] 1.644555 1.763224 1.423312 1.732906 1.667763 1.722482 1.644555 1.632643
+## [113] 1.679072 1.542821 1.556402 1.632643 1.644555 1.773027 1.773027 1.582778
+## [121] 1.690193 1.528966 1.773027 1.620517 1.667763 1.722482 1.608170 1.595593
+## [129] 1.632643 1.722482 1.743167 1.792206 1.632643 1.620517 1.595593 1.773027
+## [137] 1.620517 1.632643 1.582778 1.690193 1.667763 1.690193 1.556402 1.679072
+## [145] 1.667763 1.667763 1.620517 1.644555 1.608170 1.569717</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="這是什麼.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="前提假設.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="線性模式.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +297,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://mullerli.github.io/rcookbook-agri/index.Rmd",
+"link": "https://mullerli.github.io/rcookbook-agri/04-anova.Rmd",
 "text": "Edit"
 },
 "history": {
