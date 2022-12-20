@@ -217,21 +217,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="利用t檢定比較兩個族群平均值.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
 <span id="cb21-2"><a href="利用t檢定比較兩個族群平均值.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
 <pre><code>##   treatment    yield
-## 1         A 5962.758
-## 2         A 4752.266
-## 3         A 5255.423
-## 4         A 4929.099
-## 5         A 5623.326
-## 6         A 5214.577</code></pre>
+## 1         A 5022.325
+## 2         A 5571.627
+## 3         A 5701.114
+## 4         A 5061.333
+## 5         A 5321.750
+## 6         A 5278.850</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用t檢定比較兩個族群平均值.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
 <span id="cb23-2"><a href="利用t檢定比較兩個族群平均值.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 15         B 6605.357
-## 16         B 6383.130
-## 17         B 6533.632
-## 18         B 6325.325
-## 19         B 6820.914
-## 20         B 6601.373</code></pre>
+## 15         B 6903.899
+## 16         B 5896.421
+## 17         B 6476.869
+## 18         B 6743.577
+## 19         B 6733.806
+## 20         B 6301.172</code></pre>
 <p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，treatment和yield；在每個欄位下面都有很多筆資料，這些值我們稱為觀測值 (observation)；觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
 <p>而上方使用到的2個函數(function)的意思：</p>
 <ul>
@@ -256,26 +256,26 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="利用t檢定比較兩個族群平均值.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
 <span id="cb27-3"><a href="利用t檢定比較兩個族群平均值.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 1          A 5962.758
-## 2          A 4752.266
-## 3          A 5255.423
-## 4          A 4929.099
-## 5          A 5623.326
-## 6          A 5214.577
-## 7          A 4388.342
-## 8          A 5051.350
-## 9          A 5110.653
-## 10         A 5418.159
-## 11         B 6465.530
-## 12         B 6040.212
-## 13         B 6421.674
-## 14         B 6038.639
-## 15         B 6605.357
-## 16         B 6383.130
-## 17         B 6533.632
-## 18         B 6325.325
-## 19         B 6820.914
-## 20         B 6601.373</code></pre>
+## 1          A 5022.325
+## 2          A 5571.627
+## 3          A 5701.114
+## 4          A 5061.333
+## 5          A 5321.750
+## 6          A 5278.850
+## 7          A 5201.688
+## 8          A 4731.029
+## 9          A 5232.685
+## 10         A 5048.170
+## 11         B 6381.962
+## 12         B 6210.716
+## 13         B 5998.317
+## 14         B 6713.641
+## 15         B 6903.899
+## 16         B 5896.421
+## 17         B 6476.869
+## 18         B 6743.577
+## 19         B 6733.806
+## 20         B 6301.172</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> 兩樣本t檢定<a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -296,13 +296,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by treatment
-## t = -7.823, df = 14.055, p-value = 1.73e-06
+## t = -8.7725, df = 17.361, p-value = 8.605e-08
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -1596.3797  -909.5872
+##  -1511.6850  -926.2767
 ## sample estimates:
 ## mean in group A mean in group B 
-##        5170.595        6423.579</code></pre>
+##        5217.057        6436.038</code></pre>
 <ul>
 <li><p>第2行: 表示資料是將yield依照treatment分組 (A vs B) 比較</p></li>
 <li><p>第3行: 為檢定結果：</p>
