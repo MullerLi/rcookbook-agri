@@ -13,17 +13,10 @@ description: "利用R程式語言完成農學試驗的統計分析"
 url: 'https://mullerli.github.io/rcookbook-agri/'
 ---
 
-# 關於
-
-這是一本關於統計程式語言 R 的筆記，記錄農業試驗研究上使用的R程式。
-
 # 這是什麼?
 
 
-
-這是一個利用 [R](https://zh.wikipedia.org/wiki/R%E8%AF%AD%E8%A8%80) bookdown 撰寫，部屬在Github Page上的電子書。
-
-這是一個用R來做試驗設計與分析的學習筆記，程式碼的速查本，包含農業研究常用的試驗設計學的 R 程式語言，要讀懂這本書，基礎的試驗設計學知識是必須的。
+* 這是一個用R來做試驗設計與分析的學習筆記，程式碼的速查本，包含農業研究常用的試驗設計學的 R 程式語言，要讀懂這本書，基礎的試驗設計學知識是必須的。
 
 
 本書使用到的套件，複製到R環境執行即完成安裝與啟用：
@@ -46,5 +39,4 @@ knitr::write_bib(c(
 ), 'packages.bib')
 library(formatR)
 library(knitr)
-
 ```

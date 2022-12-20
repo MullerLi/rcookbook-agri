@@ -147,8 +147,28 @@ $$Y_{ij}=\mu+\alpha_i+\epsilon_{ij}$$
 
 換句話說： $$A品種產量 = 產量總平均值 + 品種A的影響 + 隨機誤差$$ $$B品種產量 = 產量總平均值 + 品種B的影響 + 隨機誤差$$
 
-隨機誤差 ANOVA
+品種A和品種B是影響產量變化的主要原因，因此稱為變因。在R中，可以直接用`formula`表示。總平均跟隨機誤差可以不用寫，直接寫變因即可。
 
+```{r}
+as.formula(yield ~ variety)
+```
+
+`formula`物件的左方為觀測值，通常是數量資料；右方是影響觀測值的變因(類別型)或是共變異數(連續型)。不同的試驗設計就會有不同的線性模式，只包含處理的話就是CRD、包含區集就是RCBD、包含多因子與交感就是復因子試驗。較複雜的設計(像是套層、裂區、條區，也會根據變因而有不同寫法。
+
+
+```{r eval = FALSE}
+# CRD
+yield ~ A
+
+# RCBD
+yield ~ A + block
+
+# Factorial Experiments
+yield ~ A + B + A*B + block 
+
+# Nested Design
+yield ~ A + B + A/B 
+```
 ## ANOVA
 
 ## LSD test

@@ -10,7 +10,7 @@ csv 檔可以用 Excel 檔開啟，因此，一旦將寫在紙上的原始資料
 
 ![R也看得懂的Excel表](image/excel.png)
 
-這樣的資料在R裡面會長這樣(不建議資料表包含中文字元)
+這樣的資料在R裡面會長這樣(不建議在資料表中輸入中文字)
 
 ```{r echo=TRUE}
 (df<-data.frame(
@@ -19,9 +19,9 @@ csv 檔可以用 Excel 檔開啟，因此，一旦將寫在紙上的原始資料
 ))
 ```
 
-上方印出的東西稱為資料表 (dataframe)，資料表由2個變數 (variables) `處理`和`產量`組成。變數名稱所在的位置稱為欄位 (columns)，欄位是有順序的，在上表中，第1欄為`處理`、第2欄為`產量`。每個欄位下面都有資料值 (values)，稱為觀測值 (observations)，觀測值左方的數字為列 (row) 數，可以看到這筆資料有2欄10列。
+上方印出的東西稱為資料表 (dataframe)，資料表由2個變數 (variables)處理與產量組成。變數名稱所在的位置稱為欄位 (columns)，欄位是有順序的，在上表中，第1欄為處理、第2欄為產量。每個欄位下面都有資料值 (values)，稱為觀測值 (observations)，觀測值左方的數字為列 (row) 數，可以看到這筆資料有2欄10列。
 
-在開始前，請下載[`此檔案`]()，將其存放在 D 槽，以利後續分析。
+在開始前，請下載[此檔案](/dataset/iris.csv)，將其存放在D 槽底下。
 
 ## 讀取資料
 
@@ -31,11 +31,11 @@ csv 檔可以用 Excel 檔開啟，因此，一旦將寫在紙上的原始資料
 iris_df <- read.csv( file = 'D:/iris.csv' )
 ```
 
-上方指令的意思是，讀取 csv 檔，檔案放在D槽底下，名稱為iris.csv (`file = 'D:/iris.csv'`)，而我想要幫這個資料表取名為`iris_df` 
+上方指令的意思是，讀取 csv 檔，檔案放在D槽底下，名稱為iris.csv (`file = 'D:/iris.csv'`)，而我想要幫這個資料表取名為`iris_df`
 
-箭頭 (\<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，放入"箭頭左方"的物件。
+箭頭 (\<-) 在 R 中是代表賦值 (assign) 的操作子 (operator)，意思是把"箭頭右方"的物件，放入"箭頭左方"的物件中。
 
-如果左方的物件沒有指派物件，左方物件就會變成箭頭右方物件的名字。（從今天開始你的代號就是9527！）
+如果左方物件(iris_df)是全新的、沒有指派物件的東西，執行程式碼之後，箭頭右方的物件(`read.csv( file = 'D:/iris.csv' )`)就會變成左方的名稱。（從今天開始你的代號就是9527！）
 
 ```{r}
 快龍的招式 <- '破壞死光'
@@ -43,14 +43,14 @@ iris_df <- read.csv( file = 'D:/iris.csv' )
 print(快龍的招式)
 ```
 
-
 2.  物件命名有兩個主要規則：
+
 -   底線：例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
 -   駝峰：例如 myData、irisDf、riceYield，兩個小寫的英文單字，但第二個單字開頭為大小字母。
 
 ## 敘述統計量表
 
-產生敘述統計量表格的方式應該有千萬種，這邊只介紹 2 種方法。
+產生敘述統計量表格的方式應該有千萬種，這邊只介紹2種方法。
 
 {psych} 套件的 `descrieBy`和`describe`
 
@@ -76,27 +76,28 @@ psych::describe (mtcars)
 
 當對函數的功能有疑惑時，只要在函數前面輸入 `?` 再執行，就可以讀取該函數的說明文檔。
 
-文檔內會包含使用函數的方式、函數吃什麼參數、吐什麼結果、以及範例。在文檔中可以找到 "trim=.1 -- trim means by dropping the top and bottom trim fraction"，也就是去掉最大與最小值的平均值。
+文檔內會包含使用函數的方式、函數吃什麼參數、會吐什麼樣的結果、以及程式碼範例。在文檔中可以找到 "trim=.1 -- trim means by dropping the top and bottom trim fraction"，也就是去掉數據最大值與最小值後取的平均值。
 
 ```{r eval = FALSE , message=FALSE , warning = FALSE}
 ?describeBy
 ```
 
-
 3.  分組敘述統計與輸出
 
 上表計算所有變數(mpg, cyl, disp...)的敘述統計量。如果要計算手排或自排 (vs = 1,0) 及汽缸數 (cyl = 4,6,8) 不同組合的敘述統計量，就要用到分組。
 
-我最常使用 `tidyverse` 來進行分組計算。
+我最常使用`tidyverse`來進行分組計算。
 
 啟用套件
+
 ```{r error= FALSE, warning=FALSE , message= FALSE}
 pkg<-'tidyverse'
 if(pkg %in% installed.packages() == F) install.packages('tidyverse')
 library(tidyverse)
 ```
 
-產生分組敘述統計表
+產生分組敘述統計表。
+
 ```{r warning = FALSE ,message=FALSE}
 mtcars %>% 
   group_by ( vs , cyl ) %>% 
@@ -106,9 +107,10 @@ mtcars %>%
 
 這邊用到的是`tidyverse`中`dplyr`和`magrittr`套件的數個功能。
 
-* `%>%`: 管線子(pipe)
+-   `%>%`: 管線子(pipe)
 
-執行一次分析，會用到非常非常多函數`f(x)`，下意識可能會這樣寫
+執行一次分析，會用到非常非常多函數`f(x)`，下意識可能會這樣寫。
+
 ```{r tidy = TRUE}
 # 產生100個隨機數字
 x <- rnorm (100)
@@ -119,13 +121,15 @@ x3 <- round(x2 , digits = 2)
 head(x3)
 ```
 
-或是這樣，這是所謂的巢狀函數
+或是這樣，這是所謂的巢狀函數。
+
 ```{r eval=FALSE}
 # 產生100個隨機數字、取絕對值(abs)、開根號(sqrt)、四捨五入到小數點第二位、顯示前6筆
 head(round(sqrt(abs(rnorm (100))),2))
 ```
 
-這樣寫起來既冗且不清楚，但用管線子可以讓代碼看起來比較清晰好懂
+這樣寫起來既冗且不清楚，但用管線子可以讓代碼看起來比較清晰好懂。
+
 ```{r eval = FALSE}
 rnorm (100) %>% 
   abs %>% 
@@ -134,18 +138,107 @@ rnorm (100) %>%
   head
 ```
 
-* `%>%`將資料由左往右傳
-* `.`代表左方傳入物件的位置
-* `%>%` 右方的函數可不加括號
-* 行與行之間用 Enter 換行，看起來比較舒服
-* 在 RStudio 中，`%>%`輸入快捷鍵是ctrl+shift+m
+-   `%>%`將資料由左往右傳
+-   `.`代表左方傳入物件的位置
+-   `%>%` 右方的函數可不加括號
+-   行與行之間用 Enter 換行，看起來比較舒服
+-   在 RStudio 中，`%>%`輸入快捷鍵是ctrl+shift+m
 
 2.  `group_by( 分組變數A , 分組變數B , ... )`
 
 3.  `summarize( across ( 條件判斷 , list ( 敘述統計函數1 , 敘述統計函數2 )))`
 
+------------------------------------------------------------------------
 
-另一種分組統計的方式：
+用`apply`家族與`aggregate`計算
 
+`apply`家族是R用來取代迴圈的一個函數，下圖是一個簡單釋例
+
+![計算貓狗數量](image/apply.jpg){width = 300}
+
+`apply`包含三個參數，第一個是傳入的資料、第二為方向(1為上到下；2為左到右)、第三是要做什麼計算，像上圖就是加總(sum)。
+
+```{r}
+# 各數值平均
+# 因為第5欄是品種名稱，所以選取1~4欄[1:4]計算
+apply(iris[1:4] ,2, mean)
+```
+
+`apply`家族成員的功能不同
+
+`apply`: 因為要輸入三個變數，使用頻率因此比較低
+
+`lapply`: l代表list，`apply`算完回傳的物件會存成list
+
+`sapply`: s代表 simplify，回傳的物件是簡化的向量(vector)，`vapply`功能與其類似
+
+`mapply`: m代表multivariate，意思是可以同時使用多個變數
+
+`tapply`: 可以計算分組，第二個參數是分組index
+
+
+
+如果要做分組平均就比較麻煩，先用`split`分開將表格依品種切開，再來計算
+```{r}
+# split 根據品種分組
+split(iris , iris$Species)
+
+# split 切開表格產生的list，將list物件依序利用colMeans計算各column平均
+myList <- split(iris , iris$Species)
+lapply( myList, function(x) colMeans(x[1:4]))
+```
+
+上面用到匿名函數(anonymous function)的概念。
+
+lapply將myList拆成myList[[1]] myList[[2]] myList[[3]] ，一個一個傳到後面的function(x)中
+
+當 x =` myList[[1]]`時，程式執行`colMeans(x[1:4]))`，也就是將`myList`第1個物件的第1到第4行進行欄位平均`colMeans`。這個函數只存在lapply內，執行完成就消失，所以稱為匿名函數。
+
+
+上述資料是根據'Species'進行分組平均，如果是多組的話就要新增欄未再切再算...
+
+R的`aggregate`函數可以用來完成根據分組、多統計量計算的
+```{r}
+# 多對多分組計算
+data(mtcars)
+aggregate( . ~ vs+am,
+           data=mtcars,
+           mean)
+```
+
+結合apply來做
+
+```{r}
+# 多對多分組計算
+funlist <- list(mean,length,sd)
+
+sumList<-lapply( funlist , function(x)
+  aggregate( . ~ vs+am, data=mtcars, x))
+```
+
+aggregate的第一個參數輸入資料的"公式"。
+
+公式左右以~隔開，左邊是觀測值，例如我們想計算`mtcars`內所有欄位的觀測值，輸入'.'代表所有欄位
+
+右方是分組依據，我想要根據vs和am分組，所以輸入vs+am
+
+
+接著利用`lapply`進行迴圈計算，但這次我要迴圈的對象是不同的函數名。
+
+先將想要計算的函數存到funlist中，用`lapply`將其一個一個依序放進x。
+
+x = mean，執行aggregate( . ~ vs+am, data=mtcars, x)
+
+x = length，執行aggregate( . ~ vs+am, data=mtcars, x)
+
+x = sd，執行aggregate( . ~ vs+am, data=mtcars, x)
+
+
+
+這三個結果可以直接輸出
+
+```{r eval=FALSE, include=FALSE}
+write.csv(sumList , 'D:/summary.csv')
+```
 
 
