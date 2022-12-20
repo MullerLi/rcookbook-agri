@@ -50,7 +50,7 @@ R是必須要安裝的，否則沒辦法使用。RStudio則是R語言的"整合�
 
 
 
-## 第一個 R 程式碼
+## 第一個R程式碼
 
 複製下面程式碼，貼上至R console，按下Enter；或是在 RStudio 中開啟新的script，貼上程式碼將輸入游標在同一行按Ctrl+Enter。
 
@@ -71,7 +71,7 @@ print('Hello world!')
 
 
 
-## 第一張圖
+### 第一張圖
 
 你可以將下面程式碼複製後，整個貼到你的RStudio介面或是R中執行，畫出你的第一張圖：
 
@@ -125,13 +125,17 @@ JJ: 這是個有趣的問題。許多關於 R 的最普遍的看法和思考都�
 
 -   [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund。 [Hadley Wickham](https://hadley.nz/)是[RStudio](https://posit.co/download/rstudio-desktop/)的工程師，基本上也是R語言的耶穌。他讓R語言變得更容易使用，這本書介紹R資料科學，也是我的第一本教科書。
 
-![R4DS](\image\R4DS.png){width="200"}
+
+![R4DS](image/R4DS.png){width="200"}
+
 
 -   [R for Data Science 第二版](https://r4ds.hadley.nz/) 好書的第二版一定也是好書(🦐挺起來)。
 
 -   [Advanced R](https://adv-r.hadley.nz/introduction.html) 當你有一段三行以上的程式碼要一再複製貼上重複使用，就要考慮使用函數，這本書介紹除了函數編程(Functional programming)以外也介紹R的物件導向編程(Object-oriented Programming)
 
-![Advanced R](\image\ADVR.png){width="200"}
+
+![Advanced R](image/ADVR.png){width="200"}
+
 
 -   [阿好伯的文章](https://hackmd.io/@LHB-0222/LearningR?type=view#)中文且品質非常好的文章!
 
@@ -145,11 +149,15 @@ JJ: 這是個有趣的問題。許多關於 R 的最普遍的看法和思考都�
 
 -   [RMarkdown cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
 
-![RMC](\image\RMC.png){width="200"}
+
+![RMC](image/RMC.png){width="200"}
+
 
 -   [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
 
-![BDC](\image\BDC.jpg){width="200"}
+
+![BDC](image/BDC.jpg){width="200"}
+
 
 另外是RMarkdown的另一種替代方案[Quarto](https://quarto.org/)，可以用來產生簡潔易懂的程式碼與報告。
 

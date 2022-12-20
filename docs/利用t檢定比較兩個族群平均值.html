@@ -140,11 +140,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>3</b> 為什麼要用R?</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>3.1</b> 下載與安裝R</a></li>
-<li class="chapter" data-level="3.2" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>3.2</b> 第一個 R 程式碼</a></li>
-<li class="chapter" data-level="3.3" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>3.3</b> 第一張圖</a></li>
-<li class="chapter" data-level="3.4" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>3.4</b> 學習地圖(Roadmap)</a>
+<li class="chapter" data-level="3.2" data-path="第一個r程式碼.html"><a href="第一個r程式碼.html"><i class="fa fa-check"></i><b>3.2</b> 第一個R程式碼</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#參考書"><i class="fa fa-check"></i><b>3.4.1</b> 參考書</a></li>
+<li class="chapter" data-level="3.2.1" data-path="第一個r程式碼.html"><a href="第一個r程式碼.html#第一張圖"><i class="fa fa-check"></i><b>3.2.1</b> 第一張圖</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>3.3</b> 學習地圖(Roadmap)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#參考書"><i class="fa fa-check"></i><b>3.3.1</b> 參考書</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>4</b> 敘述統計</a>
@@ -217,21 +219,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="利用t檢定比較兩個族群平均值.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 前 10筆資料</span></span>
 <span id="cb21-2"><a href="利用t檢定比較兩個族群平均值.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riceYield)</span></code></pre></div>
 <pre><code>##   treatment    yield
-## 1         A 4430.763
-## 2         A 4947.887
-## 3         A 4670.590
-## 4         A 4912.697
-## 5         A 4816.755
-## 6         A 4910.031</code></pre>
+## 1         A 5047.211
+## 2         A 4748.335
+## 3         A 4300.988
+## 4         A 4669.586
+## 5         A 5073.445
+## 6         A 4716.124</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用t檢定比較兩個族群平均值.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 後 10筆資料</span></span>
 <span id="cb23-2"><a href="利用t檢定比較兩個族群平均值.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 15         B 6353.130
-## 16         B 5822.260
-## 17         B 5937.714
-## 18         B 6233.215
-## 19         B 6472.276
-## 20         B 6354.200</code></pre>
+## 15         B 7195.460
+## 16         B 6792.819
+## 17         B 6053.413
+## 18         B 5949.754
+## 19         B 6024.576
+## 20         B 6288.772</code></pre>
 <p>首先看到這個東西稱為資料表 (dataframe)，資料表由兩個欄位 (columns)，treatment和yield；在每個欄位下面都有很多筆資料，這些值我們稱為觀測值 (observation)；觀測值左方的數字為列 (row)，可以看到這筆資料有2欄20列。</p>
 <p>而上方使用到的2個函數(function)的意思：</p>
 <ul>
@@ -256,26 +258,26 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-2"><a href="利用t檢定比較兩個族群平均值.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 等同於</span></span>
 <span id="cb27-3"><a href="利用t檢定比較兩個族群平均值.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(riceYield)</span></code></pre></div>
 <pre><code>##    treatment    yield
-## 1          A 4430.763
-## 2          A 4947.887
-## 3          A 4670.590
-## 4          A 4912.697
-## 5          A 4816.755
-## 6          A 4910.031
-## 7          A 4696.004
-## 8          A 4350.455
-## 9          A 4548.848
-## 10         A 4924.263
-## 11         B 6712.711
-## 12         B 7253.508
-## 13         B 5882.713
-## 14         B 7073.683
-## 15         B 6353.130
-## 16         B 5822.260
-## 17         B 5937.714
-## 18         B 6233.215
-## 19         B 6472.276
-## 20         B 6354.200</code></pre>
+## 1          A 5047.211
+## 2          A 4748.335
+## 3          A 4300.988
+## 4          A 4669.586
+## 5          A 5073.445
+## 6          A 4716.124
+## 7          A 4817.598
+## 8          A 4834.738
+## 9          A 5215.811
+## 10         A 5098.578
+## 11         B 6315.039
+## 12         B 7051.106
+## 13         B 6204.436
+## 14         B 6005.895
+## 15         B 7195.460
+## 16         B 6792.819
+## 17         B 6053.413
+## 18         B 5949.754
+## 19         B 6024.576
+## 20         B 6288.772</code></pre>
 </div>
 <div id="兩樣本t檢定" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> 兩樣本t檢定<a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -296,13 +298,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  Welch Two Sample t-test
 ## 
 ## data:  yield by treatment
-## t = -10.012, df = 12.48, p-value = 2.528e-07
+## t = -9.1525, df = 14.53, p-value = 2.05e-07
 ## alternative hypothesis: true difference in means between group A and group B is not equal to 0
 ## 95 percent confidence interval:
-##  -2054.646 -1322.777
+##  -1894.575 -1177.195
 ## sample estimates:
 ## mean in group A mean in group B 
-##        4720.829        6409.541</code></pre>
+##        4852.242        6388.127</code></pre>
 <ul>
 <li><p>第2行: 表示資料是將yield依照treatment分組 (A vs B) 比較</p></li>
 <li><p>第3行: 為檢定結果：</p>
