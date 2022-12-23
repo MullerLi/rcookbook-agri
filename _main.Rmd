@@ -370,98 +370,17 @@ rnorm (100) %>%
 
 3.  `summarize( across ( 條件判斷 , list ( 敘述統計函數1 , 敘述統計函數2 )))`
 
-------------------------------------------------------------------------
 
-用`apply`家族與`aggregate`計算
-
-`apply`家族是R用來取代迴圈的一個函數，下圖是一個簡單釋例
-
-![計算貓狗數量](image/apply.jpg){width = 300}
-
-`apply`包含三個參數，第一個是傳入的資料、第二為方向(1為上到下；2為左到右)、第三是要做什麼計算，像上圖就是加總(sum)。
-
-```{r}
-# 各數值平均
-# 因為第5欄是品種名稱，所以選取1~4欄[1:4]計算
-apply(iris[1:4] ,2, mean)
+最後使用`write.csv`將資料分組計算後輸出
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+mtcars %>% 
+  group_by ( vs , cyl ) %>% 
+  summarise( across ( where( is.numeric) ,
+                      list('avg'=mean, 'sd'= sd ))) %>% 
+  round(digits = 2) %>% 
+  write.csv(., 'D:/summary.csv')
 ```
 
-`apply`家族成員的功能不同
-
-`apply`: 因為要輸入三個變數，使用頻率因此比較低
-
-`lapply`: l代表list，`apply`算完回傳的物件會存成list
-
-`sapply`: s代表 simplify，回傳的物件是簡化的向量(vector)，`vapply`功能與其類似
-
-`mapply`: m代表multivariate，意思是可以同時使用多個變數
-
-`tapply`: 可以計算分組，第二個參數是分組index
-
-
-
-如果要做分組平均就比較麻煩，先用`split`分開將表格依品種切開，再來計算
-```{r}
-# split 根據品種分組
-split(iris , iris$Species)
-
-# split 切開表格產生的list，將list物件依序利用colMeans計算各column平均
-myList <- split(iris , iris$Species)
-lapply( myList, function(x) colMeans(x[1:4]))
-```
-
-上面用到匿名函數(anonymous function)的概念。
-
-lapply將myList拆成myList[[1]] myList[[2]] myList[[3]] ，一個一個傳到後面的function(x)中
-
-當 x =` myList[[1]]`時，程式執行`colMeans(x[1:4]))`，也就是將`myList`第1個物件的第1到第4行進行欄位平均`colMeans`。這個函數只存在lapply內，執行完成就消失，所以稱為匿名函數。
-
-
-上述資料是根據'Species'進行分組平均，如果是多組的話就要新增欄未再切再算...
-
-R的`aggregate`函數可以用來完成根據分組、多統計量計算的
-```{r}
-# 多對多分組計算
-data(mtcars)
-aggregate( . ~ vs+am,
-           data=mtcars,
-           mean)
-```
-
-結合apply來做
-
-```{r}
-# 多對多分組計算
-funlist <- list(mean,length,sd)
-
-sumList<-lapply( funlist , function(x)
-  aggregate( . ~ vs+am, data=mtcars, x))
-```
-
-aggregate的第一個參數輸入資料的"公式"。
-
-公式左右以~隔開，左邊是觀測值，例如我們想計算`mtcars`內所有欄位的觀測值，輸入'.'代表所有欄位
-
-右方是分組依據，我想要根據vs和am分組，所以輸入vs+am
-
-
-接著利用`lapply`進行迴圈計算，但這次我要迴圈的對象是不同的函數名。
-
-先將想要計算的函數存到funlist中，用`lapply`將其一個一個依序放進x。
-
-x = mean，執行aggregate( . ~ vs+am, data=mtcars, x)
-
-x = length，執行aggregate( . ~ vs+am, data=mtcars, x)
-
-x = sd，執行aggregate( . ~ vs+am, data=mtcars, x)
-
-
-
-這三個結果可以直接輸出
-
-```{r eval=FALSE, include=FALSE}
-write.csv(sumList , 'D:/summary.csv')
-```
 
 
 
@@ -583,6 +502,12 @@ t.test(data = riceYield,
 
 <!--chapter:end:03-ttest.Rmd-->
 
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # ANOVA
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -591,33 +516,37 @@ if (!any(pkgs %in% installed.packages())) {install.packages(pkgs[!pkgs %in% inst
 invisible(lapply(pkgs , library , character.only=TRUE))
 ```
 
-ANOVA是變異數分析(analysis of variance)的英文縮寫，當想要了解3個以上平均值之間是否有差異時，可以利用ANOVA。
+當想要了解3個以上平均值之間是否有差異時，可以使用ANOVA(analysis of
+variance)，也就是變異數分析。
 
 若當平均值只有2個，計算ANOVA就等同於計算相同變異數相同的T檢定，此時ANOVA計算的F值為T值的平方。
 
 ## 前提假設
 
-+--------------------+----------------------------------------------------------+--------------------------------+
-| 前提假設           | 檢定(R)                                                  | 補救方案                       |
-+====================+==========================================================+================================+
-| 樣本常態與誤差獨立 | qqnorm(iris\$Sepal.Length)：點要接近對角線，否則不符常態 | Box-Cox數據轉換 (MASS::boxcox) |
-|                    |                                                          |                                |
-|                    | shapiro.test(iris\$Sepal.Length)：顯著則不符常態         |                                |
-+--------------------+----------------------------------------------------------+--------------------------------+
-| 變異數均值         | bartlett.test(Sepal.Length\~Species, data = iris)        | Box-Cox數據轉換 (MASS::boxcox) |
-|                    |                                                          |                                |
-|                    | car::leveneTest(Sepal.Length\~Species, data = iris)      |                                |
-|                    |                                                          |                                |
-|                    | 顯著代表變異數不均值                                     |                                |
-+--------------------+----------------------------------------------------------+--------------------------------+
++---------------+-----------------------------+
+| 前提假設      | 檢定(R)                     |
++===============+=============================+
+| 常態性        | `qqnorm(y)`                 |
+|               |                             |
+|               | `shapiro.test(y)`           |
++---------------+-----------------------------+
+| 變 異數同值   | `bartlett.test(y~x)`        |
+|               |                             |
+|               | `leveneTest(y~x)`           |
+|               |                             |
+|               | `car::ncvTest(model)`       |
++---------------+-----------------------------+
+| 殘 差獨立性   | `ca                         |
+|               | r::durbinWatsonTest(model)` |
++---------------+-----------------------------+
 
 1.  樣本與誤差具常態性且彼此獨立
 
-$\epsilon \sim {\sf NID}(0,\sigma^2)$
+$$\epsilon \sim {\sf NID}(0,\sigma^2)$$
 
-2.  變異數均值假設
+2.  變異數同值假設
 
--   樣本是來自變異數相等的族群，譬如利用某機器量測一群稻穀樣本的重量，每次量測時，機器顯示的重量，都會受到機器本身設定的影響，呈現真實重量的固定百分比，因此具有這一群稻穀樣本會有相等的變異數。
+-   樣本是來自變異數相等的族群，譬如利用某機器量測一群樣本，每次量測時，機器顯示的重量，都會受到機器本身設定的影響，呈現真實值的固定百分比，因此具有這一群樣本會有相等的變異數。
 
 -   當違反假設，且變因是固定型效應，在處理重複數量均衡（彼此相同）時，對Fo僅有微弱的影響；但在處理數不均衡時，則會使顯著水準或型I錯誤率與預期值偏離。當變因是隨機型效應時，不論處理是否均衡，違反假設都會造成極大影響。
 
@@ -625,8 +554,10 @@ $\epsilon \sim {\sf NID}(0,\sigma^2)$
 
 1.  常態性檢定：
 
--   機率分布圖(QQ plot)：將殘差計算出來，從大排到小，按數據點在圖形上。如果屬於常態分佈，會像是一條直線，不會偏離太多。
--   使用`qqnorm`查看QQ-plot
+-   機率分布圖(QQ
+    plot)：將殘差計算出來，從大排到小，按數據點在圖形上。如果屬於常態分佈，會像是一條直線，不會偏離太多。
+
+使用`qqnorm`查看QQ-plot
 
 ```{r include = TRUE}
 qqnorm(iris$Sepal.Length)
@@ -642,32 +573,48 @@ shapiro.test(iris$Sepal.Length)
 
 因為*P*值不小於0.05，所以得知數據是常態分佈的資料。
 
----
+------------------------------------------------------------------------
 
-2.  獨立性與變異數均值的檢定：
+2.  變異數同質的檢定：
 
--   順序與殘差圖：殘差如不獨立，彼此會有相關性，會一連串的正或負。將實驗進行的時間順序為X軸，殘差為Y軸作圖，應該是無結構的。
--   配適值與殘差圖：x軸為配適值(fitted value)，y軸為殘差(residuel)作圖。若殘差彼此之間獨立，ϵij畫出的圖不會有結構。喇叭狀代表違反獨立性與變異數均值假設。 $$\hat y_{ij}=\bar y_{i.}+\epsilon_{ij}$$
-
-
-
----
-
-
-3.  變異數均值的檢定： $H_0:\sigma_1^2=\sigma_2^2=...=\sigma_a^2$ $H_1:至少有一個\sigma_i^2不一樣$
-
--   Barlett's test：顯著代表變異數不相等
--   Levene's test：顯著代表變異數不相等。
+-   殘差圖：x軸為配適值(fitted
+    value)，y軸為殘差(residuel)作圖。若殘差彼此之間獨立，ϵij畫出的圖不會有結構。喇叭狀代表違反獨立性與變異數均值假設。
+-   下圖左上可看出點往右上偏移，配適值和殘差漸大的趨勢。
 
 ```{r}
-leveneTest(iris$Sepal.Length~iris$Species)
+library(car)
+library(ggfortify)
+m<-lm(interlocks ~ assets + sector + nation, data=Ornstein)
+autoplot(m)
+```
+
+-   {car}的`ncvTest`檢定變異數同值，若顯著代表變異數不同值。
+
+```{r}
+m <- lm(interlocks ~ assets + sector + nation, data=Ornstein)
+ncvTest(m)
+```
+
+-   Barlett's test：顯著代表變異數不同值
+-   Levene's test：顯著代表變異數不同值。
+
+```{r}
+leveneTest(Ornstein$interlocks ~ Ornstein$sector)
 ```
 
 ```{r}
-bartlett.test(iris$Sepal.Length~iris$Species)
+bartlett.test(Ornstein$interlocks ~ Ornstein$sector)
 ```
 
-上述兩個檢定皆為顯著，顯示iris數據的Sepal.Length在Species之間違反變異數相等的假說。
+上述兩個檢定皆為顯著，代表變異數不同值。
+
+3.  殘差獨立性
+
+-   
+
+```{r}
+durbinWatsonTest(m)
+```
 
 ## 非常態資料的轉換
 
@@ -681,7 +628,6 @@ bartlett.test(iris$Sepal.Length~iris$Species)
 
 利用{MASS}`boxcox`可以計算出$\lambda$值，但是後續取函數部分需要自行作業。因此我寫了一個函數`nboxcox`來完成常態性檢定與數據轉換，如果數據是常態，就不執行boxcox轉換；反之，則回傳轉換後數據。
 
-
 ```{r eval=FALSE, include=FALSE}
 data(iris)
 # 開根號
@@ -694,7 +640,7 @@ iris$Sepal.Length <- sqrt((iris$Sepal.Length)^(-1))
 iris$Sepal.Length <- (iris$Sepal.Length)^(-1)
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 # Box-Cox transform
@@ -724,13 +670,16 @@ nboxcox(iris,'Sepal.Length')
 
 ## 線性模式
 
-進行隨機設計(complete design, CRD)、完全隨機區集設計(random complete block design, RCBD)等試驗設計時，其實是將觀測值放進一個線性模式裡面來分析。
+進行隨機設計(complete design, CRD)、完全隨機區集設計(random complete
+block design,
+RCBD)等試驗設計時，其實是將觀測值放進一個線性模式裡面來分析。
 
 舉例來說，1個包含3種水稻品種產量試驗，採用CRD，可以寫成下面線性模式：
 
 $$Y_{ij}=\mu+\alpha_i+\epsilon_{ij}$$
 
-換句話說： $$A品種產量 = 產量總平均值 + 品種A的影響 + 隨機誤差$$ $$B品種產量 = 產量總平均值 + 品種B的影響 + 隨機誤差$$
+換句話說： $$A品種產量 = 產量總平均值 + 品種A的影響 + 隨機誤差$$
+$$B品種產量 = 產量總平均值 + 品種B的影響 + 隨機誤差$$
 
 品種A和品種B是影響產量變化的主要原因，因此稱為變因。在R中，可以直接用`formula`表示。總平均跟隨機誤差可以不用寫，直接寫變因即可。
 
@@ -739,7 +688,6 @@ as.formula(yield ~ variety)
 ```
 
 `formula`物件的左方為觀測值，通常是數量資料；右方是影響觀測值的變因(類別型)或是共變異數(連續型)。不同的試驗設計就會有不同的線性模式，只包含處理的話就是CRD、包含區集就是RCBD、包含多因子與交感就是復因子試驗。較複雜的設計(像是套層、裂區、條區，也會根據變因而有不同寫法。
-
 
 ```{r eval = FALSE}
 # CRD
@@ -752,15 +700,161 @@ yield ~ A + block
 yield ~ A + B + A*B + block 
 
 # Nested Design
-yield ~ A + B + A/B 
+yield ~ A + B + A:B 
 ```
+
 ## ANOVA
 
-## LSD test
+利用`aov`或`anova`都可以產生變方分析表
 
-## generate the table
+```{r}
+library(tidyverse)
+data(iris)
+# aov 可直接輸入formula，但需要用sumary提取結果
+aov(Sepal.Length~Species ,iris) %>% summary
+
+# anova 接受lm物件
+lm(Sepal.Length~Species ,iris) %>% anova
+```
+
+我習慣用`anova`，因為可以用`data.frame`轉成表格，方便輸出成csv檔
+
+```{r}
+lm(Sepal.Length~Species ,iris) %>% anova %>% data.frame
+```
+
+-   最左方`Species`和`Residuals`是變因，自由度是n-1及n-a
+
+-   `Species`變因的p\<0.05，代表3個鳶尾花品種間的花萼長度`Sepal.Length`具有顯著差異
+
+-   `Residuals`是試驗的誤差、殘差項
+
+## LSD檢定
+
+LSD檢定是Fisher's least significant different
+test的縮寫，是農業領域研究習慣使用的事後檢定(post-hoc test)方法。
+
+LSD利用ANOVA的MSE(誤差均方)作為$\sigma^2$，兩兩之間進行的t檢定。當平均值差超過LSD值時，代表兩平均值之間具有顯著差異。
+
+$$LSD =  t_{\alpha/2,df}\sqrt{MSE(\frac{1}{n_1}+\frac{1}{n_2})} $$
+
+利用{agricolae}的`LSD.test`就可以完成計算
+
+```{r}
+library(agricolae)
+rice <- read.csv('dataset/riceYield.csv')
+# 產生model物件
+mod1 <- lm(yield ~ loc*var+rep,rice)
+# LSD檢定
+L1 <- LSD.test(mod1 , trt = 'var')
+L1$groups
+```
+
+當因子之間交感作用顯著時，不能單純比較變因等級之間(V1與V2)的平均值，應該要做因子組合之間的交感比較。
+
+```{r}
+# 品種不顯著，栽培地區顯著
+# 交感顯著
+anova(mod1)
+```
+
+```{r}
+LSD.test(mod1 , trt = c('loc','var'))$group
+```
+
+比較兩張表，可看出品種(`var`)受交感效應影響，在產地(`loc`)A時V1產量高於V2、B產地V2產量高於V1
+
+
+
+## 產生資料表
+
+接著要將計算結果輸出到excel中，結果要包含平均值、標準差(standard
+error)或平均值的標準差(standard error of the
+mean)其一、LSD比較分組結果，如下表：
+
+![LSD表](image/lsdtable.jpg)
+
+
+以上`riceYield`為例，要先產生敘述統計表，再把LSD結果與其合併，所幸`LDS.test`回傳的結果已包含這些資料
+```{r}
+L1 <- LSD.test(mod1 , trt = c('loc','var'))
+d1<-data.frame(trt = rownames(L1$means) ,
+               'mean' =L1$means[1],
+               'x'='±',
+               'SEM'=L1$means[2])
+d2<-data.frame('trt'=rownames(L1$means),
+               L1$groups[2])
+o<-merge(d1,d2,by='trt')
+o
+
+```
+
+
+上述資料分析，可以寫成一個函數`dlsd`，`dlsd`的意思是用一行函數從讀取`data`到`LSD`分析結果。
+
+這個函數包含四個參數，會回傳ANOVA與LSD結果
+
+
+* dat: `data.frame`物件名稱
+* lm_formu: ANOVA的formula
+* treatment: LSD分析的分組變因；可以用c()包含多個變因
+* to_csv: 是否要將資料輸出到D槽底下? (`T` or `F`)
+
+```{r}
+# 執行一次就好
+dlsd <-function ( dat , lm_formu , treatment , to_csv = F){
+  require(agricolae)
+  require(tidyverse)
+  data_name <- deparse(substitute(dat))
+  model <- lm(data = dat , formula = lm_formu) 
+  o <- as.data.frame(anova(model))
+  colnames(o) <- c('DF','SS','MS','F','P')
+  df1 <- o %>% mutate('Sig'= case_when( P > 0.1 ~ 'ns',
+                                        P > 0.05 & P <= 0.1 ~ '*',
+                                        P > 0.001 & P <= 0.05 ~'**',
+                                        P > 0 & P <= 0.001 ~ '***',
+                                        TRUE ~ 'NA') ,
+                      'Response' = all.vars(lm_formu)[1]) %>%
+    mutate(across(where(is.double) , ~round(.x,digits = 4)))
+  x <- LSD.test( model , trt=  as.character(treatment))
+  Var <- row.names (x$groups) 
+  newGroup <- data.frame ( Var , x$groups[,1:2] ) 
+  sort <- newGroup [ order ( newGroup$Var ), ] 
+  rownames(sort) <- c()
+  df2 <- data.frame (sort,
+                     "N"   = x$means [,3],
+                     "SEM" = x$means[,2]/sqrt(x$means[,3]),
+                     "SD"  = x$means[,2],
+                     "CV"  = x$means[,2]/x$means[,1]) %>% 
+    mutate(across(where(is_double),~round(.x,digits=2)))
+  names(df2) <- c( "Factor","Mean", "Sign","n" , "SEM",  "SD" ,"CV")
+  listout <-list(df1,df2)
+  if(to_csv == TRUE){file_name <- paste0('ANOVA_',paste0(data_name),"by",all.vars(lm_formu)[1],format(Sys.time(), "%m%d%H%M%S"))
+    path <- paste0('D:/',file_name,'.csv')
+    listout %>% capture.output %>% write.csv(path)
+    cat('\n Data had been outputted to', path,'\n \n')
+    return(listout)}else if (to_csv == FALSE) {return ( listout )}
+    }
+```
+
+
+
+```{r}
+dlsd(rice,
+     lm_formu = yield~loc*var+rep,
+     treatment=c('loc','var'),
+     to_csv = F)
+```
+
+
+
+
 
 ## Plot the data
+
+
+
+
 
 <!--chapter:end:04-anova.Rmd-->
 
@@ -1003,4 +1097,87 @@ summary(g , test = adjusted('none'))
 
 
 <!--chapter:end:05-GLHG.Rmd-->
+
+------------------------------------------------------------------------
+
+用`apply`家族與`aggregate`計算
+
+`apply`家族是R用來取代迴圈的一個函數，下圖是一個簡單釋例
+
+![計算貓狗數量](image/apply.jpg){width = 300}
+
+`apply`包含三個參數，第一個是傳入data.frame、第二為函數方向(1為上到下；2為左到右)、第三是計算函數，像上圖就是加總(sum)。
+
+```{r}
+# 各數值平均
+# 因為第5欄是品種名稱，所以選取1~4欄[1:4]計算
+apply(iris[1:4] ,2, mean)
+```
+
+`apply`家族成員的功能不同
+
+`apply`: 因為要輸入三個變數，使用頻率因此比較低
+
+`lapply`: l代表list，`apply`算完回傳的物件會存成list
+
+`sapply`: s代表 simplify，回傳的物件是簡化的向量(vector)，`vapply`功能與其類似
+
+`mapply`: m代表multivariate，意思是可以同時使用多個變數
+
+`tapply`: 可以計算分組，第二個參數是分組index
+
+
+
+如果要做分組平均就比較麻煩，先用`split`分開將表格依品種切開，再來計算
+```{r}
+# split 根據品種分組
+split(iris , iris$Species)
+
+# split 切開表格產生的list，將list物件依序利用colMeans計算各column平均
+myList <- split(iris , iris$Species)
+lapply( myList, function(x) colMeans(x[1:4]))
+```
+
+上面用到匿名函數(anonymous function)的概念。
+
+lapply將myList拆成myList[[1]] myList[[2]] myList[[3]] ，一個一個傳到後面的function(x)中
+
+當 x =` myList[[1]]`時，程式執行`colMeans(x[1:4]))`，也就是將`myList`第1個物件的第1到第4行進行欄位平均`colMeans`。這個函數只存在lapply內，執行完成就消失，所以稱為匿名函數。
+
+
+上述資料是根據'Species'進行分組平均，如果是多組的話就要新增欄位再切再算...聽起來好麻煩。
+
+R內建的`aggregate`函數可以用來完成根據分組、多統計量的計算。
+```{r}
+# 多觀測直分多組計算
+data(mtcars)
+aggregate( . ~ vs+am,
+           data=mtcars,
+           mean)
+```
+
+多函數計算
+```{r}
+# 多對多分組計算
+
+aggregate( . ~ vs+am, data = mtcars,
+           FUN= function(x) c("mean"= round(mean(x),2), 
+                              'N'   = round(length(x),2), 
+                              "median" = round(median(x),2),
+                              "SD"  = round(sd(x),2),
+                              "CV"  = round(sd(x) / mean(x),2) ))
+```
+
+
+
+這三個結果可以直接輸出
+
+```{r eval=FALSE, include=FALSE}
+write.csv(sumList , 'D:/summary.csv')
+```
+
+<!--chapter:end:apply.Rmd-->
+
+
+<!--chapter:end:UntitledRMD.Rmd-->
 
