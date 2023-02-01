@@ -84,15 +84,15 @@ m<-lm(interlocks ~ assets + sector + nation, data=Ornstein)
 autoplot(m)
 ```
 
--   {car}的`ncvTest`檢定變異數同值，若顯著代表變異數不同值。
+-   {car}的`ncvTest`檢定變異數同質，若顯著代表變異數不同質。
 
 ```{r}
 m <- lm(interlocks ~ assets + sector + nation, data=Ornstein)
 ncvTest(m)
 ```
 
--   Barlett's test：顯著代表變異數不同值
--   Levene's test：顯著代表變異數不同值。
+-   Barlett's test：顯著代表變異數不同質。
+-   Levene's test：顯著代表變異數不同質。
 
 ```{r}
 leveneTest(Ornstein$interlocks ~ Ornstein$sector)
@@ -102,7 +102,7 @@ leveneTest(Ornstein$interlocks ~ Ornstein$sector)
 bartlett.test(Ornstein$interlocks ~ Ornstein$sector)
 ```
 
-上述兩個檢定皆為顯著，代表變異數不同值。
+上述兩個檢定皆為顯著，代表變異數不同質。
 
 3.  殘差獨立性
 
@@ -120,9 +120,8 @@ durbinWatsonTest(m)
 2.  取log
 3.  倒數+根號
 4.  倒數
-5.  Box-Cox轉換：先求$\lambda$值，計算log-likeihood峰值的lambda值，根據$\lambda$對觀測值取一個函數。實際上，Box-Cox轉換就包含了平方根、log、倒數等函數。
 
-利用{MASS}`boxcox`可以計算出$\lambda$值，但是後續取函數部分需要自行作業。因此我寫了一個函數`nboxcox`來完成常態性檢定與數據轉換，如果數據是常態，就不執行boxcox轉換；反之，則回傳轉換後數據。
+
 
 ```{r eval=FALSE, include=FALSE}
 data(iris)
@@ -138,15 +137,23 @@ iris$Sepal.Length <- (iris$Sepal.Length)^(-1)
 
 ------------------------------------------------------------------------
 
+5.  Box-Cox轉換：先求$\lambda$值，計算log-likeihood峰值的lambda值，根據$\lambda$對觀測值取一個函數。實際上，Box-Cox轉換就包含了平方根、log、倒數等函數。
+
+
+利用{MASS}`boxcox`可以計算出$\lambda$值，但是後續取函數部分需要自行作業。
+
+`nboxcox`是一步驟完成常態性檢定與數據轉換的函數，如果數據是常態，就不執行Box-Cox轉換，回傳原始資料；反之，則回傳轉換後數據。
+
+
 ```{r}
 # Box-Cox transform
 nboxcox<-function(data , y){
   require(tidyverse)
+  require(MASS)
   data_y<-unlist(as.vector(select_if(data[y],is.numeric)),use.names = F)
   shapiro_out <- data_y %>% shapiro.test()
   if (shapiro_out$p.value < 0.05) {
     cat('\n The variable',paste0("'",y,"'"),'is not normality.\n')
-    require(MASS)
     forMu <- formula( paste0(as.character(y),'~1'))
     bc    <- boxcox(forMu,data = data)
     lambda<- bc$x[which.max(bc$y)]
@@ -160,15 +167,21 @@ nboxcox<-function(data , y){
     cat('The variable',paste0("'",y,"'"), 'is normality.\nReturning original data.\n')
     return(data_y)}}
 
+```
+
+```{r}
 # 範例
 nboxcox(iris,'Sepal.Length')
+
+# 範例
+transformed_data<-nboxcox(iris,'Sepal.Length')
 ```
 
 ## 線性模式
 
-進行隨機設計(complete design, CRD)、完全隨機區集設計(random complete
+隨機設計(complete design, CRD)、完全隨機區集設計(random complete
 block design,
-RCBD)等試驗設計時，其實是將觀測值放進一個線性模式裡面來分析。
+RCBD)等試驗設計，是將觀測值套入線性模式(y=ax+b的數學式)裡面來分析。
 
 舉例來說，1個包含3種水稻品種產量試驗，採用CRD，可以寫成下面線性模式：
 
@@ -176,14 +189,17 @@ $$Y_{ij}=\mu+\alpha_i+\epsilon_{ij}$$
 
 換句話說： $$A品種產量 = 產量總平均值 + 品種A的影響 + 隨機誤差$$
 $$B品種產量 = 產量總平均值 + 品種B的影響 + 隨機誤差$$
+...
 
-品種A和品種B是影響產量變化的主要原因，因此稱為變因。在R中，可以直接用`formula`表示。總平均跟隨機誤差可以不用寫，直接寫變因即可。
+品種A和品種B是影響產量變化的主要原因，因此稱為變因。在R中，線性模式可用`formula`表示。
+
+總平均跟隨機誤差可以不用寫，直接寫變因即可。以`as.formula`指定一個該物件為`formula`。
 
 ```{r}
 as.formula(yield ~ variety)
 ```
 
-`formula`物件的左方為觀測值，通常是數量資料；右方是影響觀測值的變因(類別型)或是共變異數(連續型)。不同的試驗設計就會有不同的線性模式，只包含處理的話就是CRD、包含區集就是RCBD、包含多因子與交感就是復因子試驗。較複雜的設計(像是套層、裂區、條區，也會根據變因而有不同寫法。
+`formula`物件的左方為觀測值，通常是數量資料；右方是影響觀測值的變因(類別型)或是共變異數(連續型)。不同的試驗設計就會有不同的線性模式，只包含處理的話就是CRD、包含區集就是RCBD、包含多因子與交感就是復因子試驗。較複雜的設計(像是套層、裂區、條區)，也有不同寫法。
 
 ```{r eval = FALSE}
 # CRD
@@ -209,15 +225,16 @@ data(iris)
 # aov 可直接輸入formula，但需要用sumary提取結果
 aov(Sepal.Length~Species ,iris) %>% summary
 
-# anova 接受lm物件
+# lm物件創建線性模式物件，anova則對該物件進行ANOVA
 lm(Sepal.Length~Species ,iris) %>% anova
 ```
 
-我習慣用`anova`，因為可以用`data.frame`轉成表格，方便輸出成csv檔
+我習慣用`lm`+`anova`，因為可以用`data.frame`轉成表格，方便輸出成csv檔。
 
 ```{r}
 lm(Sepal.Length~Species ,iris) %>% anova %>% data.frame
 ```
+
 
 -   最左方`Species`和`Residuals`是變因，自由度是n-1及n-a
 
@@ -228,11 +245,12 @@ lm(Sepal.Length~Species ,iris) %>% anova %>% data.frame
 ## LSD檢定
 
 LSD檢定是Fisher's least significant different
-test的縮寫，是農業領域研究習慣使用的事後檢定(post-hoc test)方法。
+test的縮寫，是農業研究慣用的事後檢定(post-hoc test)方法。
 
-LSD利用ANOVA的MSE(誤差均方)作為$\sigma^2$，兩兩之間進行的t檢定。當平均值差超過LSD值時，代表兩平均值之間具有顯著差異。
+LSD利用ANOVA的MSE(誤差均方)進行兩兩平均值之間的t檢定，當兩兩平均值差超過LSD值時，代表兩平均值之間具有顯著差異。
 
 $$LSD =  t_{\alpha/2,df}\sqrt{MSE(\frac{1}{n_1}+\frac{1}{n_2})} $$
+
 
 利用{agricolae}的`LSD.test`就可以完成計算
 
@@ -246,11 +264,11 @@ L1 <- LSD.test(mod1 , trt = 'var')
 L1$groups
 ```
 
-當因子之間交感作用顯著時，不能單純比較變因等級之間(V1與V2)的平均值，應該要做因子組合之間的交感比較。
+上式進行'var'之間的比較，但當因子交感作用顯著時，不能比較單一變因等級之間(V1與V2)的平均值，應該要做因子組合之間的交感比較。
 
 ```{r}
-# 品種不顯著，栽培地區顯著
-# 交感顯著
+# 變因品種var不顯著，栽培地區loc顯著
+# loc:var交感顯著
 anova(mod1)
 ```
 
@@ -271,7 +289,10 @@ mean)其一、LSD比較分組結果，如下表：
 ![LSD表](image/lsdtable.jpg)
 
 
-以上`riceYield`為例，要先產生敘述統計表，再把LSD結果與其合併，所幸`LDS.test`回傳的結果已包含這些資料
+以上`riceYield`為例，要先產生敘述統計表，再把LSD結果合併。
+
+`LDS.test`回傳的結果已包含這些資料
+
 ```{r}
 L1 <- LSD.test(mod1 , trt = c('loc','var'))
 d1<-data.frame(trt = rownames(L1$means) ,
@@ -286,7 +307,7 @@ o
 ```
 
 
-上述資料分析，可以寫成一個函數`dlsd`，`dlsd`的意思是用一行函數從讀取`data`到`LSD`分析結果。
+上面資料分析過程可以整合成一個函數：`dlsd`，該函數是從讀取`data`直接算到`LSD`。
 
 這個函數包含四個參數，會回傳ANOVA與LSD結果
 
@@ -347,6 +368,24 @@ dlsd(rice,
 
 
 ## Plot the data
+
+
+用ggplot畫圖
+
+```{r}
+library(tidyverse)
+
+ggplot(data=rice,mapping=aes(x=paste0(var,'+',loc),y=yield))+
+  geom_histogram(y=yield)
+
+```
+
+
+
+
+
+
+
 
 
 

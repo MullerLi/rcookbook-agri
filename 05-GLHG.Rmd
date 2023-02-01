@@ -6,7 +6,7 @@
 （林俊隆老師：先進行變方分析，再進行平均值之間的多重比較幾乎成了統計分析的八股）
 
 
-在R中，計畫性的比較，被歸納為一般線性假說(General Linear Hypotheses)和模型參數多重比較(multiple comparisons for parametric models)，可以利用{multcomp}或{emmeans}。
+在R中，計畫性的比較，被歸納為一般線性假說(general linear hypotheses)和模型參數多重比較(multiple comparisons for parametric models)，可以利用{multcomp}或{emmeans}({emmeans}前身為{lsmeans})。
 
 
 ## 計畫性比較-簡單CRD
@@ -31,7 +31,7 @@ L1$groups
 
 -   以品種為變因的單因子變方分析，結果Species的 *P*\<0.001，棄卻三個品種效應為零的假說（白話文：三品種的平均值之間有顯著差異），
 
--   LSD檢定顯示三個品種平均值兩兩不同，這個結果基於變方分析的線性模式。
+-   LSD檢定顯示三個品種平均值兩兩不同。
 
 -   因為變方分析顯示品種間具顯著差異，所以進行的LSD檢定屬於「受到變方分析結果保護的保護的LSD(protected LSD)，第一型錯誤率屬於「以試驗為單位的第一型錯誤率」。
 
@@ -39,7 +39,7 @@ L1$groups
 
 ```
 試驗為單位的第一型錯誤率
-: 試驗ANOVA分析報表的結果的第一型錯誤的機率。
+: 試驗ANOVA分析報表的F檢定結果的第一型錯誤的機率。
 
 
 比較為單位的第一型錯誤率
@@ -221,7 +221,7 @@ contrast(e,list('hand vs herbicide'=c(0,5,-1,-1,-1,-1,-1),
 可以看出兩張表的hand vs herbicide的P變的不一樣了，因為glht是計算聯立p值，如果同時輸入多個線性對比，P值會有因應的變化。
 
 
-如果要微調，也可以在summary調整成原始P值。
+如果要微調，也可以在`summary`調整成原始P值。
 ```{r message=FALSE, warning=FALSE}
 # 特定線性模式
 # glht
@@ -233,5 +233,5 @@ summary(g , test = adjusted('none'))
 # p = 0.53
 ```
 
-從結果可以看出，手除草的效果其實不遜於除草劑。大家可以多去田裡拔拔草，有益材料生長以及身心健康。
+從結果可以看出，手除草的效果其實不遜於除草劑。
 

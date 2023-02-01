@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.2 因為P值不小於0.05，所以得知數據是常態分佈的資料。 | R Cookbook for Agricultural Research</title>
+  <meta name="description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.2 因為P值不小於0.05，所以得知數據是常態分佈的資料。 | R Cookbook for Agricultural Research" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="利用R程式語言完成農學試驗的統計分析" />
+  <meta name="github-repo" content="MullerLi/rcookbook-agri" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.2 因為P值不小於0.05，所以得知數據是常態分佈的資料。 | R Cookbook for Agricultural Research" />
+  
+  <meta name="twitter:description" content="利用R程式語言完成農學試驗的統計分析" />
+  
+
+<meta name="author" content="李誠紘 Cheng Hong, Li" />
+
+
+<meta name="date" content="2022-12-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="前提假設.html"/>
+<link rel="next" href="線性模式.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for Agronomy Research</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 關於</a></li>
+<li class="chapter" data-level="2" data-path="這是什麼.html"><a href="這是什麼.html"><i class="fa fa-check"></i><b>2</b> 這是什麼?</a></li>
+<li class="chapter" data-level="3" data-path="為什麼要用r.html"><a href="為什麼要用r.html"><i class="fa fa-check"></i><b>3</b> 為什麼要用R?</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="下載與安裝r.html"><a href="下載與安裝r.html"><i class="fa fa-check"></i><b>3.1</b> 下載與安裝R</a></li>
+<li class="chapter" data-level="3.2" data-path="第一個-r-程式碼.html"><a href="第一個-r-程式碼.html"><i class="fa fa-check"></i><b>3.2</b> 第一個 R 程式碼</a></li>
+<li class="chapter" data-level="3.3" data-path="第一張圖.html"><a href="第一張圖.html"><i class="fa fa-check"></i><b>3.3</b> 第一張圖</a></li>
+<li class="chapter" data-level="3.4" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html"><i class="fa fa-check"></i><b>3.4</b> 學習地圖(Roadmap)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="學習地圖roadmap.html"><a href="學習地圖roadmap.html#參考書"><i class="fa fa-check"></i><b>3.4.1</b> 參考書</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="敘述統計.html"><a href="敘述統計.html"><i class="fa fa-check"></i><b>4</b> 敘述統計</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="資料格式.html"><a href="資料格式.html"><i class="fa fa-check"></i><b>4.1</b> 資料格式</a></li>
+<li class="chapter" data-level="4.2" data-path="讀取資料.html"><a href="讀取資料.html"><i class="fa fa-check"></i><b>4.2</b> 讀取資料</a></li>
+<li class="chapter" data-level="4.3" data-path="敘述統計量表.html"><a href="敘述統計量表.html"><i class="fa fa-check"></i><b>4.3</b> 敘述統計量表</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="平均值檢定.html"><a href="平均值檢定.html"><i class="fa fa-check"></i><b>5</b> 平均值檢定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html"><i class="fa fa-check"></i><b>5.1</b> 利用t檢定比較兩個族群平均值</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#資料下載"><i class="fa fa-check"></i><b>5.1.1</b> 資料下載</a></li>
+<li class="chapter" data-level="5.1.2" data-path="利用t檢定比較兩個族群平均值.html"><a href="利用t檢定比較兩個族群平均值.html#兩樣本t檢定"><i class="fa fa-check"></i><b>5.1.2</b> 兩樣本t檢定</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="前提假設.html"><a href="前提假設.html"><i class="fa fa-check"></i><b>6.1</b> 前提假設</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="前提假設.html"><a href="前提假設.html#檢驗方式"><i class="fa fa-check"></i><b>6.1.1</b> 檢驗方式</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="因為p值不小於0.html"><a href="因為p值不小於0.html"><i class="fa fa-check"></i><b>6.2</b> 因為<em>P</em>值不小於0.05，所以得知數據是常態分佈的資料。</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="因為p值不小於0.html"><a href="因為p值不小於0.html#非常態資料的轉換"><i class="fa fa-check"></i><b>6.2.1</b> 非常態資料的轉換</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="線性模式.html"><a href="線性模式.html"><i class="fa fa-check"></i><b>6.3</b> 線性模式</a></li>
+<li class="chapter" data-level="6.4" data-path="anova-1.html"><a href="anova-1.html"><i class="fa fa-check"></i><b>6.4</b> ANOVA</a></li>
+<li class="chapter" data-level="6.5" data-path="lsd-test.html"><a href="lsd-test.html"><i class="fa fa-check"></i><b>6.5</b> LSD test</a></li>
+<li class="chapter" data-level="6.6" data-path="generate-the-table.html"><a href="generate-the-table.html"><i class="fa fa-check"></i><b>6.6</b> generate the table</a></li>
+<li class="chapter" data-level="6.7" data-path="plot-the-data.html"><a href="plot-the-data.html"><i class="fa fa-check"></i><b>6.7</b> Plot the data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="有計畫的比較平均值.html"><a href="有計畫的比較平均值.html"><i class="fa fa-check"></i><b>7</b> 有計畫的比較平均值</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html"><i class="fa fa-check"></i><b>7.1</b> 計畫性比較-簡單CRD</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="計畫性比較-簡單crd.html"><a href="計畫性比較-簡單crd.html#glht函數"><i class="fa fa-check"></i><b>7.1.1</b> glht函數</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="計畫性比較-複雜資料.html"><a href="計畫性比較-複雜資料.html"><i class="fa fa-check"></i><b>7.2</b> 計畫性比較-複雜資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Cookbook for Agricultural Research</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="因為p值不小於0.05所以得知數據是常態分佈的資料" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 因為<em>P</em>值不小於0.05，所以得知數據是常態分佈的資料。<a href="因為p值不小於0.html#因為p值不小於0.05所以得知數據是常態分佈的資料" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="2" style="list-style-type: decimal">
+<li>獨立性與變異數均值的檢定：</li>
+</ol>
+<ul>
+<li>順序與殘差圖：殘差如不獨立，彼此會有相關性，會一連串的正或負。將實驗進行的時間順序為X軸，殘差為Y軸作圖，應該是無結構的。</li>
+<li><h2 id="配適值與殘差圖x軸為配適值fitted-valuey軸為殘差residuel作圖若殘差彼此之間獨立ϵij畫出的圖不會有結構喇叭狀代表違反獨立性與變異數均值假設-hat-y_ijbar-y_i.epsilon_ij" class="hasAnchor">配適值與殘差圖：x軸為配適值(fitted value)，y軸為殘差(residuel)作圖。若殘差彼此之間獨立，ϵij畫出的圖不會有結構。喇叭狀代表違反獨立性與變異數均值假設。 <span class="math display">\[\hat y_{ij}=\bar y_{i.}+\epsilon_{ij}\]</span><a href="因為p值不小於0.html#配適值與殘差圖x軸為配適值fitted-valuey軸為殘差residuel作圖若殘差彼此之間獨立ϵij畫出的圖不會有結構喇叭狀代表違反獨立性與變異數均值假設-hat-y_ijbar-y_i.epsilon_ij" class="anchor-section" aria-label="Anchor link to header"></a></h2></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>變異數均值的檢定： <span class="math inline">\(H_0:\sigma_1^2=\sigma_2^2=...=\sigma_a^2\)</span> <span class="math inline">\(H_1:至少有一個\sigma_i^2不一樣\)</span></li>
+</ol>
+<ul>
+<li>Barlett’s test：顯著代表變異數不相等</li>
+<li>Levene’s test：顯著代表變異數不相等。</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="因為p值不小於0.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(iris<span class="sc">$</span>Sepal.Length<span class="sc">~</span>iris<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value   Pr(&gt;F)   
+## group   2  6.3527 0.002259 **
+##       147                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="因為p值不小於0.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(iris<span class="sc">$</span>Sepal.Length<span class="sc">~</span>iris<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  iris$Sepal.Length by iris$Species
+## Bartlett&#39;s K-squared = 16.006, df = 2, p-value = 0.0003345</code></pre>
+<p>上述兩個檢定皆為顯著，顯示iris數據的Sepal.Length在Species之間違反變異數相等的假說。</p>
+<div id="非常態資料的轉換" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> 非常態資料的轉換<a href="因為p值不小於0.html#非常態資料的轉換" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>下面是常見的資料轉換方式：</p>
+<ol style="list-style-type: decimal">
+<li>開根號</li>
+<li>取log</li>
+<li>倒數+根號</li>
+<li>倒數</li>
+<li>Box-Cox轉換：先求<span class="math inline">\(\lambda\)</span>值，計算log-likeihood峰值的lambda值，根據<span class="math inline">\(\lambda\)</span>對觀測值取一個函數。實際上，Box-Cox轉換就包含了平方根、log、倒數等函數。</li>
+</ol>
+<p>利用{MASS}<code>boxcox</code>可以計算出<span class="math inline">\(\lambda\)</span>值，但是後續取函數部分需要自行作業。因此我寫了一個函數<code>nboxcox</code>來完成常態性檢定與數據轉換，如果數據是常態，就不執行boxcox轉換；反之，則回傳轉換後數據。</p>
+<hr />
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="因為p值不小於0.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box-Cox transform</span></span>
+<span id="cb38-2"><a href="因為p值不小於0.html#cb38-2" aria-hidden="true" tabindex="-1"></a>nboxcox<span class="ot">&lt;-</span><span class="cf">function</span>(data , y){</span>
+<span id="cb38-3"><a href="因為p值不小於0.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(tidyverse)</span>
+<span id="cb38-4"><a href="因為p值不小於0.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  data_y<span class="ot">&lt;-</span><span class="fu">unlist</span>(<span class="fu">as.vector</span>(<span class="fu">select_if</span>(data[y],is.numeric)),<span class="at">use.names =</span> F)</span>
+<span id="cb38-5"><a href="因為p值不小於0.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  shapiro_out <span class="ot">&lt;-</span> data_y <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span>
+<span id="cb38-6"><a href="因為p值不小於0.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (shapiro_out<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb38-7"><a href="因為p值不小於0.html#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st"> The variable&#39;</span>,<span class="fu">paste0</span>(<span class="st">&quot;&#39;&quot;</span>,y,<span class="st">&quot;&#39;&quot;</span>),<span class="st">&#39;is not normality.</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb38-8"><a href="因為p值不小於0.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">require</span>(MASS)</span>
+<span id="cb38-9"><a href="因為p值不小於0.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    forMu <span class="ot">&lt;-</span> <span class="fu">formula</span>( <span class="fu">paste0</span>(<span class="fu">as.character</span>(y),<span class="st">&#39;~1&#39;</span>))</span>
+<span id="cb38-10"><a href="因為p值不小於0.html#cb38-10" aria-hidden="true" tabindex="-1"></a>    bc    <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(forMu,<span class="at">data =</span> data)</span>
+<span id="cb38-11"><a href="因為p值不小於0.html#cb38-11" aria-hidden="true" tabindex="-1"></a>    lambda<span class="ot">&lt;-</span> bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]</span>
+<span id="cb38-12"><a href="因為p值不小於0.html#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (lambda <span class="sc">!=</span> <span class="dv">0</span>){</span>
+<span id="cb38-13"><a href="因為p值不小於0.html#cb38-13" aria-hidden="true" tabindex="-1"></a>      newy <span class="ot">&lt;-</span> (　data_y<span class="sc">^</span>(lambda)　<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>lambda</span>
+<span id="cb38-14"><a href="因為p值不小於0.html#cb38-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(newy)</span>
+<span id="cb38-15"><a href="因為p值不小於0.html#cb38-15" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span> <span class="cf">if</span>(lambda <span class="sc">==</span> <span class="dv">0</span> ){</span>
+<span id="cb38-16"><a href="因為p值不小於0.html#cb38-16" aria-hidden="true" tabindex="-1"></a>      newy <span class="ot">&lt;-</span> <span class="fu">log</span>(data_y)</span>
+<span id="cb38-17"><a href="因為p值不小於0.html#cb38-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(newy)}}</span>
+<span id="cb38-18"><a href="因為p值不小於0.html#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(shapiro_out<span class="sc">$</span>p.value <span class="sc">&gt;=</span> <span class="fl">0.05</span>){</span>
+<span id="cb38-19"><a href="因為p值不小於0.html#cb38-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&#39;The variable&#39;</span>,<span class="fu">paste0</span>(<span class="st">&quot;&#39;&quot;</span>,y,<span class="st">&quot;&#39;&quot;</span>), <span class="st">&#39;is normality.</span><span class="sc">\n</span><span class="st">Returning original data.</span><span class="sc">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb38-20"><a href="因為p值不小於0.html#cb38-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(data_y)}}</span>
+<span id="cb38-21"><a href="因為p值不小於0.html#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="因為p值不小於0.html#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 範例</span></span>
+<span id="cb38-23"><a href="因為p值不小於0.html#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="fu">nboxcox</span>(iris,<span class="st">&#39;Sepal.Length&#39;</span>)</span></code></pre></div>
+<pre><code>## The variable &#39;Sepal.Length&#39; is normality.
+## Returning original data.</code></pre>
+<pre><code>##   [1] 0.9025632 0.8914133 0.8796484 0.8735148 0.8970613 0.9182589 0.8735148
+##   [8] 0.8970613 0.8606987 0.8914133 0.9182589 0.8856116 0.8856116 0.8539950
+##  [15] 0.9375121 0.9328628 0.9182589 0.9025632 0.9328628 0.9025632 0.9182589
+##  [22] 0.9025632 0.8735148 0.9025632 0.8856116 0.8970613 0.8970613 0.9079258
+##  [29] 0.9079258 0.8796484 0.8856116 0.9182589 0.9079258 0.9232411 0.8914133
+##  [36] 0.8970613 0.9232411 0.8914133 0.8606987 0.9025632 0.8970613 0.8672016
+##  [43] 0.8606987 0.8970613 0.9025632 0.8856116 0.9025632 0.8735148 0.9131557
+##  [50] 0.8970613 0.9863849 0.9634049 0.9827312 0.9232411 0.9674198 0.9328628
+##  [57] 0.9593096 0.8914133 0.9713572 0.9079258 0.8970613 0.9420595 0.9465092
+##  [64] 0.9508651 0.9281074 0.9752199 0.9281074 0.9375121 0.9551307 0.9281074
+##  [71] 0.9420595 0.9508651 0.9593096 0.9508651 0.9634049 0.9713572 0.9790104
+##  [78] 0.9752199 0.9465092 0.9328628 0.9232411 0.9232411 0.9375121 0.9465092
+##  [85] 0.9182589 0.9465092 0.9752199 0.9593096 0.9281074 0.9232411 0.9232411
+##  [92] 0.9508651 0.9375121 0.8970613 0.9281074 0.9328628 0.9328628 0.9551307
+##  [99] 0.9025632 0.9328628 0.9593096 0.9375121 0.9899734 0.9593096 0.9674198
+## [106] 1.0070125 0.8914133 0.9969640 0.9752199 0.9934991 0.9674198 0.9634049
+## [113] 0.9790104 0.9328628 0.9375121 0.9634049 0.9674198 1.0102525 1.0102525
+## [120] 0.9465092 0.9827312 0.9281074 1.0102525 0.9593096 0.9752199 0.9934991
+## [127] 0.9551307 0.9508651 0.9634049 0.9934991 1.0003699 1.0165783 0.9634049
+## [134] 0.9593096 0.9508651 1.0102525 0.9593096 0.9634049 0.9465092 0.9827312
+## [141] 0.9752199 0.9827312 0.9375121 0.9790104 0.9752199 0.9752199 0.9593096
+## [148] 0.9674198 0.9551307 0.9420595</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="前提假設.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="線性模式.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://mullerli.github.io/rcookbook-agri/04-anova.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

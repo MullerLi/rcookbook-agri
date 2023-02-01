@@ -43,6 +43,11 @@ iris_df <- read.csv( file = 'D:/iris.csv' )
 print(快龍的招式)
 ```
 
+另外，使用`file.choose()`可以指定檔案的路徑，配合`read.csv`可以不輸入太多東西的情況下讀取檔案
+```{r  eval=FALSE , message=FALSE, warning=FALSE, include=FALSE , error = F}
+data <- read.csv(file.choose())
+```
+
 2.  物件命名有兩個主要規則：
 
 -   底線：例如 my_data、iris_df、rice_yield，兩個全為小寫的單字以底線區隔
@@ -50,7 +55,7 @@ print(快龍的招式)
 
 ## 敘述統計量表
 
-產生敘述統計量表格的方式應該有千萬種，這邊只介紹2種方法。
+產生敘述統計量表格的方式應該有千萬種，這邊介紹2種方法。
 
 {psych} 套件的 `descrieBy`和`describe`
 
