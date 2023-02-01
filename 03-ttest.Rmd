@@ -89,7 +89,7 @@ t.test(data = riceYield,
   - 第3個指令是樣本是否成對
 
 
-現在來逐行看報表：
+逐行看報表：
 
 ```{r echo=FALSE}
 t.test(data = riceYield, 
