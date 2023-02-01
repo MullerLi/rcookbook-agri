@@ -876,19 +876,6 @@ dlsd(rice,
 
 
 
-## Plot the data
-
-
-用ggplot畫圖
-
-```{r}
-library(tidyverse)
-
-ggplot(data=rice,mapping=aes(x=paste0(var,'+',loc),y=yield))+
-  geom_histogram(y=yield)
-
-```
-
 
 
 
